@@ -53,7 +53,6 @@ function game_welcome_callback($game_id) {
     game_goto('error', 'E-5514'); // cannot create new user
   }
 
-
   db_set_active('default');
 
   return array(

@@ -1,5 +1,60 @@
 <?php
 
+/**
+ * @file inc/home.inc
+ * Homepage inc file
+ */
+
+/**
+ * Home page callback function.
+ *
+ * @param \stdClass $game_user
+ *   The game user object.
+ *
+ * @return array
+ *   A render array.
+ */
+function game_home_callback($game_user) {
+
+  // Don't show home if the user is too new.
+  if ($game_user->level < 6) {
+    db_set_active('default');
+    return array(
+      array(
+        '#theme' => 'title_image',
+      ),
+      array(
+        '#theme' => 'game_too_new_for_home',
+        '#game_user' => $game_user,
+      ),
+      array(
+        '#theme' => 'game_button',
+        '#link' => 'quests',
+      ),
+    );
+  }
+
+  $game = check_plain(arg(0));
+  $phone_id = $game_user->phone_id;
+  db_set_active('game');
+  $message = check_plain($_GET['message']);
+  competency_gain($game_user, 'where the heart is');
+
+  db_set_active('default');
+
+  return array(
+    array(
+      '#theme' => 'game_header',
+      '#game_user' => $game_user,
+    ),
+    array(
+      '#theme' => 'game_home',
+      '#game_user' => $game_user,
+    ),
+  );
+}
+
+/*
   $today = date('Y-m-d');
 
   if ($game_user->last_bonus_date != $today) {
@@ -11,7 +66,7 @@
     $money = ($game_user->level * $item->residents) + $game_user->income -
       $game_user->expenses;
     $extra_bonus = '';
-/*
+
     if ($game == 'stlouis') {
 
       $sql = 'select quantity from staff_ownership
@@ -27,7 +82,6 @@
       }
 
     }
-*/
 firep("adding $money money because last_bonus_date = $last_bonus_date");
 
     $sql = 'update users set money = money + %d, last_bonus_date = "%s"
@@ -145,10 +199,8 @@ firep($referral_code);
 
   }
 
-/*
-if (($today == '2012-12-26') || $game_user->username == 'abc123')
-  $extra_menu = '-boxing';
-*/
+//if (($today == '2012-12-26') || $game_user->username == 'abc123')
+//  $extra_menu = '-boxing';
 
   $event_text = '';
 
@@ -327,26 +379,25 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
   }
 
 // dead presidents event
-/*
-  if ($game == 'stlouis') $event_text = '<!--<a href="/' . $game .
-  '/top_event_points/' . $arg2 . '">-->
-  <div class="event">
-    <img src="/sites/default/files/images/toxicorp_takeover.png" border=0
-    width="160">
-  </div>
-  <div class="event-text">
-      New&nbsp;Event <!--Starts&nbsp;Feb&nbsp;28th-->DELAYED
-  </div>
-  <div class="event-tagline small">
-    Turning St. Louis into an industrial wasteland
-  </div>
-  <div class="event-tagline">
-    &mdash; one &mdash; hood &mdash; at &mdash; a &mdash; time &mdash;
-  </div>
-  </div>
-  <!--</a>-->';
-*/
-  echo <<< EOF
+//  if ($game == 'stlouis') $event_text = '<!--<a href="/' . $game .
+//  '/top_event_points/' . $arg2 . '">-->
+//  <div class="event">
+//    <img src="/sites/default/files/images/toxicorp_takeover.png" border=0
+//    width="160">
+//  </div>
+//  <div class="event-text">
+//      New&nbsp;Event <!--Starts&nbsp;Feb&nbsp;28th-->DELAYED
+//  </div>
+//  <div class="event-tagline small">
+//    Turning St. Louis into an industrial wasteland
+//  </div>
+//  <div class="event-tagline">
+//    &mdash; one &mdash; hood &mdash; at &mdash; a &mdash; time &mdash;
+//  </div>
+//  </div>
+//  <!--</a>-->';
+
+echo <<< EOF
 $extra_bonus
 <div class="title">
 <img src="/sites/default/files/images/{$game}_title.png"/>
@@ -634,9 +685,6 @@ EOF;
 //  $load_avg = sys_getloadavg(); // FIXME: get load avg of db server
   $data = array();
 
-  if (TRUE/*$load_avg[0] <= 2.0*/) {
-// expensive query - goes to slave
-//   db_set_active('game_' . $game . '_slave1');
     $result = db_query($sql, $game_user->id, $limit,
       $game_user->id, 3, // challenge limit of 3
       $game_user->fkey_neighborhoods_id, $limit,
@@ -644,8 +692,6 @@ EOF;
       $game_user->fkey_values_id, $game_user->fkey_neighborhoods_id, $limit,
       $limit, 75);
     while ($item = db_fetch_object($result)) $data[] = $item;
-    db_set_active('game_' . $game); // reset to master
-  }
 
   $msg_shown = FALSE;
 
@@ -1242,3 +1288,4 @@ EOF;
 EOF;
 
   db_set_active('default');
+*/

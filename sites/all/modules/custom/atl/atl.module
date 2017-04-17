@@ -1078,7 +1078,7 @@ function _atl_save_user_agent($game_user) {
 //  if ($user->roles[4] == 'web game access') return; // admin access
 
   $user_agent = $_SERVER['HTTP_USER_AGENT'];
-  $last_agent = _usl2_get_value($game_user->id, 'user_agent');
+  $last_agent = _atl_get_value($game_user->id, 'user_agent');
 
   // Same user agent?  That's fine.
   if ($last_agent == $user_agent) {
@@ -1087,13 +1087,13 @@ function _atl_save_user_agent($game_user) {
 
   // New user agent?  Save it and return.
   if (empty($last_agent)) { // no entry?  create one!
-    _usl2_set_value($game_user->id, 'user_agent', $user_agent);
+    _atl_set_value($game_user->id, 'user_agent', $user_agent);
     return;
   }
 
   // Different user agent but user has no password?  Save user agent and return.
   if (empty($game_user->password)) {
-    _usl2_set_value($game_user->id, 'user_agent', $user_agent);
+    _atl_set_value($game_user->id, 'user_agent', $user_agent);
     return;
   }
 
@@ -1120,7 +1120,7 @@ function _atl_save_user_IP($game_user) {
 //  if ($user->roles[4] == 'web game access') return; // admin access
 
   $ip_addr = ip_address();
-  $last_ip = _usl2_get_value($game_user->id, 'ip_address');
+  $last_ip = _atl_get_value($game_user->id, 'ip_address');
 
   // Same IP address?  That's fine.
   if ($last_ip == $ip_addr) {
@@ -1129,13 +1129,13 @@ function _atl_save_user_IP($game_user) {
 
   // New IP address?  Save it and return.
   if (empty($last_ip)) { // no entry?  create one!
-    _usl2_set_value($game_user->id, 'ip_address', $ip_addr);
+    _atl_set_value($game_user->id, 'ip_address', $ip_addr);
     return;
   }
 
   // Different IP address but user has no password?  Save IP address and return.
   if (empty($game_user->password)) {
-    _usl2_set_value($game_user->id, 'ip_address', $ip_addr);
+    _atl_set_value($game_user->id, 'ip_address', $ip_addr);
     return;
   }
 
@@ -1217,11 +1217,11 @@ function _atl_check_authKey($game_user) {
   // Other conditions for which we don't care about authKeys:
   if ((substr(arg(2), 0, 3) == 'ai-') // NPC
   || (arg(2) == 'facebook') // from FB
-  || (_usl2_get_value($game_user->id, 'allow_null_authkey'))) { // per-user override
+  || (_atl_get_value($game_user->id, 'allow_null_authkey'))) { // per-user override
     return;
   }
 
-  $key = _usl2_get_authKey();
+  $key = _atl_get_authKey();
 
   // No authKey and not in our exception list?  Hacking!!!
   if (empty($key)) {
@@ -1238,7 +1238,7 @@ function _atl_check_authKey($game_user) {
 
   // New authKey?  Save it and return.
   if (empty($game_user->authKey)) {
-    _usl2_set_authKey($game_user, $authKey);
+    _atl_set_authKey($game_user, $authKey);
     return;
   }
 
@@ -1406,50 +1406,10 @@ function _atl_fetch_user() {
 
   global $game, $phone_id, $extra_messages, $cur_level, $next_level, $user;
 
-// only allow access through authorized clients
-  if ((strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.atl') === FALSE)
-  &&
-    ($_SERVER['REMOTE_ADDR'] != '66.211.170.66') && // paypal IPN
-    ($_SERVER['REMOTE_ADDR'] != '173.0.81.1') && // paypal IPN
-    ($_SERVER['REMOTE_ADDR'] != '173.0.81.33') && // paypal IPN
-    (!user_access('atl web access')) && // web users
-    (substr(arg(2), 0, 3) != 'fb=') && // identified facebook user
-    (substr(arg(2), 0, 3) != 'ai-') && // AI player
-    (arg(2) != 'facebook') && // unidentified facebook user
-    (substr(arg(2), 0, 3) != 'ms=') // unidentified MS user
-  ) {
-/*
-      mail('joseph@cheek.com', 'unauthorized client',
-        "Unauthorized user agent of " . $_SERVER['HTTP_USER_AGENT'] .
-        " for phone_id " . check_plain(arg(2)));
-*/
-      echo t('This game must be accessed through an authorized client.  ');
-      echo t('Please e-mail zipport@ziquid.com if you have any questions.');
-      exit;
-
-  }
-
-  if (strpos($arg2, 'cheek.com') !== FALSE) { // Jon?  send headers
-    mail('joseph@ziquid.com', 'Jon? headers',
-    implode('\n', getallheaders()));
-    mail('joseph@ziquid.com', 'Jon? headers',
-    'Jon is back!');
-  }
-
-  if (substr(arg(2), 0, 3) == 'ai-') {
-// AI player -- only allow from certain IPs
-    if ((ip_address() != $_SERVER['SERVER_ADDR']) &&
-    ($user->roles[4] != 'web game access')) {
-      drupal_goto(check_plain(arg(0)) . '/error/'
-        . check_plain(arg(2)) . '/E-4713'); // ai access from a different host
-    }
-  }
-
-
   $changes_made = FALSE;
 
   $game = check_plain(arg(0));
-  $phone_id = _usl2_get_phoneid();
+  $phone_id = _atl_get_phoneid();
 // if (arg(2) == 'facebook') echo '$phone_id returned is ' . $phone_id . '<br/>';
   $arg2 = check_plain(arg(2));
   db_set_active('game_' . $game);
@@ -1525,9 +1485,6 @@ function _atl_fetch_user() {
   // Get full user object.
   $game_user = fetch_user_by_id($phone_id);
 
-
-firep($game_user);
-
 // start welcome wizard if user not in db
   if (empty($game_user->id)) {
 /*
@@ -1542,13 +1499,13 @@ firep($game_user);
   }
 
 // save the IP address, user agent of user
-  _usl2_save_user_agent($game_user);
-  _usl2_save_user_IP($game_user);
-  _usl2_check_authKey($game_user);
+  _atl_save_user_agent($game_user);
+  _atl_save_user_IP($game_user);
+  _atl_check_authKey($game_user);
 
   if (strpos($_SERVER['HTTP_USER_AGENT'], 'BlueStacks') !== FALSE) {
     if ($game_user->level <= 50) {
-      _usl2_set_value($game_user->id, 'sdk', 1);
+      _atl_set_value($game_user->id, 'sdk', 1);
     }
   }
 

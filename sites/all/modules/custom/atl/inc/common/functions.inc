@@ -2814,9 +2814,8 @@ function game_goto($page = 'home', $extra = NULL) {
     $uri .= '/' . $extra;
   }
 
-  db_set_active('default');
-
   if ($uri != current_path()) {
+    db_set_active('default');
     drupal_goto($uri);
   }
 
@@ -2835,7 +2834,7 @@ function game_message($message, $type = 'status') {
   include drupal_get_path('module', 'atl') . '/inc/common/game_defs.inc';
 
   db_set_active('default');
-  drupal_set_message(t($message, $txt), $type);
+  drupal_set_message(t($message), $type);
 
 }
 

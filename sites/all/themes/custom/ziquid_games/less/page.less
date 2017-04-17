@@ -14,6 +14,7 @@
   width: 96px;
   height: 144px;
   background: url(/sites/default/files/images/stlouis_elder.png) top left no-repeat;
+  background: url(//placehold.it/96x144?text=City+Elder) top left no-repeat;
   font-size: 0px;
   display: inline-block;
   background-size: 96px 144px;
@@ -114,6 +115,16 @@ footer {
     position: relative;
     letter-spacing: 0.25em;
   }
+  .turf-wars-atlanta {
+    .turf-wars, .atlanta {
+      letter-spacing: 0.25em;
+      display: inline-block;
+    }
+    .atlanta {
+      font-weight: bold;
+      //color: @game-red;
+    }
+  }
 }
 
 .game-button-exterior {
@@ -126,8 +137,8 @@ footer {
   margin: 20px;
   padding: 6px 20px 8px;
   text-transform: uppercase;
-  border: 1px solid rgba(238, 0, 0, 0.7);
-  background-color: rgba(238, 0, 0, 0.5);
+  border: 1px solid rgba(238, 23, 0, 0.7);
+  background-color: rgba(238, 23, 0, 0.5);
   border-radius: 6px;
   display: inline-block;
   text-shadow: 1px 1px @game-red;
@@ -145,4 +156,23 @@ footer {
 .choose-party-slogan {
   margin-left: 40px;
   margin-bottom: 8px;
+}
+
+p {
+  font-size: 11pt;
+  &.quote {
+    font-size: 13pt;
+    font-family: @font-family-serif;
+    text-weight: bold;
+    color: @game-yellow;
+  }
+  &.quote:before {
+    content: open-quote;
+  }
+  &.quote:after {
+    content: no-close-quote;
+  }
+  &.quote:last-child:after {
+    content: close-quote;
+  }
 }

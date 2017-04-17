@@ -9,9 +9,18 @@
  */
 
 
-function usl2_menu() {
+function atl_menu() {
 
   $items = array();
+
+  $items['atl/bounce/%game_id'] = array(
+    'title' => 'Game Bounce',
+    'page callback' => 'game_bounce_callback',
+    'page arguments' => array(2),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/bounce.inc',
+    'type' => MENU_CALLBACK,
+  );
 
   $items['atl/choose_party/%game_user/%'] = array(
     'title' => 'Game Choose Party',
@@ -36,6 +45,16 @@ function usl2_menu() {
     'page callback' => 'game_home_callback',
     'page arguments' => array(2),
     'access callback' => 'game_normal_access',
+    'file' => 'inc/home.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/quests/%game_user'] = array(
+    'title' => 'Game Quests List',
+    'page callback' => 'game_quests_list_callback',
+    'page arguments' => array(2),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/quests_list.inc',
     'type' => MENU_CALLBACK,
   );
 
@@ -149,14 +168,6 @@ function usl2_menu() {
     'title' => 'USL2 Increase Skills Page',
     'page callback' => 'usl2_increase_skills_callback',
     'page arguments' => array(2, 3),
-    'access arguments' => array('access atl content'),
-    'type' => MENU_CALLBACK,
-  );
-
-  $items['atl/quests/%'] = array(
-    'title' => 'USL2 Quests List',
-    'page callback' => 'usl2_quests_list_callback',
-    'page arguments' => array(2),
     'access arguments' => array('access atl content'),
     'type' => MENU_CALLBACK,
   );
@@ -616,14 +627,6 @@ function usl2_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['atl/bounce/%'] = array(
-    'title' => 'USL2 bounce',
-    'page callback' => 'usl2_bounce_callback',
-    'page arguments' => array(2),
-    'access arguments' => array('access atl content'),
-    'type' => MENU_CALLBACK,
-  );
-
   $items['atl/elders_preferences/%'] = array(
     'title' => 'USL2 Preferences Page',
     'page callback' => 'usl2_elders_preference_callback',
@@ -660,11 +663,7 @@ function usl2_menu() {
 
 }
 
-
-function game_home_callback($game_user) {
-  return theme('game_home', array('game_user' => $game_user));
-}
-
+/*
 function usl2_user_favors_callback($phone_id) {
 
   if (empty($phone_id)) {
@@ -1288,20 +1287,15 @@ function usl2_authenticate_callback($phone_id) {
   return theme('usl2_authenticate', $phone_id);
 
 }
-
+*/
 /**
  * Used for playbooks that didn't authorize the app
- */
-function usl2_playbook_NULL_callback() {
-
+ *
+function usl2_playbook_NULL_callback()
   return theme('usl2_playbook_NULL');
-
 }
-function usl2_bounce_callback($phone_id) {
-
-  return theme('usl2_bounce', $phone_id);
-
-}
+ */
+/*
 function usl2_elders_preference_callback($phone_id) {
 
   if (empty($phone_id)) {
@@ -1341,8 +1335,8 @@ function usl2_event_prizes_callback($phone_id) {
   return theme('usl2_event_prizes', $phone_id);
 
 }
-
-function usl2_theme($existing, $type, $theme, $path) {
+*/
+function atl_theme($existing, $type, $theme, $path) {
   // theme "A" uses template "B" with args "C"
 
   return array(
@@ -1394,6 +1388,21 @@ function usl2_theme($existing, $type, $theme, $path) {
       )
     ),
 
+    'game_quests_list' => array(
+      'template' => 'templates/pages/quests_list',
+      'variables' => array(
+        'game_user' => NULL,
+        'quests' => array(),
+      )
+    ),
+
+    'game_too_new_for_home' => array(
+      'template' => 'templates/pages/too_new_for_home',
+      'variables' => array(
+        'game_user' => NULL,
+      )
+    ),
+
     'game_user' => array(
       'template' => 'templates/pages/user',
       'variables' => array(
@@ -1407,6 +1416,11 @@ function usl2_theme($existing, $type, $theme, $path) {
       'variables' => array(
         'game_id' => NULL,
       ),
+    ),
+
+    'quests_welcome_text' => array(
+      'template' => 'templates/blocks/quests_welcome_text',
+      'variables' => array(),
     ),
 
     'title_image' => array(
@@ -1908,7 +1922,7 @@ function usl2_theme($existing, $type, $theme, $path) {
 */
   );
 
-} // usl2_theme()
+}
 
 /**
  * Check whether a player has normal access.

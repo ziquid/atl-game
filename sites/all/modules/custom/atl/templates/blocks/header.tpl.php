@@ -54,7 +54,9 @@
   </div>
   <div class="home col-xs-4">
     <a href="/<?php echo $game; ?>/home/<?php echo $arg2; ?>">
-      <img src="/sites/default/files/images/<?php echo $game; ?>_home_icon_large.png"/>
+      <!--<img src="/sites/default/files/images/<?php echo $game; ?>_home_icon_large.png"/>-->
+      <img src="//placehold.it/48x26?text=ATL+HOME" class="center-block
+    img-responsive">
     </a>
   </div>
   <div class="level col-xs-4">

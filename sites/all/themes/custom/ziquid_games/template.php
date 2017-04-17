@@ -45,15 +45,24 @@ function ziquid_games_preprocess_html(&$variables) {
  * Implementation of hook_preprocess_page().
  */
 function ziquid_games_preprocess_page(&$vars) {
+  // Is the first content block the game header?  Move to the header region.
+  $first_block = $vars['page']['content']['system_main'][0];
+  if ($first_block['#theme'] == 'game_header') {
+    $vars['page']['header'] = array(
+      'header' => array(
+        $first_block
+      )
+    );
+    unset($vars['page']['content']['system_main'][0]);
+  };
 
-  $game_user = game_user_load(check_plain(arg(2)));
-  $header = array(
-    '#theme' => 'game_header',
-    '#game_user' => $game_user,
-  );
-  $vars['page']['header'] = drupal_render($header);
-  $vars['page']['footer'] =
-    '<img class="center-block" src="http://www.ziquid.com/sites/default/files/ziquid_800_2.png"/>
+  $vars['page']['footer'] = '
+    <div class="turf-wars-atlanta">
+      <div class="turf-wars">Turf Wars:</div>
+      <div class="atlanta">Atlanta</div>
+    </div>
+    game by
+    <img class="center-block" src="http://www.ziquid.com/sites/default/files/ziquid_800_2.png"/>
     <div class="design-studio">Design Studio</div>';
 
 }
