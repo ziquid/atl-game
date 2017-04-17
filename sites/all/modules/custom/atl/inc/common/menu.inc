@@ -1,0 +1,2099 @@
+<?php
+
+/**
+ * @file
+ * This file is the menu items and related functions for USL2.
+ *
+ * @todo CG merge
+ *
+ */
+
+
+function usl2_menu() {
+
+  $items = array();
+
+  $items['atl/choose_party/%game_user/%'] = array(
+    'title' => 'Game Choose Party',
+    'page callback' => 'game_choose_party_callback',
+    'page arguments' => array(2, 3),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/choose_party.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/error/%game_id/%'] = array(
+    'title' => 'Game Error',
+    'page callback' => 'game_error_callback',
+    'page arguments' => array(2, 3),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/error.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/home/%game_user'] = array(
+    'title' => 'Game Home Page',
+    'page callback' => 'game_home_callback',
+    'page arguments' => array(2),
+    'access callback' => 'game_normal_access',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/user/%game_user'] = array(
+    'title' => 'Game User Profile Page',
+    'page callback' => 'game_user_callback',
+    'page arguments' => array(2),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/user.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/welcome/%game_id'] = array(
+    'title' => 'Game Welcome',
+    'page callback' => 'game_welcome_callback',
+    'page arguments' => array(2),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/welcome.inc',
+    'type' => MENU_CALLBACK,
+  );
+/*
+  $items['atl/user_favors/%'] = array(
+    'title' => 'USL2 User Favors Page',
+    'page callback' => 'usl2_user_favors_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/favor_perform/%/%'] = array(
+    'title' => 'USL2 User Favors Page',
+    'page callback' => 'usl2_favor_perform_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/user_comp/%'] = array(
+    'title' => 'USL2 User Competencies Page',
+    'page callback' => 'usl2_user_competencies_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/clan_list/%/%'] = array(
+    'title' => 'USL2 Clan List Page',
+    'page callback' => 'usl2_clan_list_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/clan_list_available/%'] = array(
+    'title' => 'USL2 Available Clan List Page',
+    'page callback' => 'usl2_clan_list_available_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/clan_msg/%/%'] = array(
+    'title' => 'USL2 Clan Messages Page',
+    'page callback' => 'usl2_clan_msg_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/clan_announcements/%/%'] = array(
+    'title' => 'USL2 Clan Announcements Page',
+    'page callback' => 'usl2_clan_announcements_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/class_list/%/%'] = array(
+    'title' => 'USL2 Class List Page',
+    'page callback' => 'usl2_class_list_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/block_user_toggle/%/%'] = array(
+    'title' => 'USL2 Block User Toggle',
+    'page callback' => 'usl2_block_user_toggle_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/msg_delete/%/%'] = array(
+    'title' => 'USL2 Message Delete Page',
+    'page callback' => 'usl2_msg_delete_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/party_msg/%'] = array(
+    'title' => 'USL2 Party Message Page',
+    'page callback' => 'usl2_party_msg_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/increase_skills/%/%'] = array(
+    'title' => 'USL2 Increase Skills Page',
+    'page callback' => 'usl2_increase_skills_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/quests/%'] = array(
+    'title' => 'USL2 Quests List',
+    'page callback' => 'usl2_quests_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/quests_do/%/%'] = array(
+    'title' => 'USL2 Quests Do',
+    'page callback' => 'usl2_quests_do_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders/%'] = array(
+    'title' => 'USL2 Elders',
+    'page callback' => 'usl2_elders_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_ask_reset/%'] = array(
+    'title' => 'USL2 Elders Ask Reset',
+    'page callback' => 'usl2_elders_ask_reset_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_do_reset/%'] = array(
+    'title' => 'USL2 Elders Do Reset',
+    'page callback' => 'usl2_elders_do_reset_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_ask_reset_skills/%'] = array(
+    'title' => 'USL2 Elders Ask Reset Skills',
+    'page callback' => 'usl2_elders_ask_reset_skills_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_do_reset_skills/%'] = array(
+    'title' => 'USL2 Elders Do Reset Skills',
+    'page callback' => 'usl2_elders_do_reset_skills_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_ask_purchase/%'] = array(
+    'title' => 'USL2 Elders Ask Purchase',
+    'page callback' => 'usl2_elders_ask_purchase_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_new_ask_purchase/%'] = array(
+    'title' => 'USL2 Elders New Ask Purchase',
+    'page callback' => 'usl2_elders_new_ask_purchase_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_do_purchase/%'] = array(
+    'title' => 'USL2 Elders Do Purchase',
+    'page callback' => 'usl2_elders_do_purchase_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_check_receipt/%'] = array(
+    'title' => 'USL2 Elders Check Receipt',
+    'page callback' => 'usl2_elders_check_receipt_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/google_checkout/%'] = array(
+    'title' => 'USL2 Google Checkout',
+    'page callback' => 'usl2_google_checkout_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_do_fill/%/%'] = array(
+    'title' => 'USL2 Elders Do Fill',
+    'page callback' => 'usl2_elders_do_fill_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_set_password/%'] = array(
+    'title' => 'USL2 Elders Set Password',
+    'page callback' => 'usl2_elders_set_password_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_rename/%'] = array(
+    'title' => 'USL2 Elders Rename',
+    'page callback' => 'usl2_elders_rename_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/choose_clan/%/%'] = array(
+    'title' => 'USL2 Choose Clan',
+    'page callback' => 'usl2_choose_clan_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/help/%'] = array(
+    'title' => 'USL2 Help',
+    'page callback' => 'usl2_help_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/debates/%'] = array(
+    'title' => 'USL2 Debates List',
+    'page callback' => 'usl2_debates_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/debates_challenge/%/%'] = array(
+    'title' => 'USL2 Debates Challenge',
+    'page callback' => 'usl2_debates_challenge_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elections/%'] = array(
+    'title' => 'USL2 Elections List',
+    'page callback' => 'usl2_elections_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elections_challenge/%/%'] = array(
+    'title' => 'USL2 Elections Challenge',
+    'page callback' => 'usl2_elections_challenge_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/favors/%'] = array(
+    'title' => 'USL2 Favors List',
+    'page callback' => 'usl2_favors_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/favors_selected/%/%'] = array(
+    'title' => 'USL2 Favors Selected List',
+    'page callback' => 'usl2_favors_selected_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/favors_selected_2/%/%'] = array(
+    'title' => 'USL2 Favors Selected List',
+    'page callback' => 'usl2_favors_selected_2_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/hierarchies/%'] = array(
+    'title' => 'USL2 Hierarchies List',
+    'page callback' => 'usl2_hierarchies_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/hierarchy_rise/%/%'] = array(
+    'title' => 'USL2 Hierarchy Rise',
+    'page callback' => 'usl2_hierarchy_rise_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/top20/%'] = array(
+    'title' => 'USL2 Top 20 List',
+    'page callback' => 'usl2_top20_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/top_debaters/%'] = array(
+    'title' => 'USL2 Top Debaters List',
+    'page callback' => 'usl2_top_debaters_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/top_income/%'] = array(
+    'title' => 'USL2 Top Income List',
+    'page callback' => 'usl2_top_income_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/top_masters/%'] = array(
+    'title' => 'USL2 Top Masters List',
+    'page callback' => 'usl2_top_masters_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/top_minions/%'] = array(
+    'title' => 'USL2 Top Minions List',
+    'page callback' => 'usl2_top_minions_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/top_wards/%'] = array(
+    'title' => 'USL2 Top Wards List',
+    'page callback' => 'usl2_top_wards_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/top_aldermen/%'] = array(
+    'title' => 'USL2 Top Aldermen List',
+    'page callback' => 'usl2_top_aldermen_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/top_event_points/%'] = array(
+    'title' => 'USL2 Top 100 Event Points',
+    'page callback' => 'usl2_top_event_points_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/choose_name/%'] = array(
+    'title' => 'USL2 Choose Name',
+    'page callback' => 'usl2_choose_name_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/enter_referral_code/%'] = array(
+    'title' => 'USL2 Enter Referral Code',
+    'page callback' => 'usl2_enter_referral_code_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/aides/%'] = array(
+    'title' => 'USL2 Aides',
+    'page callback' => 'usl2_aides_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/land/%'] = array(
+    'title' => 'USL2 Land',
+    'page callback' => 'usl2_land_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/land_buy/%/%/%'] = array(
+    'title' => 'USL2 Land Buy',
+    'page callback' => 'usl2_land_buy_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/land_sell/%/%/%'] = array(
+    'title' => 'USL2 Land Sell',
+    'page callback' => 'usl2_land_sell_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/staff/%'] = array(
+    'title' => 'USL2 Staff',
+    'page callback' => 'usl2_staff_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/staff_hire/%/%/%'] = array(
+    'title' => 'USL2 Staff Hire',
+    'page callback' => 'usl2_staff_hire_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/staff_fire/%/%/%'] = array(
+    'title' => 'USL2 Staff Fire',
+    'page callback' => 'usl2_staff_fire_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/agents/%'] = array(
+    'title' => 'USL2 Agents',
+    'page callback' => 'usl2_agents_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/agents_hire/%/%/%'] = array(
+    'title' => 'USL2 Agents Hire',
+    'page callback' => 'usl2_agents_hire_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/agents_fire/%/%/%'] = array(
+    'title' => 'USL2 Agents Fire',
+    'page callback' => 'usl2_agents_fire_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/actions/%'] = array(
+    'title' => 'USL2 Actions',
+    'page callback' => 'usl2_actions_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/actions_do/%/%'] = array(
+    'title' => 'USL2 Actions Do',
+    'page callback' => 'usl2_actions_do_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/equipment/%'] = array(
+    'title' => 'USL2 Equipment',
+    'page callback' => 'usl2_equipment_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/equipment_buy/%/%/%'] = array(
+    'title' => 'USL2 Equipment Buy',
+    'page callback' => 'usl2_equipment_buy_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/equipment_sell/%/%/%'] = array(
+    'title' => 'USL2 Equipment Sell',
+    'page callback' => 'usl2_equipment_sell_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/weapons/%'] = array(
+    'title' => 'USL2 Weapons',
+    'page callback' => 'usl2_weapons_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/weapons_buy/%/%/%'] = array(
+    'title' => 'USL2 Weapons Buy',
+    'page callback' => 'usl2_weapons_buy_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/weapons_sell/%/%/%'] = array(
+    'title' => 'USL2 Weapons Sell',
+    'page callback' => 'usl2_weapons_sell_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/move/%/%'] = array(
+    'title' => 'USL2 Move',
+    'page callback' => 'usl2_move_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/move_do/%/%'] = array(
+    'title' => 'USL2 Move Do',
+    'page callback' => 'usl2_move_do_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/authenticate/%'] = array(
+    'title' => 'USL2 Authenticate',
+    'page callback' => 'usl2_authenticate_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/playbook_NULL'] = array(
+    'title' => 'USL2 device unauthorized',
+    'page callback' => 'usl2_playbook_NULL_callback',
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/bounce/%'] = array(
+    'title' => 'USL2 bounce',
+    'page callback' => 'usl2_bounce_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/elders_preferences/%'] = array(
+    'title' => 'USL2 Preferences Page',
+    'page callback' => 'usl2_elders_preference_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/zombie_move/%/%/%'] = array(
+    'title' => 'USL2 Zombie Move Page',
+    'page callback' => 'usl2_zombie_move_callback',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/event_info/%'] = array(
+    'title' => 'USL2 Event Info Page',
+    'page callback' => 'usl2_event_info_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/event_prizes/%'] = array(
+    'title' => 'USL2 Event Prizes Page',
+    'page callback' => 'usl2_event_prizes_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access atl content'),
+    'type' => MENU_CALLBACK,
+  );
+*/
+  return $items;
+
+}
+
+
+function game_home_callback($game_user) {
+  return theme('game_home', array('game_user' => $game_user));
+}
+
+function usl2_user_favors_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_user_favors', $phone_id);
+
+}
+function usl2_favor_perform_callback($phone_id, $req_id) {
+
+  if (empty($phone_id) || !is_numeric($req_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_favor_perform', $phone_id, $req_id);
+
+}
+function usl2_user_competencies_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_user_competencies', $phone_id);
+
+}
+function usl2_clan_list_callback($phone_id, $clan_id) {
+
+  if (empty($phone_id) || !is_numeric($clan_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_clan_list', $phone_id, $clan_id);
+
+}
+function usl2_clan_list_available_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_clan_list_available', $phone_id);
+
+}
+function usl2_clan_msg_callback($phone_id, $clan_id) {
+
+  if (empty($phone_id) || !is_numeric($clan_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_clan_msg', $phone_id, $clan_id);
+
+}
+function usl2_clan_announcements_callback($phone_id, $clan_id) {
+
+  if (empty($phone_id) || !is_numeric($clan_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_clan_announcements', $phone_id, $clan_id);
+
+}
+function usl2_class_list_callback($phone_id, $class_id) {
+
+  if (empty($phone_id) || !is_numeric($class_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_class_list', $phone_id, $class_id);
+
+}
+function usl2_block_user_toggle_callback($phone_id, $phone_id_to_block) {
+
+  if (empty($phone_id) || empty($phone_id_to_block)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_block_user_toggle', $phone_id,
+    check_plain(filter_xss($phone_id_to_block, array())));
+
+}
+function usl2_msg_delete_callback($phone_id, $msg_id) {
+
+  if (empty($phone_id) || !is_numeric($msg_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_msg_delete', $phone_id, $msg_id);
+
+}
+function usl2_party_msg_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_party_msg', $phone_id);
+
+}
+function usl2_increase_skills_callback($phone_id, $skill) {
+
+  if (empty($phone_id) || empty($skill)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_increase_skills', $phone_id, $skill);
+
+}
+function usl2_quests_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_quests_list', $phone_id);
+
+}
+function usl2_quests_do_callback($phone_id, $quest_id) {
+
+  if (empty($phone_id) || !is_numeric($quest_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_quests_do', $phone_id, $quest_id);
+
+}
+function usl2_elders_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders', $phone_id);
+
+}
+function usl2_elders_ask_reset_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_ask_reset', $phone_id);
+
+}
+function usl2_elders_do_reset_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_do_reset', $phone_id);
+
+}
+function usl2_elders_ask_reset_skills_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_ask_reset_skills', $phone_id);
+
+}
+function usl2_elders_do_reset_skills_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_do_reset_skills', $phone_id);
+
+}
+function usl2_elders_do_fill_callback($phone_id, $fill_type) {
+
+  if (empty($phone_id) || empty($fill_type)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_do_fill', $phone_id, $fill_type);
+
+}
+function usl2_elders_rename_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_rename', $phone_id);
+
+}
+function usl2_elders_set_password_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_set_password', $phone_id);
+
+}
+function usl2_elders_ask_purchase_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_ask_purchase', $phone_id);
+
+}
+function usl2_elders_new_ask_purchase_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_new_ask_purchase', $phone_id);
+
+}
+function usl2_elders_do_purchase_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_do_purchase', $phone_id);
+
+}
+function usl2_elders_check_receipt_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_check_receipt', $phone_id);
+
+}
+function usl2_google_checkout_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_google_checkout', $phone_id);
+
+}
+function usl2_help_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_help', $phone_id);
+
+}
+function usl2_debates_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_debates_list', $phone_id);
+
+}
+function usl2_debates_challenge_callback($phone_id, $position_id) {
+
+  if (empty($phone_id) || !is_numeric($position_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_debates_challenge', $phone_id, $position_id);
+
+}
+function usl2_elections_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elections_list', $phone_id);
+
+}
+function usl2_elections_challenge_callback($phone_id, $position_id) {
+
+  if (empty($phone_id) || !is_numeric($position_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elections_challenge', $phone_id, $position_id);
+
+}
+function usl2_favors_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_favors_list', $phone_id);
+
+}
+function usl2_favors_selected_callback($phone_id, $favor_id) {
+
+  if (empty($phone_id) || !is_numeric($favor_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_favors_selected', $phone_id, $favor_id);
+
+}
+function usl2_favors_selected_2_callback($phone_id, $favor_id) {
+
+  if (empty($phone_id) || !is_numeric($favor_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_favors_selected_2', $phone_id, $favor_id);
+
+}
+function usl2_hierarchies_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_hierarchies_list', $phone_id);
+
+}
+function usl2_hierarchy_rise_callback($phone_id, $position_id) {
+
+  if (empty($phone_id) || !is_numeric($position_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_hierarchy_rise', $phone_id, $position_id);
+
+}
+function usl2_top20_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_top20_list', $phone_id);
+
+}
+function usl2_top_debaters_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_top_debaters_list', $phone_id);
+
+}
+function usl2_top_income_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_top_income_list', $phone_id);
+
+}
+function usl2_top_masters_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_top_masters_list', $phone_id);
+
+}
+function usl2_top_minions_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_top_minions_list', $phone_id);
+
+}
+function usl2_top_wards_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_top_wards_list', $phone_id);
+
+}
+function usl2_top_aldermen_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_top_aldermen_list', $phone_id);
+
+}
+function usl2_top_event_points_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_top_event_points', $phone_id);
+
+}
+function usl2_choose_name_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_choose_name', $phone_id);
+
+}
+function usl2_enter_referral_code_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_enter_referral_code', $phone_id);
+
+}
+function usl2_aides_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_aides', $phone_id);
+
+}
+function usl2_land_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_land_list', $phone_id);
+
+}
+function usl2_land_buy_callback($phone_id, $land_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($land_id) || !(is_numeric($quantity) ||
+    ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_land_buy', $phone_id, $land_id, $quantity);
+
+}
+function usl2_land_sell_callback($phone_id, $land_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($land_id) || !(is_numeric($quantity) ||
+    ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_land_sell', $phone_id, $land_id, $quantity);
+
+}
+function usl2_staff_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_staff_list', $phone_id);
+
+}
+function usl2_staff_hire_callback($phone_id, $staff_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($staff_id) || !(is_numeric($quantity) ||
+    ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_staff_hire', $phone_id, $staff_id, $quantity);
+
+}
+function usl2_staff_fire_callback($phone_id, $staff_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($staff_id) || !(is_numeric($quantity) ||
+    ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_staff_fire', $phone_id, $staff_id, $quantity);
+
+}
+function usl2_agents_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_agents_list', $phone_id);
+
+}
+function usl2_agents_hire_callback($phone_id, $staff_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($staff_id) || !(is_numeric($quantity) ||
+    ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_agents_hire', $phone_id, $staff_id, $quantity);
+
+}
+function usl2_agents_fire_callback($phone_id, $staff_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($staff_id) || !(is_numeric($quantity) ||
+    ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_agents_fire', $phone_id, $staff_id, $quantity);
+
+}
+function usl2_actions_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_actions_list', $phone_id);
+
+}
+function usl2_actions_do_callback($phone_id, $action_id) {
+
+  if (empty($phone_id) || !is_numeric($action_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_actions_do', $phone_id, $action_id);
+
+}
+function usl2_equipment_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_equipment_list', $phone_id);
+
+}
+function usl2_equipment_buy_callback($phone_id, $equipment_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($equipment_id) ||
+    !(is_numeric($quantity) || ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_equipment_buy', $phone_id, $equipment_id, $quantity);
+
+}
+function usl2_equipment_sell_callback($phone_id, $equipment_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($equipment_id) ||
+    !(is_numeric($quantity) || ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_equipment_sell', $phone_id, $equipment_id, $quantity);
+
+}
+function usl2_weapons_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_weapons_list', $phone_id);
+
+}
+function usl2_weapons_buy_callback($phone_id, $equipment_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($equipment_id) ||
+    !(is_numeric($quantity) || ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_weapons_buy', $phone_id, $equipment_id, $quantity);
+
+}
+function usl2_weapons_sell_callback($phone_id, $equipment_id, $quantity) {
+
+  if (empty($phone_id) || !is_numeric($equipment_id) ||
+    !(is_numeric($quantity) || ($quantity === 'use-quantity'))) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_weapons_sell', $phone_id, $equipment_id, $quantity);
+
+}
+function usl2_move_callback($phone_id, $neighborhood_id) {
+
+  if (empty($phone_id) || !is_numeric($neighborhood_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_move', $phone_id, $neighborhood_id);
+
+}
+function usl2_move_do_callback($phone_id, $neighborhood_id) {
+
+  if (empty($phone_id) || !is_numeric($neighborhood_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_move_do', $phone_id, $neighborhood_id);
+
+}
+function usl2_authenticate_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_authenticate', $phone_id);
+
+}
+
+/**
+ * Used for playbooks that didn't authorize the app
+ */
+function usl2_playbook_NULL_callback() {
+
+  return theme('usl2_playbook_NULL');
+
+}
+function usl2_bounce_callback($phone_id) {
+
+  return theme('usl2_bounce', $phone_id);
+
+}
+function usl2_elders_preference_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_elders_preferences', $phone_id);
+
+}
+function usl2_zombie_move_callback($phone_id, $zombie_id, $hood_id) {
+
+  if (empty($phone_id) || is_nan($zombie_id) || is_nan($hood_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_zombie_move', $phone_id, $zombie_id, $hood_id);
+
+}
+function usl2_event_info_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_event_info', $phone_id);
+
+}
+function usl2_event_prizes_callback($phone_id) {
+
+  global $user;
+
+  if (($user->roles[4] != 'web game access') ||
+    ($phone_id != 'abc123')) {
+    return drupal_access_denied();
+  }
+
+  return theme('usl2_event_prizes', $phone_id);
+
+}
+
+function usl2_theme($existing, $type, $theme, $path) {
+  // theme "A" uses template "B" with args "C"
+
+  return array(
+
+    'game_button' => array(
+      'template' => 'templates/blocks/button',
+      'variables' => array(
+        'link' => 'home',
+        'type' => 'continue',
+        'extra_link' => NULL,
+      )
+    ),
+
+    'game_cant_yet' => array(
+      'template' => 'templates/pages/cant_yet',
+      'variables' => array(
+        'action' => NULL,
+        'time' => NULL,
+      )
+    ),
+
+    'game_choose_party' => array(
+      'template' => 'templates/pages/choose_party',
+      'variables' => array(
+        'game_user' => NULL,
+        'first_time' => 1,
+      )
+    ),
+
+    'game_error' => array(
+      'template' => 'templates/pages/error',
+      'variables' => array(
+        'game_id' => NULL,
+        'error_code' => NULL,
+      )
+    ),
+
+    'game_header' => array(
+      'template' => 'templates/blocks/header',
+      'variables' => array(
+        'game_user' => NULL,
+      ),
+    ),
+
+    'game_home' => array(
+      'template' => 'templates/pages/home',
+      'variables' => array(
+        'game_user' => NULL,
+      )
+    ),
+
+    'game_user' => array(
+      'template' => 'templates/pages/user',
+      'variables' => array(
+        'game_user' => NULL,
+        'user_to_show' => NULL,
+      ),
+    ),
+
+    'game_welcome' => array(
+      'template' => 'templates/pages/welcome',
+      'variables' => array(
+        'game_id' => NULL,
+      ),
+    ),
+
+    'title_image' => array(
+      'template' => 'templates/blocks/title_image',
+      'variables' => array(
+        'game' => check_plain(arg(0)),
+      ),
+    ),
+
+/*
+    'usl2_user_favors' => array(
+      'template' => 'usl2_user_favors',
+      'variables' => array(
+        'phone_id' => NULL
+      )
+    ),
+    'usl2_favor_perform' => array(
+      'template' => 'usl2_favor_perform',
+      'variables' => array(
+        'phone_id' => NULL,
+        'req_id' => NULL,
+      )
+    ),
+    'usl2_user_competencies' => array(
+      'template' => 'usl2_user_competencies',
+      'variables' => array(
+        'phone_id' => NULL
+      )
+    ),
+    'usl2_clan_list' => array(
+      'template' => 'usl2_clan_list',
+      'variables' => array(
+        'phone_id' => NULL,
+        'clan_id' => NULL,
+      )
+    ),
+    'usl2_clan_list_available' => array(
+      'template' => 'usl2_clan_list_available',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_clan_msg' => array(
+      'template' => 'usl2_clan_msg',
+      'variables' => array(
+        'phone_id' => NULL,
+        'clan_id' => NULL,
+      )
+    ),
+    'usl2_clan_announcements' => array(
+      'template' => 'usl2_clan_announcements',
+      'variables' => array(
+        'phone_id' => NULL,
+        'clan_id' => NULL,
+      )
+    ),
+    'usl2_class_list' => array(
+      'template' => 'usl2_class_list',
+      'variables' => array(
+        'phone_id' => NULL,
+        'class_id' => NULL,
+      )
+    ),
+    'usl2_block_user_toggle' => array(
+      'template' => 'usl2_block_user_toggle',
+      'variables' => array(
+        'phone_id' => NULL,
+        'phone_id_to_block' => NULL,
+      )
+    ),
+    'usl2_msg_delete' => array(
+      'template' => 'usl2_msg_delete',
+      'variables' => array(
+        'phone_id' => NULL,
+        'msg_id' => NULL,
+      )
+    ),
+    'usl2_party_msg' => array(
+      'template' => 'usl2_party_msg',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_increase_skills' => array(
+      'template' => 'usl2_increase_skills',
+      'variables' => array(
+        'phone_id' => NULL,
+        'skill' => NULL,
+      )
+    ),
+    'usl2_quests_list' => array(
+      'template' => 'usl2_quests_list',
+      'variables' => array(
+        'phone_id' => NULL
+      )
+    ),
+    'usl2_quests_do' => array(
+      'template' => 'usl2_quests_do',
+      'variables' => array(
+        'phone_id' => NULL,
+        'quest_id' => NULL,
+      )
+    ),
+    'usl2_elders' => array(
+      'template' => 'usl2_elders',
+      'variables' => array(
+        'phone_id' => NULL
+      )
+    ),
+    'usl2_elders_ask_reset' => array(
+      'template' => 'usl2_elders_ask_reset',
+      'variables' => array(
+        'phone_id' => NULL
+      )
+    ),
+    'usl2_elders_do_reset' => array(
+      'template' => 'usl2_elders_do_reset',
+      'variables' => array(
+        'phone_id' => NULL
+      )
+    ),
+    'usl2_elders_ask_reset_skills' => array(
+      'template' => 'usl2_elders_ask_reset_skills',
+      'variables' => array(
+        'phone_id' => NULL
+      )
+    ),
+    'usl2_elders_do_reset_skills' => array(
+      'template' => 'usl2_elders_do_reset_skills',
+      'variables' => array(
+        'phone_id' => NULL
+      )
+    ),
+    'usl2_elders_do_fill' => array(
+      'template' => 'usl2_elders_do_fill',
+      'variables' => array(
+        'phone_id' => NULL,
+        'fill_type' => NULL,
+      )
+    ),
+    'usl2_elders_rename' => array(
+      'template' => 'usl2_elders_rename',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_elders_set_password' => array(
+      'template' => 'usl2_elders_set_password',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_elders_ask_purchase' => array(
+      'template' => 'usl2_elders_ask_purchase',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_elders_new_ask_purchase' => array(
+      'template' => 'usl2_elders_new_ask_purchase',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_elders_do_purchase' => array(
+      'template' => 'usl2_elders_do_purchase',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_check_receipt' => array(
+      'template' => 'usl2_elders_check_receipt',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_google_checkout' => array(
+      'template' => 'usl2_google_checkout',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_choose_clan' => array(
+      'template' => 'usl2_choose_clan',
+      'variables' => array(
+        'phone_id' => NULL,
+        'clan_id' => NULL,
+      )
+    ),
+    'usl2_help' => array(
+      'template' => 'usl2_help',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_elections_list' => array(
+      'template' => 'usl2_elections_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_elections_challenge' => array(
+      'template' => 'usl2_elections_challenge',
+      'variables' => array(
+        'phone_id' => NULL,
+        'position_id' => NULL,
+      )
+    ),
+    'usl2_hierarchies_list' => array(
+      'template' => 'usl2_hierarchies_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_hierarchy_rise' => array(
+      'template' => 'usl2_hierarchy_rise',
+      'variables' => array(
+        'phone_id' => NULL,
+        'position_id' => NULL,
+      )
+    ),
+    'usl2_debates_list' => array(
+      'template' => 'usl2_debates_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_debates_challenge' => array(
+      'template' => 'usl2_debates_challenge',
+      'variables' => array(
+        'phone_id' => NULL,
+        'position_id' => NULL,
+      )
+    ),
+    'usl2_favors_list' => array(
+      'template' => 'usl2_favors_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_favors_selected' => array(
+      'template' => 'usl2_favors_selected',
+      'variables' => array(
+        'phone_id' => NULL,
+        'favor_id' => NULL,
+      )
+    ),
+    'usl2_favors_selected_2' => array(
+      'template' => 'usl2_favors_selected_2',
+      'variables' => array(
+        'phone_id' => NULL,
+        'favor_id' => NULL,
+      )
+    ),
+    'usl2_top20_list' => array(
+      'template' => 'usl2_top20_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_top_debaters_list' => array(
+      'template' => 'usl2_top_debaters_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_top_income_list' => array(
+      'template' => 'usl2_top_income_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_top_masters_list' => array(
+      'template' => 'usl2_top_masters_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_top_minions_list' => array(
+      'template' => 'usl2_top_minions_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_top_wards_list' => array(
+      'template' => 'usl2_top_wards_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_top_aldermen_list' => array(
+      'template' => 'usl2_top_aldermen_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_top_event_points' => array(
+      'template' => 'usl2_top_event_points',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_choose_name' => array(
+      'template' => 'usl2_choose_name',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_enter_referral_code' => array(
+      'template' => 'usl2_enter_referral_code',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_aides' => array(
+      'template' => 'usl2_aides',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_land_list' => array(
+      'template' => 'usl2_land_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_land_buy' => array(
+      'template' => 'usl2_land_buy',
+      'variables' => array(
+        'phone_id' => NULL,
+        'land_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_land_sell' => array(
+      'template' => 'usl2_land_sell',
+      'variables' => array(
+        'phone_id' => NULL,
+        'land_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_staff_list' => array(
+      'template' => 'usl2_staff_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_staff_hire' => array(
+      'template' => 'usl2_staff_hire',
+      'variables' => array(
+        'phone_id' => NULL,
+        'staff_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_staff_fire' => array(
+      'template' => 'usl2_staff_fire',
+      'variables' => array(
+        'phone_id' => NULL,
+        'staff_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_agents_list' => array(
+      'template' => 'usl2_agents_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_agents_hire' => array(
+      'template' => 'usl2_agents_hire',
+      'variables' => array(
+        'phone_id' => NULL,
+        'staff_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_agents_fire' => array(
+      'template' => 'usl2_agents_fire',
+      'variables' => array(
+        'phone_id' => NULL,
+        'staff_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_actions_list' => array(
+      'template' => 'usl2_actions_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_actions_do' => array(
+      'template' => 'usl2_actions_do',
+      'variables' => array(
+        'phone_id' => NULL,
+        'action_id' => NULL,
+      )
+    ),
+    'usl2_equipment_list' => array(
+      'template' => 'usl2_equipment_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_equipment_buy' => array(
+      'template' => 'usl2_equipment_buy',
+      'variables' => array(
+        'phone_id' => NULL,
+        'equipment_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_equipment_sell' => array(
+      'template' => 'usl2_equipment_sell',
+      'variables' => array(
+        'phone_id' => NULL,
+        'equipment_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_weapons_list' => array(
+      'template' => 'usl2_weapons_list',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_weapons_buy' => array(
+      'template' => 'usl2_weapons_buy',
+      'variables' => array(
+        'phone_id' => NULL,
+        'equipment_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_weapons_sell' => array(
+      'template' => 'usl2_weapons_sell',
+      'variables' => array(
+        'phone_id' => NULL,
+        'equipment_id' => NULL,
+        'quantity' => NULL,
+      )
+    ),
+    'usl2_move' => array(
+      'template' => 'usl2_move',
+      'variables' => array(
+        'phone_id' => NULL,
+        'neighborhood_id' => NULL,
+      )
+    ),
+    'usl2_move_do' => array(
+      'template' => 'usl2_move_do',
+      'variables' => array(
+        'phone_id' => NULL,
+        'neighborhood_id' => NULL,
+      )
+    ),
+    'usl2_authenticate' => array(
+      'template' => 'usl2_authenticate',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_playbook_NULL' => array(
+      'template' => 'usl2_playbook_NULL',
+    ),
+    'usl2_bounce' => array(
+      'template' => 'usl2_bounce',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_elders_preferences' => array(
+      'template' => 'usl2_elders_preferences',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_zombie_move' => array(
+      'template' => 'usl2_zombie_move',
+      'variables' => array(
+        'phone_id' => NULL,
+        'zombie_id' => NULL,
+        'hood_id' => NULL,
+      )
+    ),
+    'usl2_event_info' => array(
+      'template' => 'usl2_event_info',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+    'usl2_event_prizes' => array(
+      'template' => 'usl2_event_prizes',
+      'variables' => array(
+        'phone_id' => NULL,
+      )
+    ),
+*/
+  );
+
+} // usl2_theme()
+
+/**
+ * Check whether a player has normal access.
+ *
+ * @todo: check for facebook auth
+ * @todo: check for MSID or AI
+ */
+function game_normal_access() {
+
+  $white_ips = array(
+    '66.211.170.66',
+    '173.0.81.1',
+    '173.0.81.33',
+  );
+
+  $white_prefixes = array(
+    'fb=',
+    'ai-',
+    'ms=',
+  );
+
+  if (strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.atl') !== FALSE) {
+    return TRUE;
+  }
+
+  if (user_access('game web access')) {
+    return TRUE;
+  }
+
+  if (in_array(ip_address(), $white_ips)) {
+    return TRUE;
+  }
+
+//   if (arg(2) == 'facebook') {
+//     return TRUE;
+//   }
+
+//   if (in_array(substr(arg(2), 0, 3), $white_prefixes)) {
+//     return TRUE;
+//   }
+
+  return FALSE;
+
+}
+
+/**
+ * Check whether a player has any access.
+ */
+function game_access() {
+  return user_access('game access');
+}
+
+/**
+ * Load a game user object.
+ *
+ * @param string $uid
+ *   The uid of the user to load.
+ *
+ * @return stdClass
+ *   The user object.
+ */
+function game_user_load($uid) {
+  return game_fetch_user_by_id(game_id_load($uid));
+}
+
+/**
+ * Check a game user ID.
+ *
+ * @param string $uid
+ *   The uid of the user.
+ *
+ * @return string
+ *   The sanitized uid.
+ *
+ * @todo log if uid has strange characters.
+ */
+function game_id_load($uid) {
+  $new_uid = preg_replace('[^A-Za-z0-9=\-]', '', $uid);
+  return $new_uid;
+}
+
+/**
+ * Find a game user object by ID or Phone ID.
+ *
+ * @param string|int $id
+ *   The id of the object to load.
+ * @param bool $reset
+ *   Whether to reset the cache or not.
+ *
+ * @return stdClass
+ *   The user object.
+ *
+ * @todo refactor as dbTNG.
+ */
+function game_fetch_user_by_id($id, $reset = FALSE) {
+
+  static $user_cache; // simple per-page cache
+
+  if (!empty($user_cache[gettype($id) . ':' . $id]) && !$reset) {
+    return $user_cache[gettype($id) . ':' . $id];
+  }
+
+  db_set_active('game');
+
+  $query = db_select('users', 'u');
+  $query->join('neighborhoods', 'n', 'u.fkey_neighborhoods_id = n.id');
+  $query->join('values_table', 'v', 'u.fkey_values_id = v.id');
+  $query->leftJoin('elected_officials', 'eo', 'eo.fkey_users_id = u.id');
+  $query->leftJoin('elected_positions', 'ep', 'eo.fkey_elected_positions_id = ep.id');
+
+  $query->fields('u')
+    ->fields('v', array('party_title', 'party_icon'))
+    ->fields('eo', array('approval_rating'))
+    ->addField('n', 'name', 'location');
+  $query->addField('v', 'name', 'values_name');
+  $query->addField('ep', 'name', 'ep_name');
+  $query->addField('ep', 'id', 'ep_level');
+  $query->addField('ep', 'energy_bonus', 'ep_energy_bonus');
+
+  if (gettype($id) == 'string') {
+    $query->condition('phone_id', $id, '=');
+  }
+  else {
+    $query->condition('u.id', $id, '=');
+  }
+
+  $game_user = $query->execute()->fetchObject();
+
+//     user_creations.datetime as startdate,
+//
+//     clan_members.is_clan_leader,
+//     clans.name as clan_name, clans.acronym as clan_acronym,
+//     clans.id as fkey_clans_id,
+//     event_points.points,
+
+//     LEFT OUTER JOIN clan_members on clan_members.fkey_users_id = users.id
+//
+//     LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
+//
+//     LEFT JOIN user_creations on user_creations.phone_id = users.phone_id
+//
+//     LEFT JOIN event_points on event_points.fkey_users_id = users.id
+
+//   if (empty($result->ep_level)) {
+//     $result->ep_level = 0;
+//   }
+
+  // Equipment and Staff bonuses.
+  $sql = 'select sum(equipment.energy_increase * equipment_ownership.quantity)
+    as energy_increase from equipment
+
+    LEFT OUTER JOIN equipment_ownership
+    ON equipment_ownership.fkey_equipment_id = equipment.id
+    WHERE equipment_ownership.fkey_users_id = :id
+
+    union all
+
+    select sum(staff.energy_increase * staff_ownership.quantity)
+    as energy_increase from staff
+
+    LEFT OUTER JOIN staff_ownership
+    ON staff_ownership.fkey_staff_id = staff.id
+    WHERE staff_ownership.fkey_users_id = :id;';
+  $result = db_query($sql, array(':id' => (int) $game_user->id));
+  $eq = $result->fetch(); // equipment
+  $st = $result->fetch(); // staff
+
+  $game_user->eq_energy_increase = $eq->energy_increase;
+  $game_user->st_energy_increase = $st->energy_increase;
+
+  // Levels.
+  $query = db_select('levels', 'l')
+    ->condition('level', array($game_user->level, $game_user->level + 1), 'IN')
+    ->fields('l', array('experience'))
+    ->execute();
+  $levels = $query->fetchCol();
+
+  $game_user->cur_level = (int) $levels[0];
+  $game_user->next_level = (int) $levels[1];
+  if ($game_user->next_level == 0) {
+    $game_user->next_level = 9999999;
+  }
+
+  db_set_active('default');
+  $user_cache[gettype($id) . ':' . $id] = $game_user;
+  return $game_user;
+
+}
