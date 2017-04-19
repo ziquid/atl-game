@@ -1,47 +1,11 @@
 <?php
 
-  if (!$game_user->seen_neighborhood_quests && $game_user->level >= 6) {
-// intro neighborhood quests at level 6
-
-    echo <<< EOF
-<div class="welcome">
-  <div class="wise_old_man_small">
-  </div>
-  <!--<p>&quot;A wise choice &mdash; that party will serve you well.</p>-->
-  <p>&quot;Some of your {$quest}s now depend on the part of the $city_lower in
-    which you are located.&nbsp; You are now in the <strong>$location</strong>
-    $hood_lower.&nbsp;
-    You will find more {$quest}s as you move to different parts of the
-    $city_lower.&quot;</p>
-  <br/>
-</div>
-EOF;
-
-    $sql = 'update users set seen_neighborhood_quests = 1 where id = %d;';
-    $result = db_query($sql, $game_user->id);
-
-  } // haven't seen quests intro
-
-  if ($game_user->level < 6) $location = ''; // keep location from user
-
-  if ($game_user->level < 6 and $game_user->experience > 0) {
-
-    echo <<< EOF
-<ul>
-  <li>Each $quest gives you more $game_user->values and $experience</li>
-  <li>Wait and rest for a few minutes if you run out of Energy</li>
-</ul>
-EOF;
-
-  }
-
   $sql = 'select name from quest_groups where id = %s;';
   $result = db_query($sql, $group_to_show);
   $qg = db_fetch_object($result);
 firep($qg);
 
   $location = str_replace('%location', $location, $qg->name);
-
   if ($game_user->level < 6) $location = '';
 
   $sql = 'select name from quest_groups where id = %s;';

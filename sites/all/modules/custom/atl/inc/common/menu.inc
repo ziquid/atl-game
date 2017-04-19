@@ -1418,9 +1418,30 @@ function atl_theme($existing, $type, $theme, $path) {
       ),
     ),
 
+    'quests_help_text' => array(
+      'template' => 'templates/blocks/quests_help_text',
+      'variables' => array(),
+    ),
+
     'quests_welcome_text' => array(
       'template' => 'templates/blocks/quests_welcome_text',
       'variables' => array(),
+    ),
+
+    'party_welcome' => array(
+      'template' => 'templates/blocks/party_welcome',
+      'variables' => array(),
+    ),
+
+    'show_goal' => array(
+      'template' => 'templates/blocks/show_goal',
+      'file' => 'inc/show_goal.inc',
+      'preprocess functions' => array(
+        'game_preprocess_show_goal'
+      ),
+      'variables' => array(
+        'game_user' => NULL,
+      ),
     ),
 
     'title_image' => array(
