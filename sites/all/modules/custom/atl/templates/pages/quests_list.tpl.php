@@ -1,60 +1,10 @@
 <?php
 
-  $sql = 'select name from quest_groups where id = %s;';
-  $result = db_query($sql, $group_to_show);
-  $qg = db_fetch_object($result);
-firep($qg);
-
-  $location = str_replace('%location', $location, $qg->name);
-  if ($game_user->level < 6) $location = '';
-
-  $sql = 'select name from quest_groups where id = %s;';
-  $result = db_query($sql, $group_to_show - 1);
-  $qgo = db_fetch_object($result);
-
   if (!empty($qgo->name)) {
 
     $older_group = $group_to_show - 1;
     $older_missions_html =<<< EOF
-<a href="/$game/quests/$arg2/$older_group">
-  <span class="arrows big">&lsaquo;&lsaquo;&lsaquo;</span>
-</a>
-EOF;
 
-  } else {
-
-    $older_missions_html = '<span class="arrows big">&lsaquo;&lsaquo;</span>';
-
-  }
-
-  $sql = 'select min(required_level) as min from quests
-    where `group` = %d;';
-  $result = db_query($sql, $group_to_show + 1);
-  $item = db_fetch_object($result);
-firep($item);
-
-  if (!empty($item->min) && ($item->min <= $game_user->level + 1) &&
-    ($group_to_show <= 1000)) {
-
-    $newer_group = $group_to_show + 1;
-    $newer_missions_html =<<< EOF
-<a href="/$game/quests/$arg2/$newer_group">
-  <span class="arrows big">&rsaquo;&rsaquo;&rsaquo;</span>
-</a>
-EOF;
-
-  } else {
-
-    $newer_missions_html = '<span class="arrows big">&rsaquo;&rsaquo;</span>';
-
-  }
-
-  echo <<< EOF
-<div class="title">
-  <span class="left">$older_missions_html</span>
-  <span class="middle">Chapter $group_to_show:<br/>$location</span>
-  <span class="right">$newer_missions_html</span>
-</div>
 EOF;
 
 // abc123 -- show all quests

@@ -104,67 +104,48 @@ EOF;
     game_set_value($game_user, 'seen_party_welcome', TRUE);
   }
 
+  // Quest group names.
+  $query = db_select('quest_groups', 'qg')
+    ->condition('id', $group_to_show, '=')
+    ->fields('qg', array('name'));
+  $qg = $query->execute()->fetchField();
+  $query = db_select('quest_groups', 'qg')
+    ->condition('id', $group_to_show - 1, '=')
+    ->fields('qg', array('name'));
+  $qgo = $query->execute()->fetchField();
+  $query = db_select('quest_groups', 'qg')
+    ->condition('id', $group_to_show + 1, '=')
+    ->fields('qg', array('name'));
+  $qgn = $query->execute()->fetchField();
+
+  // Does next quest group have a minimum level not attained yet?
+  $query = db_select('quests', 'q')
+    ->condition('fkey_quest_groups_id', $group_to_show + 1, '=');
+  $query->addExpression('min(required_level)', 'mrl');
+  $qgnmrl = $query->execute()->fetchField();
+
+  // No next quest group if the minimum level isn't attained.
+  if ($qgnmrl > $game_user->level + 1) {
+    unset($qgn);
+  }
+//  $location = str_replace('%location', $location, $qg);
+//  if ($game_user->level < 6) $location = '';
+
+  $arr[] = array(
+    '#theme' => 'quests_header',
+    '#game_user' => $game_user,
+    '#qg' => $qg,
+    '#qgo' => $qgo,
+    '#qgn' => $qgn,
+    '#group_to_show' => $group_to_show,
+  );
+
   db_set_active('default');
   return $arr;
 }
 
 /*
-  $sql = 'select name from quest_groups where id = %s;';
-  $result = db_query($sql, $group_to_show);
-  $qg = db_fetch_object($result);
-firep($qg);
 
-  $location = str_replace('%location', $location, $qg->name);
-  if ($game_user->level < 6) $location = '';
-
-  $sql = 'select name from quest_groups where id = %s;';
-  $result = db_query($sql, $group_to_show - 1);
-  $qgo = db_fetch_object($result);
-
-  if (!empty($qgo->name)) {
-
-    $older_group = $group_to_show - 1;
-    $older_missions_html =<<< EOF
-<a href="/$game/quests/$arg2/$older_group">
-  <span class="arrows big">&lsaquo;&lsaquo;&lsaquo;</span>
-</a>
-EOF;
-
-  } else {
-
-    $older_missions_html = '<span class="arrows big">&lsaquo;&lsaquo;</span>';
-
-  }
-
-  $sql = 'select min(required_level) as min from quests
-    where `group` = %d;';
-  $result = db_query($sql, $group_to_show + 1);
-  $item = db_fetch_object($result);
-firep($item);
-
-  if (!empty($item->min) && ($item->min <= $game_user->level + 1) &&
-    ($group_to_show <= 1000)) {
-
-    $newer_group = $group_to_show + 1;
-    $newer_missions_html =<<< EOF
-<a href="/$game/quests/$arg2/$newer_group">
-  <span class="arrows big">&rsaquo;&rsaquo;&rsaquo;</span>
-</a>
-EOF;
-
-  } else {
-
-    $newer_missions_html = '<span class="arrows big">&rsaquo;&rsaquo;</span>';
-
-  }
-
-  echo <<< EOF
-<div class="title">
-  <span class="left">$older_missions_html</span>
-  <span class="middle">Chapter $group_to_show:<br/>$location</span>
-  <span class="right">$newer_missions_html</span>
-</div>
-EOF;
 
 // abc123 -- show all quests
   $active_quests = ($phone_id == 'abc123') ? '' : 'and quests.active = 1';

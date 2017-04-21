@@ -1418,6 +1418,17 @@ function atl_theme($existing, $type, $theme, $path) {
       ),
     ),
 
+    'quests_header' => array(
+      'template' => 'templates/blocks/quests_header',
+      'variables' => array(
+        '#game_user' => NULL,
+        '#qg' => NULL,
+        '#qgo' => NULL,
+        '#qgn' => NULL,
+        '#group_to_show' => 0,
+      ),
+    ),
+
     'quests_help_text' => array(
       'template' => 'templates/blocks/quests_help_text',
       'variables' => array(),
