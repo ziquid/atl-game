@@ -1376,6 +1376,10 @@ function atl_theme($existing, $type, $theme, $path) {
 
     'game_header' => array(
       'template' => 'templates/blocks/header',
+      'file' => 'inc/header.inc',
+      'preprocess functions' => array(
+        'game_preprocess_header'
+      ),
       'variables' => array(
         'game_user' => NULL,
       ),
@@ -1393,7 +1397,7 @@ function atl_theme($existing, $type, $theme, $path) {
       'variables' => array(
         'game_user' => NULL,
         'quests' => array(),
-      )
+      ),
     ),
 
     'game_too_new_for_home' => array(
@@ -1418,14 +1422,40 @@ function atl_theme($existing, $type, $theme, $path) {
       ),
     ),
 
+    'quest' => array(
+      'template' => 'templates/blocks/quest',
+      'file' => 'inc/quest.inc',
+      'preprocess functions' => array(
+        'game_preprocess_quest'
+      ),
+      'variables' => array(
+        'game_user' => NULL,
+        'quest' => NULL,
+        'percentageTarget' => 100,
+        'percentageDivisor' => 1,
+        'questGroup' => NULL,
+        'outcome' => 'FIXME No Outcome',
+      ),
+    ),
+
+    'quest_group_completion' => array(
+      'template' => 'templates/blocks/quest_group_completion',
+      'variables' => array(
+        'game_user' => NULL,
+        'questGroup' => NULL,
+      ),
+    ),
+
     'quests_header' => array(
       'template' => 'templates/blocks/quests_header',
       'variables' => array(
-        '#game_user' => NULL,
-        '#qg' => NULL,
-        '#qgo' => NULL,
-        '#qgn' => NULL,
-        '#group_to_show' => 0,
+        'game_user' => NULL,
+        'qg' => NULL,
+        'qgo' => NULL,
+        'qgn' => NULL,
+        'groupToShow' => 0,
+        'questLocation' => NULL,
+        'experienceAddedHtml' => NULL,
       ),
     ),
 

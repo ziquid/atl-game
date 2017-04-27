@@ -1,20 +1,73 @@
 .welcome {
-  margin: 4px;
-  padding: 6px;
-  border: 1px solid @game-red;
+  margin: 2px;
+  margin-top: 10px;
+  padding: 3px;
+  border: 2px solid @game-red;
   border-radius: 6px;
   min-height: 160px;
+  position: relative;
   ul {
     display: table;
     -webkit-padding-start: 12px;
+  }
+  /*
+  &:hover:before {
+    content: "FIXME Welcome";
+  }
+  &:before {
+    content: "FIXME";
+    position: absolute;
+    top: -22px;
+    right: 8px;
+    font-weight: bold;
+    font-size: 12pt;
+    background-color: black;
+    margin: 4px;
+    padding: 3px 16px;
+    border: 2px dashed @game-red;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+  }
+  */
+}
+
+.goals {
+  margin: 4px;
+  margin-top: 10px;
+  padding: 6px;
+  border: 2px dashed @game-red;
+  border-radius: 6px;
+  position: relative;
+  ul {
+    display: table;
+    -webkit-padding-start: 12px;
+  }
+  &:hover:before {
+    content: "FIXME Goals";
+  }
+  &:before {
+    content: "FIXME";
+    position: absolute;
+    top: -22px;
+    right: 8px;
+    font-weight: bold;
+    font-size: 12pt;
+    background-color: black;
+    margin: 4px;
+    padding: 3px 16px;
+    border: 2px dashed @game-red;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
   }
 }
 
 .elder-image {
   width: 96px;
   height: 144px;
-  background: url(/sites/default/files/images/stlouis_elder.png) top left no-repeat;
-  background: url(//placehold.it/96x144?text=City+Elder) top left no-repeat;
+  //background: url(/sites/default/files/images/stlouis_elder.png) top left no-repeat;
+  background: url(//placeholdit.imgix.net/~text?txtsize=20&txt=City+Elder&w=96&h=144&txttrack=1) top left no-repeat;
   font-size: 0px;
   display: inline-block;
   background-size: 96px 144px;
@@ -163,7 +216,7 @@ p {
   &.quote {
     font-size: 13pt;
     font-family: @font-family-serif;
-    text-weight: bold;
+    font-weight: bold;
     color: @game-yellow;
   }
   &.quote:before {
@@ -173,6 +226,22 @@ p {
     content: no-close-quote;
   }
   &.quote:last-child:after {
-    content: close-quote;
+    content: close-quote !important;
   }
+}
+
+.arrows {
+  line-height: 1.0;
+}
+
+.big {
+  font-size: 200%;
+}
+
+.bigbig {
+  font-size: 250%;
+}
+
+.error {
+  background-color: @game-red-bg !important;
 }

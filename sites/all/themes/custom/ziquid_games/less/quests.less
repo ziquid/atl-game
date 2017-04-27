@@ -1,0 +1,194 @@
+body.page-atl-quests {
+
+  .quest-header {
+    /*
+    margin: 4px;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px dashed @game-red;
+    border-radius: 6px;
+    position: relative;
+    &:hover:before {
+      content: "FIXME Quest Header";
+    }
+    &:before {
+      content: "FIXME";
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-weight: bold;
+      font-size: 12pt;
+      background-color: black;
+      margin: 4px;
+      padding: 3px 16px;
+      border: 2px dashed @game-red;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+    */
+    .middle {
+      text-align: center;
+    }
+    .chapter {
+      font-size: 125%;
+      font-weight: bold;
+      color: @game-yellow;
+    }
+    .location {
+      font-size: 80%;
+      color: @game-white-muted;
+    }
+  }
+
+  .quest-group-completion {
+    /*
+    margin: 4px;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px dashed @game-red;
+    border-radius: 6px;
+    position: relative;
+    &:hover:before {
+      content: "FIXME Quest Group Completion";
+    }
+    &:before {
+      content: "FIXME";
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-weight: bold;
+      font-size: 12pt;
+      background-color: black;
+      margin: 4px;
+      padding: 3px 16px;
+      border: 2px dashed @game-red;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+    */
+    margin: 8px 6px 6px;
+    text-align: center;
+  }
+
+  .quest {
+    /*
+    margin: 4px;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px dashed @game-red;
+    border-radius: 6px;
+    position: relative;
+    &:hover:before {
+      content: "FIXME Quest";
+    }
+    &:before {
+      content: "FIXME";
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-weight: bold;
+      font-size: 12pt;
+      background-color: black;
+      margin: 4px;
+      padding: 3px 16px;
+      border: 2px dashed @game-red;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+    */
+    margin: 2px;
+    border: 2px solid @game-green;
+    border-radius: 6px;
+    padding: 3px;
+    .quest-icon {
+      img {
+        width: 96px;
+        height: 144px;
+      }
+    }
+  }
+
+  .quest-details {
+    /*
+    margin: 4px;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px dashed @game-red;
+    border-radius: 6px;
+    position: relative;
+    &:hover:before {
+      content: "FIXME Quest Details";
+    }
+    &:before {
+      content: "FIXME";
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-weight: bold;
+      font-size: 12pt;
+      background-color: black;
+      margin: 4px;
+      padding: 3px 16px;
+      border: 2px dashed @game-red;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+    */
+    .quest-name {
+      font-size: 140%;
+      font-weight: bold;
+      margin: 2px 0;
+    }
+    .quest-description {
+      font-size: 120%;
+      margin: 4px 0 8px;
+    }
+    .quest-requisites, .quest-disbursements {
+      margin: 2px 0;
+      padding: 0 6px;
+      border: 2px solid @game-red-bg;
+      background-color: @game-red-bg;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: bold;
+    }
+  }
+
+  .progress {
+    width: 96px;
+    background-color: @game-white-bg;
+    border: 2px solid @game-white-bg;
+    border-radius: 6px;
+    color: @game-white;
+    margin-top: 5px;
+    height: 17px;
+    .progress-bar {
+      min-width: 4px;
+    }
+  }
+
+  .quest-slider {
+    margin: 13px 20px 6px 6px;
+  }
+  .ui-slider-handle {
+    width: 5em;
+    height: 1.8em;
+    top: 50%;
+    margin-top: -.9em;
+    text-align: center;
+    background: @game-blue-bg;
+    border: 2px solid @game-blue;
+    color: @game-white;
+    font-size: 88%;
+    padding: 2px;
+    font-weight: bold;
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+  }
+}

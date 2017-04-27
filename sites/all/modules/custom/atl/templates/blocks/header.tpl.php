@@ -1,18 +1,14 @@
-<?php
-
-  include drupal_get_path('module', 'atl') . '/inc/common/game_defs.inc';
-?>
 <div class="game-header game-hood-<?php echo $game_user->fkey_neighborhoods_id; ?>">
  <div class="col-xs-12 col-sm-6">
   <div class="money col-xs-4">
     <span id="money-id">
-      <?php echo $money_str; ?>
+      <?php echo $moneyStr; ?>
     </span>
     <span class="money-text">
       <?php echo $game_user->values_name; ?>
     </span>
     <div id="income-time">
-      <?php echo $income_text; ?>
+      <?php echo $incomeText; ?>
     </div>
   </div>
   <div class="actions col-xs-4">
@@ -22,11 +18,11 @@
     /
     <?php echo $game_user->actions_max; ?>
     <span class="actions-text">
-      <?php echo t('@actions', $txt); ?>
+      <?php ge('@actions'); ?>
     </span>
     <br>
     <div id="actions-time">
-      <?php echo $actions_text; ?>
+      <?php echo $actionsText; ?>
     </div>
   </div>
   <div class="experience col-xs-4">
@@ -45,17 +41,17 @@
     /
     <?php echo $game_user->energy_max; ?>
     <span class="energy-text">
-      <?php echo t('@energy', $txt); ?>
+      <?php ge('@energy'); ?>
     </span>
     <br>
     <div id="energy-time">
-      <?php echo $energy_text; ?>
+      <?php echo $energyText; ?>
     </div>
   </div>
   <div class="home col-xs-4">
     <a href="/<?php echo $game; ?>/home/<?php echo $arg2; ?>">
       <!--<img src="/sites/default/files/images/<?php echo $game; ?>_home_icon_large.png"/>-->
-      <img src="//placehold.it/48x26?text=ATL+HOME" class="center-block
+      <img src="//placeholdit.imgix.net/~text?txtsize=12&txt=ATL+HOME&w=48&h=26&txttrack=0&txtpad=1" class="center-block
     img-responsive">
     </a>
   </div>

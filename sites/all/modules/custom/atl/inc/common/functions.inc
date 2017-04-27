@@ -1069,287 +1069,6 @@ EOF;
 }
 
 
-function _show_quest($game_user, $item, $percentage_target,
-  $percentage_divisor, $quest_group, $party_title, $outcome = '',
-  $exp_added_str = '', $money_added_str = '', $disbursements_doubled = '',
-  $consumption_html = '', $disbursement_html = '',
-  $quest_completion_html = '') {
-
-  global $game, $phone_id;
-  include(drupal_get_path('module', $game) . '/game_defs.inc');
-  $arg2 = check_plain(arg(2));
-
-  static $location;
-
-  if (empty($location)) {
-
-    $sql = 'select name from `neighborhoods` where id = %d;';
-    $result = db_query($sql, $game_user->fkey_neighborhoods_id);
-    $data = db_fetch_object($result);
-    $location = preg_replace('/^The /', '', $data->name);
-
-  }
-
-  $sql = 'select id from quests where `group` = %d
-    order by id asc limit 1;';
-  $result = db_query($sql, $item->group);
-  $data = db_fetch_object($result);
-  $seq_num = $item->id - $data->id;
-
-  if (substr($item->description, 0, 3) != '<p ') $laquo = '&laquo;';
-  if (substr($item->description, -1) != '>') $raquo = '&raquo;';
-
-  $name = t($item->name, array(
-    '@clan' => $game_user->clan_name,
-    '@hood' => $hood,
-    '@location' => $location,
-    '%party' => $party_title,
-    '@username' => $game_user->username,
-  ));
-
-  $description = t($item->description, array(
-    '@clan' => $game_user->clan_name,
-    '@hood' => $hood,
-    '@location' => $location,
-    '%party' => $party_title,
-    '@username' => $game_user->username,
-  ));
-
-  if (empty($item->percent_complete)) $item->percent_complete = 0;
-
-  if ($item->percent_complete > floor($percentage_target / 2)) {
-
-    $rgb = dechex(floor(($percentage_target - $item->percent_complete) /
-      (4 * $percentage_divisor))) . 'c0';
-
-  } else {
-
-    $rgb = 'c' . dechex(floor(($item->percent_complete) /
-      (4 * $percentage_divisor))) . '0';
-
-  }
-
-  $width = floor($item->percent_complete * 94 / $percentage_target) + 2;
-
-  $active = ($item->active) ? '' : ' (inactive)';
-
-  if (strpos($item->meta, 'use_job_picture') !== FALSE) {
-
-    $sql = 'SELECT land.id FROM `land_ownership`
-      LEFT JOIN land ON fkey_land_id = land.id
-      WHERE fkey_users_id = %d
-      AND land.type = "job";';
-    $result = db_query($sql, $game_user->id);
-    $job = db_fetch_object($result);
-
-    $img = '/sites/default/files/images/land/' . "$game-$job->id.png?3";
-
-  } else {
-
-    $img = '/sites/default/files/images/quests/' . "$game-$item->id.png?3";
-
-  }
-
-  echo <<< EOF
-$outcome
-<div class="quests">
-  <div class="quest-icon">
-    <a href="/$game/quests_do/$arg2/$item->id">
-      <img src="$img" border="0" width="96"/>
-    </a>
-    <div class="quest-complete">
-      <div class="quest-complete-percentage"
-        style="background-color: #$rgb; width: {$width}px">
-        &nbsp;
-      </div>
-      <div class="quest-complete-text">
-        $item->percent_complete% complete
-      </div>
-    </div>
-  </div>
-
-  <div class="quest-details">
-    <div class="quest-num">$item->group.$seq_num</div>
-    <div class="quest-name">
-      <a href="/$game/quests_do/$arg2/$item->id">
-        $name $active
-      </a>
-    </div>
-    <div class="quest-description">
-      $laquo $description $raquo
-    </div>
-EOF;
-
-  if (empty($exp_added_str)) { // quest performed?
-// no quest performed -- show requirements
-
-    echo <<< EOF
-    <div class="quest-requisites">
-      // Consumptions //
-    </div>
-    <div class="quest-required_energy">
-      $item->required_energy $energy
-    </div>
-EOF;
-
-  if ($item->clan_equipment_1_consumed_quantity > 0) {
-
-    echo '<div class="quest-required_stuff">';
-
-    _clan_required_equipment($game_user,
-      $item->fkey_clan_equipment_1_consumed_id,
-      $item->clan_equipment_1_consumed_quantity);
-
-    echo '</div>';
-
-  }
-
-  if ($item->land_required_quantity +
-    $item->equipment_1_required_quantity +
-    $item->equipment_2_required_quantity +
-    $item->equipment_3_required_quantity +
-    $item->clan_equipment_1_required_quantity +
-    $item->staff_required_quantity > 0) {
-
-      echo <<< EOF
-    <div class="quest-requisites">
-      // Requisites //
-    </div>
-EOF;
-
-  // required land
-
-      if ($item->land_required_quantity > 0)
-        _required_land($game_user, $item->fkey_land_required_id,
-          $item->land_required_quantity);
-
-  // required equipment
-
-      if ($item->equipment_1_required_quantity +
-        $item->equipment_2_required_quantity +
-        $item->equipment_3_required_quantity +
-        $item->clan_equipment_1_required_quantity > 0) {
-
-        echo '<div class="quest-required_stuff">';
-
-        if ($item->equipment_1_required_quantity > 0)
-          _required_equipment($game_user, $item->fkey_equipment_1_required_id,
-            $item->equipment_1_required_quantity);
-
-        if ($item->equipment_2_required_quantity > 0)
-          _required_equipment($game_user, $item->fkey_equipment_2_required_id,
-            $item->equipment_2_required_quantity);
-
-        if ($item->equipment_3_required_quantity > 0)
-          _required_equipment($game_user, $item->fkey_equipment_3_required_id,
-            $item->equipment_3_required_quantity);
-
-        if ($item->clan_equipment_1_required_quantity > 0)
-          _clan_required_equipment($game_user,
-            $item->fkey_clan_equipment_1_required_id,
-            $item->clan_equipment_1_required_quantity);
-
-        echo '</div>';
-
-      }
-
-  // required staff
-
-      if ($item->staff_required_quantity > 0)
-        _required_staff($game_user, $item->fkey_staff_required_id,
-          $item->staff_required_quantity);
-
-  // required party
-
-      if ($item->need_party > 0)
-        echo <<< EOF
-    <div class="quest-required_energy">
-      You must belong to a non-Underground $party_lower
-    </div>
-EOF;
-
-  // required clan
-
-      if ($item->need_clan > 0)
-        echo <<< EOF
-    <div class="quest-required_energy">
-      You must belong to a clan
-    </div>
-EOF;
-
-  // required job
-
-      if ($item->need_job > 0)
-        echo <<< EOF
-    <div class="quest-required_energy">
-      You must have a job
-    </div>
-EOF;
-
-    } // requirement
-
-    echo <<< EOF
-    <div class="quest-disbursements">
-      // Disbursements //
-    </div>
-    <div class="quest-experience">
-      +$item->experience $experience
-    </div>
-    <div class="quest-experience">
-      +$item->min_money to $item->max_money $game_user->values
-    </div>
-EOF;
-
-    if (($item->chance_of_loot + $item->chance_of_loot_staff) > 0)
-      echo <<< EOF
-    <div class="quest-loot">
-      Equipment Disbursement Percentage, Estimated:
-      <span>
-        $item->chance_of_loot%
-      </span>
-    </div>
-EOF;
-
-  } else { // quest performed -- show accomplishments
-
-    echo <<< EOF
-    <div class="quest-requisites">
-      // Consumed By You //
-    </div>
-    <div class="quest-required_energy">
-      $item->required_energy $energy
-    </div>
-    $consumption_html
-    <div class="quest-disbursements">
-      // Disbursed To You //
-    </div>
-    <div class="quest-experience">
-      $exp_added_str $experience $disbursements_doubled
-    </div>
-    <div class="quest-experience">
-      $money_added_str $game_user->values $disbursements_doubled
-    </div>
-  </div>
-  $disbursement_html
-  $quest_completion_html
-  <div class="quest-do-again">
-    <div class="quest-do-again-inside">
-      <a href="/$game/quests_do/$arg2/$item->id">
-        Do Again
-      </a>
-    </div>
-EOF;
-
-  } // quest performed or not?
-
-  echo <<< EOF
-  </div>
-</div>
-EOF;
-
-}
-
-
 function _show_favor($game_user, $item, $view = 'initiator', $bounty = -1) {
 
   global $game, $phone_id;
@@ -2705,16 +2424,30 @@ firep($eq->name . ' wore out!');
  */
 function game_goto($page = 'home', $extra = NULL) {
 
-  $uri = check_plain(arg(0)) . '/' . $page . '/' . check_plain(arg(2));
-  if (isset($extra)) {
-    $uri .= '/' . $extra;
-  }
-
+  $uri = game_url($page, $extra);
   if ($uri != current_path()) {
     db_set_active('default');
     drupal_goto($uri);
   }
 
+}
+
+/**
+ * Return a page path, without the leading slash ('/').
+ *
+ * @param string $page
+ *   The page to go to.
+ * @param string $extra
+ *   Any extra path parts.
+ */
+function game_url($page = 'home', $extra = NULL) {
+
+  $uri = check_plain(arg(0)) . '/' . $page . '/' . check_plain(arg(2));
+  if (isset($extra)) {
+    $uri .= '/' . $extra;
+  }
+
+  return $uri;
 }
 
 /**
@@ -2781,14 +2514,35 @@ function game_get_elder_message() {
   return $msgs[mt_rand(0, count($msgs) - 1)];
 }
 
-function template_preprocess_game_header(&$vars) {
+/**
+ * Return game text.
+ *
+ * @param string $text
+ *   The text to change.
+ */
+function gt($text) {
+  include drupal_get_path('module', 'atl') . '/inc/common/game_defs.inc';
+  return t($text, $gameText);
+}
+
+/**
+ * Echo game text.
+ *
+ * @param string $text
+ *   The text to echo.
+ */
+function ge($text) {
+  echo gt($text);
+}
+
+function teEmplate_preprocess_game_header(&$vars) {
 
 //   global $game, $phone_id, $extra_messages, $cur_level, $next_level;
   include drupal_get_path('module', 'atl') . '/inc/common/game_defs.inc';
   $game_user = $vars['game_user'];
   $vars['game'] = $arg0 = check_plain(arg(0));
   $vars['arg2'] = $arg2 = check_plain(arg(2));
-
+dpm($game_user, 'game_user inside template_preprocess_game_header');
   // Energy.
   $energy_text = '';
   $energy_bonus = 10 + $game_user->ep_energy_bonus +

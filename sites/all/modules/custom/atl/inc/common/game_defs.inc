@@ -18,7 +18,7 @@
 
     case '2013-03-08':
       $event_type = EVENT_DEBATE;
-      $debate_time = 600; // 900; // 1200;
+      $debate_time = 600;
       break;
 
     case '2013-03-09':
@@ -27,11 +27,18 @@
 
   }
 
-  $txt = array(
-    '@actions' => 'actions',
-    '@energy' => 'energy',
-    '@party' => 'political party',
-    '@party_small' => 'party',
+  $gameText = array(
+    '@actions' => 'Actions',
+    '@Disbursements' => 'Disbursements',
+    '@disbursements' => 'disbursements',
+    '@energy' => 'Energy',
+    '@Experience' => 'Experience',
+    '@experiece' => 'experience',
+    '@party' => 'Political Party',
+    '@party_small' => 'Party',
+    '@quest' => 'Mission',
+    '@Requisites' => 'Requirements',
+    '@requisites' => 'requirements',
   );
 /*
   $alderman = 'Alderman';

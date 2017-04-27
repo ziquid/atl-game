@@ -7488,21 +7488,72 @@ body.navbar-tray-open.navbar-vertical.navbar-fixed {
   width: 24rem;
 }
 .welcome {
-  margin: 4px;
-  padding: 6px;
-  border: 1px solid #ee0000;
+  margin: 2px;
+  margin-top: 10px;
+  padding: 3px;
+  border: 2px solid #ee0000;
   border-radius: 6px;
   min-height: 160px;
+  position: relative;
+  /*
+  &:hover:before {
+    content: "FIXME Welcome";
+  }
+  &:before {
+    content: "FIXME";
+    position: absolute;
+    top: -22px;
+    right: 8px;
+    font-weight: bold;
+    font-size: 12pt;
+    background-color: black;
+    margin: 4px;
+    padding: 3px 16px;
+    border: 2px dashed @game-red;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+  }
+  */
 }
 .welcome ul {
   display: table;
   -webkit-padding-start: 12px;
 }
+.goals {
+  margin: 4px;
+  margin-top: 10px;
+  padding: 6px;
+  border: 2px dashed #ee0000;
+  border-radius: 6px;
+  position: relative;
+}
+.goals ul {
+  display: table;
+  -webkit-padding-start: 12px;
+}
+.goals:hover:before {
+  content: "FIXME Goals";
+}
+.goals:before {
+  content: "FIXME";
+  position: absolute;
+  top: -22px;
+  right: 8px;
+  font-weight: bold;
+  font-size: 12pt;
+  background-color: black;
+  margin: 4px;
+  padding: 3px 16px;
+  border: 2px dashed #ee0000;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
 .elder-image {
   width: 96px;
   height: 144px;
-  background: url(/sites/default/files/images/stlouis_elder.png) top left no-repeat;
-  background: url(//placehold.it/96x144?text=City+Elder) top left no-repeat;
+  background: url(//placeholdit.imgix.net/~text?txtsize=20&txt=City+Elder&w=96&h=144&txttrack=1) top left no-repeat;
   font-size: 0px;
   display: inline-block;
   background-size: 96px 144px;
@@ -7566,7 +7617,7 @@ header .actions {
   text-transform: capitalize;
 }
 header .experience {
-  background-color: rgba(0, 128, 182, 0.33);
+  background-color: #005fa7;
   text-align: right;
 }
 header .energy {
@@ -7577,7 +7628,7 @@ header .home {
   text-align: center;
 }
 header .level {
-  background-color: rgba(0, 128, 182, 0.33);
+  background-color: #005fa7;
   text-align: right;
 }
 footer {
@@ -7633,7 +7684,7 @@ p {
 p.quote {
   font-size: 13pt;
   font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
-  text-weight: bold;
+  font-weight: bold;
   color: #eedd22;
 }
 p.quote:before {
@@ -7643,5 +7694,202 @@ p.quote:after {
   content: no-close-quote;
 }
 p.quote:last-child:after {
-  content: close-quote;
+  content: close-quote !important;
+}
+.arrows {
+  line-height: 1.0;
+}
+.big {
+  font-size: 200%;
+}
+.bigbig {
+  font-size: 250%;
+}
+.error {
+  background-color: rgba(238, 0, 0, 0.33) !important;
+}
+body.page-atl-quests .quest-header {
+  /*
+    margin: 4px;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px dashed @game-red;
+    border-radius: 6px;
+    position: relative;
+    &:hover:before {
+      content: "FIXME Quest Header";
+    }
+    &:before {
+      content: "FIXME";
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-weight: bold;
+      font-size: 12pt;
+      background-color: black;
+      margin: 4px;
+      padding: 3px 16px;
+      border: 2px dashed @game-red;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+    */
+}
+body.page-atl-quests .quest-header .middle {
+  text-align: center;
+}
+body.page-atl-quests .quest-header .chapter {
+  font-size: 125%;
+  font-weight: bold;
+  color: #eedd22;
+}
+body.page-atl-quests .quest-header .location {
+  font-size: 80%;
+  color: rgba(238, 232, 224, 0.6);
+}
+body.page-atl-quests .quest-group-completion {
+  /*
+    margin: 4px;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px dashed @game-red;
+    border-radius: 6px;
+    position: relative;
+    &:hover:before {
+      content: "FIXME Quest Group Completion";
+    }
+    &:before {
+      content: "FIXME";
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-weight: bold;
+      font-size: 12pt;
+      background-color: black;
+      margin: 4px;
+      padding: 3px 16px;
+      border: 2px dashed @game-red;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+    */
+  margin: 8px 6px 6px;
+  text-align: center;
+}
+body.page-atl-quests .quest {
+  /*
+    margin: 4px;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px dashed @game-red;
+    border-radius: 6px;
+    position: relative;
+    &:hover:before {
+      content: "FIXME Quest";
+    }
+    &:before {
+      content: "FIXME";
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-weight: bold;
+      font-size: 12pt;
+      background-color: black;
+      margin: 4px;
+      padding: 3px 16px;
+      border: 2px dashed @game-red;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+    */
+  margin: 2px;
+  border: 2px solid #33aa00;
+  border-radius: 6px;
+  padding: 3px;
+}
+body.page-atl-quests .quest .quest-icon img {
+  width: 96px;
+  height: 144px;
+}
+body.page-atl-quests .quest-details {
+  /*
+    margin: 4px;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px dashed @game-red;
+    border-radius: 6px;
+    position: relative;
+    &:hover:before {
+      content: "FIXME Quest Details";
+    }
+    &:before {
+      content: "FIXME";
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-weight: bold;
+      font-size: 12pt;
+      background-color: black;
+      margin: 4px;
+      padding: 3px 16px;
+      border: 2px dashed @game-red;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+    */
+}
+body.page-atl-quests .quest-details .quest-name {
+  font-size: 140%;
+  font-weight: bold;
+  margin: 2px 0;
+}
+body.page-atl-quests .quest-details .quest-description {
+  font-size: 120%;
+  margin: 4px 0 8px;
+}
+body.page-atl-quests .quest-details .quest-requisites,
+body.page-atl-quests .quest-details .quest-disbursements {
+  margin: 2px 0;
+  padding: 0 6px;
+  border: 2px solid rgba(238, 0, 0, 0.33);
+  background-color: rgba(238, 0, 0, 0.33);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  display: inline-block;
+  font-weight: bold;
+}
+body.page-atl-quests .progress {
+  width: 96px;
+  background-color: rgba(238, 232, 224, 0.33);
+  border: 2px solid rgba(238, 232, 224, 0.33);
+  border-radius: 6px;
+  color: #eee8e0;
+  margin-top: 5px;
+  height: 17px;
+}
+body.page-atl-quests .progress .progress-bar {
+  min-width: 4px;
+}
+body.page-atl-quests .quest-slider {
+  margin: 13px 20px 6px 6px;
+}
+body.page-atl-quests .ui-slider-handle {
+  width: 5em;
+  height: 1.8em;
+  top: 50%;
+  margin-top: -0.9em;
+  text-align: center;
+  background: #005fa7;
+  border: 2px solid #0088ee;
+  color: #eee8e0;
+  font-size: 88%;
+  padding: 2px;
+  font-weight: bold;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
 }

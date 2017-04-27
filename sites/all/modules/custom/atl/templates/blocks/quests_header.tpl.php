@@ -1,13 +1,24 @@
-<div class="title">
-  <span class="left">
-    <a href="/$game/quests/$arg2/$older_group">
-      <span class="arrows big">&lsaquo;&lsaquo;&lsaquo;</span>
-    </a>
-  </span>
-  <span class="middle">Chapter $group_to_show:<br/>$location</span>
-  <span class="right">
-    <a href="/$game/quests/$arg2/$newer_group">
-      <span class="arrows big">&rsaquo;&rsaquo;&rsaquo;</span>
-    </a>
-  </span>
+<div class="quest-header row">
+  <div class="left col-xs-1">
+    <?php if ($qgo): ?>
+      <a href="/<?php echo $qgo; ?>">
+        <span class="arrows bigbig">&lsaquo;&lsaquo;&lsaquo;</span>
+      </a>
+    <?php endif; ?>
+  </div>
+  <div class="middle col-xs-10">
+    <div class="chapter">
+      <!--Chapter <?php print $groupToShow; ?>: --><?php echo $qg; ?>
+    </div>
+    <div class="location">
+      <?php print $questLocation; ?>
+    </div>
+  </div>
+  <div class="right col-xs-1">
+    <?php if (isset($qgn)): ?>
+        <a href="/<?php echo $qgn; ?>">
+            <span class="arrows bigbig">&rsaquo;&rsaquo;&rsaquo;</span>
+        </a>
+    <?php endif; ?>
+  </div>
 </div>

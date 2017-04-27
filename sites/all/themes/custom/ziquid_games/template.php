@@ -3,7 +3,7 @@
 /**/
 function ziquid_games_preprocess_html(&$variables) {
 
-// viewport
+  // Mobile viewport.
   $meta_viewport = array(
     '#type' => 'html_tag',
     '#tag' => 'meta',
@@ -12,8 +12,15 @@ function ziquid_games_preprocess_html(&$variables) {
       'content' =>  'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
     )
   );
-
   drupal_add_html_head($meta_viewport, 'meta_viewport');
+
+  drupal_add_js('//code.jquery.com/ui/1.12.1/jquery-ui.js');
+  drupal_add_css('//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css', array('type' => 'external'));
+  // Include jQuery Mobile stylesheets.
+//  drupal_add_css('//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css');
+
+  // Include the jQuery Mobile library.
+//  drupal_add_js('//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js');
 
   // Include Roboto font from Google.
   $font = array(
@@ -46,7 +53,7 @@ function ziquid_games_preprocess_html(&$variables) {
  */
 function ziquid_games_preprocess_page(&$vars) {
   // Is the first content block the game header?  Move to the header region.
-  $first_block = $vars['page']['content']['system_main'][0];
+  $first_block = @$vars['page']['content']['system_main'][0];
   if ($first_block['#theme'] == 'game_header') {
     $vars['page']['header'] = array(
       'header' => array(
