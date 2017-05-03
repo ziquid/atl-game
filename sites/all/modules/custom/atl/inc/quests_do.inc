@@ -1,19 +1,21 @@
 <?php
 
 /**
- * @file inc/quests_list.inc
+ * @file inc/quests_do.inc
  */
 
 /**
- * Home page callback function.
+ * Home page callback function.  Do a quest.
  *
  * @param \stdClass $game_user
  *   The game user object.
+ * @param int $questId
+ *   The ID of the quest to perform.
  *
  * @return array
  *   A render array.
  */
-function game_quests_list_callback($game_user) {
+function game_quests_do_callback($game_user, $questId) {
 
   // Don't let them do quests at levels 6-25 without being in a party.
   if ($game_user->fkey_values_id == 0 && $game_user->level >= 6 &&
@@ -25,85 +27,29 @@ function game_quests_list_callback($game_user) {
   $phone_id = $game_user->phone_id;
   db_set_active('game');
 
-  $arr = array(
-    array(
-      '#theme' => 'game_header',
-      '#game_user' => $game_user,
-    )
-  );
+//  if ($event_type == EVENT_QUESTS_100)
+//    $game_quest->required_energy = min($game_quest->required_energy, 100);
 
-  // Which quest group to show.
-  $group_to_show = 0;
-  if (is_numeric(arg(3)) && $game_user->level >= 6) {
-    $group_to_show = arg(3);
+  $questSucceeded = TRUE;
+  $outcomeHtml = '<div class="quest-succeeded">' .
+    t('Success!') .
+    '</div>';
+  $aiOutput = 'quest-succeeded';
+  $experienceAddedHtml = $moneyAddedHtml = NULL;
+  $moneyAdded = 0;
+
+  // Load the quest from the db.
+  $query = db_select('quests', 'q');
+  $query->leftJoin('quest_completion', 'qc', 'qc.fkey_users_id = :id AND qc.fkey_quests_id = q.id',
+    array(':id' => $game_user->id));
+  $query->condition('q.id', $questId)
+    ->fields('qc', array('percent_complete'))
+    ->fields('q');
+  if ($phone_id != 'abc123') {
+    $query->condition('q.active', 1);
   }
-  else {
-    $group_to_show = $game_user->fkey_last_played_quest_groups_id;
-  }
-  $sql_quest_neighborhood = 'where `group` = ' . $group_to_show;
-
-  // @todo: Quests menu.
-  if (FALSE || $game_user->level >= 6) {
-
-    if ($group_to_show >= 1000) {
-      $merch_active = '';
-      $lehite_active = '';
-    } elseif ($group_to_show >= 100) {
-      $merch_active = 'active';
-      $lehite_active = '';
-    } else {
-      $merch_active = '';
-      $lehite_active = 'active';
-    }
-
-    $sql = 'select quantity from `equipment_ownership` where
-      fkey_equipment_id = 36 and fkey_users_id = %d;';
-    $result = db_query($sql, $game_user->id);
-    $data = db_fetch_object($result);
-
-    if ($game_user->fkey_values_id == 5 || $data->quantity > 0) {
-      $merch_url = '/' . $game . '/quests/' . $arg2 . '/100';
-    } else {
-      $merch_url = '#';
-    }
-
-    echo <<< EOF
-<div class="news">
-  <a href="/$game/quests/$arg2/0" class="button $lehite_active">Lehites</a>
-  <a href="$merch_url"
-    class="button $merch_active">Merchants</a>
-</div>
-EOF;
-
-  }
-
-  // Show more welcome text for new user.
-  if ($game_user->experience == 0) {
-    $arr[] = array(
-      '#theme' => 'quests_welcome_text'
-    );
-  }
-
-  // Show help text for almost new user.
-  if ($game_user->experience > 0 && $game_user->level < 6) {
-    $arr[] = array(
-      '#theme' => 'quests_help_text',
-      '#game_user' => $game_user,
-    );
-  }
-
-  $arr[] = array(
-    '#theme' => 'show_goal',
-    '#game_user' => $game_user,
-  );
-
-  // Party welcome message.
-  if (!game_get_value($game_user, 'seen_party_welcome', FALSE) && $game_user->level >= 6) {
-    $arr[] = array(
-      '#theme' => 'party_welcome',
-    );
-    game_set_value($game_user, 'seen_party_welcome', TRUE);
-  }
+  $quest = $query->execute()->fetchObject();
+  $group_to_show = $quest->fkey_quest_groups_id;
 
   // Quest group names.
   $query = db_select('quest_groups', 'qg')
@@ -135,16 +81,6 @@ EOF;
 //  $location = str_replace('%location', $location, $qg);
 //  if ($game_user->level < 6) $location = '';
 
-  $arr[] = array(
-    '#theme' => 'quests_header',
-    '#game_user' => $game_user,
-    '#qg' => $qg,
-    '#qgo' => $qgo,
-    '#qgn' => $qgn,
-    '#groupToShow' => $group_to_show,
-    '#questLocation' => $game_user->location,
-  );
-
   // Get quest and quest group completion stats.
   $query = db_select('quests', 'q');
   $query->leftJoin('quest_completion', 'qc', 'qc.fkey_quests_id = q.id AND qc.fkey_users_id = :id',
@@ -172,7 +108,61 @@ EOF;
     $percentage_divisor = 2;
     $questGroup->completed -= ($questGroup->total * min($questGroup->timesCompleted, 1));
   }
-//  dpm($questGroup);
+
+  if ($questSucceeded) {
+    competency_gain($game_user, 'quester');
+
+    $old_energy = $game_user->energy;
+    $game_user->energy -= $quest->required_energy;
+    $game_user->experience += $quest->experience;
+    $moneyAdded = mt_rand($quest->min_money, $quest->max_money);
+    $game_user->money += $moneyAdded;
+    $moneyAddedHtml = "+$moneyAdded";
+    $experienceAddedHtml = "+$quest->experience";
+
+  }
+
+  $arr = array(
+    array(
+      '#theme' => 'game_header',
+      '#game_user' => $game_user,
+    )
+  );
+
+  // Show help text for almost new user.
+  if ($game_user->experience > 0 && $game_user->level < 6) {
+    $arr[] = array(
+      '#theme' => 'quests_help_text',
+      '#game_user' => $game_user,
+    );
+  }
+
+  $arr[] = array(
+    '#theme' => 'show_goal',
+    '#game_user' => $game_user,
+  );
+
+  $arr[] = array(
+    '#theme' => 'quest',
+    '#game_user' => $game_user,
+    '#quest' => $quest,
+    '#percentageTarget' => $percentage_target,
+    '#percentageDivisor' => $percentage_divisor,
+    '#questGroup' => $questGroup,
+    '#outcome' => $outcomeHtml,
+    '#experienceAddedHtml' => $experienceAddedHtml,
+    '#moneyAddedHtml' => $moneyAddedHtml,
+  );
+
+  $arr[] = array(
+    '#theme' => 'quests_header',
+    '#game_user' => $game_user,
+    '#qg' => $qg,
+    '#qgo' => $qgo,
+    '#qgn' => $qgn,
+    '#groupToShow' => $group_to_show,
+    '#questLocation' => $game_user->location,
+  );
 
   $arr[] = array(
     '#theme' => 'quest_group_completion',

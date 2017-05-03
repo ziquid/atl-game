@@ -1,22 +1,10 @@
 <?php
 
-  dpm($user_to_show, 'user to show');
-  return;
+//  dpm($user_to_show, 'user to show');
+//  return;
 
-  global $game, $phone_id, $next_level;
-
-  $fetch_user = '_' . arg(0) . '_fetch_user';
-  $fetch_header = '_' . arg(0) . '_header';
-
-  $game_user = $fetch_user();
-  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
-  $fetch_header($game_user);
-  $arg2 = check_plain(arg(2));
-  $arg3 = check_plain(arg(3));
-
-  if (empty($game_user->username))
-    drupal_goto($game . '/choose_name/' . $arg2);
-
+//  global $game, $phone_id, $next_level;
+/*
   _show_profile_menu($game_user);
 
   $phone_id_to_check = $phone_id;
@@ -176,23 +164,23 @@ mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to me
 
     }
 
-    if ($get_jol) { // they get one!
-/*
-      $sql = 'insert into jols (fkey_users_from_id, fkey_users_to_id)
-        values (%d, %d);';
-      $result = db_query($sql, $game_user->id, $item->id);
+//    if ($get_jol) { // they get one!
 
-      $sql = 'update equipment_ownership set quantity = quantity + 1
-        where fkey_equipment_id = 27 and fkey_users_id = %d;';
-      $result = db_query($sql, $game_user->id);
-*/
+//      $sql = 'insert into jols (fkey_users_from_id, fkey_users_to_id)
+//        values (%d, %d);';
+//      $result = db_query($sql, $game_user->id, $item->id);
+
+//      $sql = 'update equipment_ownership set quantity = quantity + 1
+//        where fkey_equipment_id = 27 and fkey_users_id = %d;';
+//      $result = db_query($sql, $game_user->id);
+//
 // mail('joseph@cheek.com', $game_user->username . ' gave a JoL message',
 //  'to ' . $item->username);
 
-      echo '<div class="title">Sorry!</div>
-        <div class="subtitle">We are out of Jack-O\'-Lanterns!</div>';
+//      echo '<div class="title">Sorry!</div>
+//        <div class="subtitle">We are out of Jack-O\'-Lanterns!</div>';
 
-    }
+//    }
 
   }
 
@@ -215,21 +203,22 @@ mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to me
         '/' . $game_user->fkey_clans_id . '">' . $clan_link . '</a>';
 
     }
-
-  echo <<< EOF
-<div class="title">
-  $item->ep_name <span class="username">$item->username</span> $clan_acronym
+*/
+?>
+<h1 class="title">
+  <?php echo $user_to_show->ep_name; ?> <span class="username"><?php echo $user_to_show->username; ?></span> $clan_acronym
 </div>
 <div class="user-profile">
-  <div class="heading">$politics:</div>
+  <div class="heading"><?php ge('@Politics'); ?>:</div>
   <div class="clan-icon"><img width="24"
     src="/sites/default/files/images/$icon"/></div>
   <div class="value">$party_title</div><br/>
   <div class="heading">Clan:</div>
   $party_icon_html
   <div class="value">$clan_link</div><br/>
-EOF;
+<?php
 
+/*
   if ($phone_id_to_check == $phone_id) { // show more stats if it's you
 
     echo <<< EOF
@@ -290,14 +279,13 @@ EOF;
     $result = db_query($sql, $item->fkey_clans_id);
     $clans_equipment_bonus = db_fetch_object($result);
 
-/*
 // memorial day promo -- every 250 vets = extra vote
-    $sql = 'SELECT quantity
-      FROM staff_ownership
-      WHERE fkey_users_id = %d AND fkey_staff_id = 7;';
-    $result = db_query($sql, $item->id);
-    $vet_bonus = db_fetch_object($result);
-*/
+//    $sql = 'SELECT quantity
+//      FROM staff_ownership
+//      WHERE fkey_users_id = %d AND fkey_staff_id = 7;';
+//    $result = db_query($sql, $item->id);
+//    $vet_bonus = db_fetch_object($result);
+
     $extra_initiative = $staff_bonus->initiative +
       $equipment_bonus->initiative + 0;
     $extra_endurance = $staff_bonus->endurance + $equipment_bonus->endurance
@@ -321,13 +309,11 @@ EOF;
     0 ($clan_defense)</div><br/>
 EOF;
 
-/*
-<div class="heading">Extra Votes:</div>
-  <div class="value">$extra_votes<!-- + $extra_vet_votes--></div><br/>
-  <div class="heading">Extra Def. Votes:</div>
-  <div class="value">$extra_defending_votes<!-- + $extra_vet_votes--></div><br/>
+//<div class="heading">Extra Votes:</div>
+//  <div class="value">$extra_votes<!-- + $extra_vet_votes--></div><br/>
+//  <div class="heading">Extra Def. Votes:</div>
+//  <div class="value">$extra_defending_votes<!-- + $extra_vet_votes--></div><br/>
 EOF;
-*/
 
     echo <<< EOF
   <div class="heading">$elocution:</div>
@@ -437,16 +423,16 @@ EOF;
   }
 
   if ($show_all && $game == 'stlouis') { // valentine's day massacre
-/*
-    echo <<< EOF
-<span class="event-status">
-<div class="heading">Event Points:</div>
-<div class="value">$points (Rank: $rank)</div><br/>
-<!--<div class="heading">Current status:</div>
-<div class="value">$event_status</div><br/>-->
-</span>
-EOF;
-*/
+
+//    echo <<< EOF
+//<span class="event-status">
+//<div class="heading">Event Points:</div>
+//<div class="value">$points (Rank: $rank)</div><br/>
+//<!--<div class="heading">Current status:</div>
+//<div class="value">$event_status</div><br/>-->
+//</span>
+//EOF;
+
   }
 
   echo <<< EOF
@@ -634,5 +620,4 @@ EOF;
     $msg_shown = TRUE;
 
   }
-
-  db_set_active('default');
+*/

@@ -1,8 +1,18 @@
 <div class="quest-outcome">
   <?php print $outcome; ?>
 </div>
-<div class="quest row">
-  <div class="quest-icon col-xs-3">
+<div class="quest
+  <?php if (is_null($experienceAddedHtml)): // Quest to do ?>
+    col-sm-6
+  <?php endif; ?>
+    row">
+  <div class="quest-icon col-xs-4
+    <?php if (is_null($experienceAddedHtml)): // Quest to do ?>
+      col-sm-3
+    <?php else: ?>
+      col-sm-2
+    <?php endif; ?>
+      ">
     <a href="/<?php echo $game; ?>/quests_do/<?php echo $arg2; ?>/<?php echo $quest->id; ?>">
       <img src="<?php echo $img; ?>"/>
     </a>
@@ -18,18 +28,24 @@
     </div>
 
   </div>
-  <div class="quest-details col-xs-8 pull-right">
+  <div class="quest-details col-xs-8
+    <?php if (is_null($experienceAddedHtml)): // Quest to do ?>
+      col-sm-9
+    <?php else: ?>
+      col-sm-10
+    <?php endif; ?>
+    pull-right">
 <!--    <div class="quest-num">$item->group.$seq_num</div>-->
-    <div class="quest-name">
+    <h2 class="quest-name">
       <a href="/<?php echo $game; ?>/quests_do/<?php echo $arg2; ?>/<?php echo $quest->id; ?>">
         <?php echo $quest->name; ?> <?php echo $active; ?>
       </a>
-    </div>
-    <div class="quest-description">
+    </h2>
+    <p class="quest-description">
 <!--        $laquo --><?php echo $quest->description; ?><!-- $raquo-->
-    </div>
+    </p>
 
-    <?php if (empty($experienceAddedHtml)): // Quest to do ?>
+    <?php if (is_null($experienceAddedHtml)): // Quest to do ?>
 
       <div class="quest-requisites">
         <?php ge('@Requisites'); ?>
@@ -55,12 +71,6 @@
         $item->equipment_3_required_quantity +
         $item->clan_equipment_1_required_quantity +
         $item->staff_required_quantity > 0) {
-
-        echo <<< EOF
-        <div class="quest-requisites">
-            // Requisites //
-        </div>
-        EOF;
 
         // required land
 
@@ -169,29 +179,25 @@
     <?php else: // Quest done ?>
 
       <div class="quest-requisites">
-        // Consumed By You //
+        Consumed By You
       </div>
       <div class="quest-required quest-required_energy">
-        <?php echo $quest->required_energy; ?> $energy
+        <?php echo $quest->required_energy; ?> <?php ge('@Energy'); ?>
       </div>
-      $consumption_html
+      <!--$consumption_html-->
       <div class="quest-disbursements">
-        // Disbursed To You //
+        Disbursed To You
       </div>
       <div class="quest-disbursed quest-experience">
-        $exp_added_str $experience $disbursements_doubled
+        <?php echo $experienceAddedHtml; ?> <?php ge('@Experience'); ?> $disbursements_doubled
       </div>
       <div class="quest-disbursed quest-experience">
-        $money_added_str $game_user->values $disbursements_doubled
+        <?php echo $moneyAddedHtml; ?> <?php echo $game_user->values_name; ?> $disbursements_doubled
       </div>
-    </div>
-    $disbursement_html
-    $quest_completion_html
-    <div class="quest-do-again">
-      <div class="quest-do-again-inside">
-        <a href="/<?php echo $game; ?>/quests_do/<?php echo $arg2; ?>/<?php echo $quest->id; ?>">
-          Do Again
-        </a>
+<!--      $disbursement_html-->
+<!--      $quest_completion_html-->
+      <div class="quest-slider" data-quest-do-url="/<?php echo $game; ?>/quests_do/<?php echo $arg2; ?>/<?php echo $quest->id; ?>">
+        <div class="ui-slider-handle"></div>
       </div>
 
     <?php endif; // Quest to do or done ?>

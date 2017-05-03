@@ -1,5 +1,17 @@
-body.page-atl-quests {
+body.page-atl-quests, body.page-atl-quests-do {
 
+  .quest-outcome {
+    font-size: 180%;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    color: @game-yellow;
+    margin: 10px 1px 8px;
+    text-align: center;
+    text-transform: uppercase;
+    .quest-succeeded {
+      color: @game-green;
+    }
+  }
   .quest-header {
     /*
     margin: 4px;
@@ -31,9 +43,10 @@ body.page-atl-quests {
       text-align: center;
     }
     .chapter {
-      font-size: 125%;
+      font-size: 150%;
       font-weight: bold;
       color: @game-yellow;
+      margin: 1px;
     }
     .location {
       font-size: 80%;

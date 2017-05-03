@@ -9,6 +9,10 @@
  */
 function game_user_callback($game_user) {
 
+  if (empty($game_user->username)) {
+//    game_goto('choose_name');
+  }
+
   $arg3 = check_plain(arg(3));
   if (is_numeric($arg3)) {
     $arg3 = intval($arg3);
@@ -19,6 +23,10 @@ function game_user_callback($game_user) {
   db_set_active('default');
 
   return array(
+    array(
+      '#theme' => 'game_header',
+      '#game_user' => $game_user,
+    ),
     array(
       '#theme' => 'game_user',
       '#game_user' => $game_user,

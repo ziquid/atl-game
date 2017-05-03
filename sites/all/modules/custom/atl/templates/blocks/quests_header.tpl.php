@@ -7,9 +7,9 @@
     <?php endif; ?>
   </div>
   <div class="middle col-xs-10">
-    <div class="chapter">
+    <h1 class="chapter">
       <!--Chapter <?php print $groupToShow; ?>: --><?php echo $qg; ?>
-    </div>
+    </h1>
     <div class="location">
       <?php print $questLocation; ?>
     </div>

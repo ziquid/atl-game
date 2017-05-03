@@ -58,6 +58,15 @@ function atl_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['atl/quests_do/%game_user/%'] = array(
+    'title' => 'Game Quests Do',
+    'page callback' => 'game_quests_do_callback',
+    'page arguments' => array(2, 3),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/quests_do.inc',
+    'type' => MENU_CALLBACK,
+  );
+
   $items['atl/user/%game_user'] = array(
     'title' => 'Game User Profile Page',
     'page callback' => 'game_user_callback',
@@ -167,14 +176,6 @@ function atl_menu() {
   $items['atl/increase_skills/%/%'] = array(
     'title' => 'USL2 Increase Skills Page',
     'page callback' => 'usl2_increase_skills_callback',
-    'page arguments' => array(2, 3),
-    'access arguments' => array('access atl content'),
-    'type' => MENU_CALLBACK,
-  );
-
-  $items['atl/quests_do/%/%'] = array(
-    'title' => 'USL2 Quests Do',
-    'page callback' => 'usl2_quests_do_callback',
     'page arguments' => array(2, 3),
     'access arguments' => array('access atl content'),
     'type' => MENU_CALLBACK,
@@ -1400,6 +1401,14 @@ function atl_theme($existing, $type, $theme, $path) {
       ),
     ),
 
+    'game_quests_do' => array(
+      'template' => 'templates/pages/quests_do',
+      'variables' => array(
+        'game_user' => NULL,
+        'quests' => array(),
+      ),
+    ),
+
     'game_too_new_for_home' => array(
       'template' => 'templates/pages/too_new_for_home',
       'variables' => array(
@@ -1434,7 +1443,9 @@ function atl_theme($existing, $type, $theme, $path) {
         'percentageTarget' => 100,
         'percentageDivisor' => 1,
         'questGroup' => NULL,
-        'outcome' => 'FIXME No Outcome',
+        'outcome' => NULL,
+        'experienceAddedHtml' => NULL,
+        'moneyAddedHtml' => NULL,
       ),
     ),
 
@@ -1455,13 +1466,14 @@ function atl_theme($existing, $type, $theme, $path) {
         'qgn' => NULL,
         'groupToShow' => 0,
         'questLocation' => NULL,
-        'experienceAddedHtml' => NULL,
       ),
     ),
 
     'quests_help_text' => array(
       'template' => 'templates/blocks/quests_help_text',
-      'variables' => array(),
+      'variables' => array(
+        'game_user' => NULL,
+      ),
     ),
 
     'quests_welcome_text' => array(

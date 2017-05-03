@@ -11,6 +11,10 @@ function game_welcome_callback($game_id) {
 
   db_set_active('game');
 
+  $game_user = game_user_load($game_id);
+  if (isset($game_user->phone_id)) {
+    game_goto('home');
+  }
   // Check to make sure not too many from the same IP address.
   $query = db_select('user_attributes', 'ua')
     ->condition('ua.k', 'last_IP', '=')

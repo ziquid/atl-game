@@ -5,10 +5,10 @@ $arg2 = check_plain(arg(2));
 $link = $game . '/' . $link . '/' . $arg2 . $extra_link;
 
 ?>
-<div class="game-button-exterior center-block">
-  <h2 class="game-button-interior game-button-<?php echo drupal_html_class($type); ?>">
+<button class="game-button-exterior center-block">
+  <span class="game-button-interior game-button-<?php echo drupal_html_class($type); ?>">
     <a href="/<?php echo $link;?>">
       <?php echo $type; ?> &raquo;
     </a>
-  </h2>
-</div>
+  </span>
+</button>

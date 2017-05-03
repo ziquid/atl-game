@@ -28,15 +28,18 @@
   }
 
   $gameText = array(
-    '@actions' => 'Actions',
+    '@Actions' => 'Actions',
+    '@actions' => 'actions',
     '@Disbursements' => 'Disbursements',
     '@disbursements' => 'disbursements',
-    '@energy' => 'Energy',
+    '@Energy' => 'Energy',
+    '@energy' => 'energy',
     '@Experience' => 'Experience',
     '@experiece' => 'experience',
     '@party' => 'Political Party',
     '@party_small' => 'Party',
-    '@quest' => 'Mission',
+    '@Quest' => 'Mission',
+    '@quest' => 'mission',
     '@Requisites' => 'Requirements',
     '@requisites' => 'requirements',
   );

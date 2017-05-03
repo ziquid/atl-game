@@ -1,35 +1,186 @@
-.welcome {
-  margin: 2px;
-  margin-top: 10px;
-  padding: 3px;
-  border: 2px solid @game-red;
-  border-radius: 6px;
-  min-height: 160px;
-  position: relative;
-  ul {
-    display: table;
-    -webkit-padding-start: 12px;
+
+footer {
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0.40;
+  img {
+    width: 40%;
   }
-  /*
-  &:hover:before {
-    content: "FIXME Welcome";
+  .design-studio {
+    top: -0.3em;
+    position: relative;
+    letter-spacing: 0.25em;
   }
-  &:before {
-    content: "FIXME";
-    position: absolute;
-    top: -22px;
-    right: 8px;
+  .turf-wars-atlanta {
+    .turf-wars, .atlanta {
+      letter-spacing: 0.25em;
+      display: inline-block;
+    }
+    .atlanta {
+      font-weight: bold;
+      //color: @game-red;
+    }
+  }
+}
+
+h1 {
+
+}
+
+h2 {
+
+}
+
+h3 {
+  text-align: center;
+  font-family: @font-family-serif;
+  font-weight: bold;
+  margin-top: 9px;
+  margin-bottom: 7px;
+  &.title {
+    text-transform: capitalize;
+  }
+}
+
+h4 {
+  text-align: center;
+  font-family: @font-family-serif;
+  font-weight: bold;
+  margin-top: 7px;
+  margin-bottom: 6px;
+  &.title {
+    text-transform: capitalize;
+  }
+}
+
+h5 {
+  text-align: center;
+  font-family: @font-family-serif;
+  margin-top: 6px;
+  margin-bottom: 5px;
+}
+
+header {
+  .money {
+    background-color: @game-red-bg;
+  }
+  .actions {
+    background-color: @game-green-bg;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .experience {
+    background-color: @game-blue-bg;
+    text-align: right;
+  }
+  .energy {
+    background-color: @game-red-bg;
+    text-transform: capitalize;
+  }
+  .home {
+    text-align: center;
+  }
+  .level {
+    background-color: @game-blue-bg;
+    text-align: right;
+  }
+}
+
+li {
+  color: @game-white;
+  list-style-image: url(//placehold.it/5x5/ee0000/ffffff);
+}
+
+p {
+  font-size: 11pt;
+  &.quote {
+    font-size: 13pt;
+    font-family: @font-family-serif;
     font-weight: bold;
-    font-size: 12pt;
-    background-color: black;
-    margin: 4px;
-    padding: 3px 16px;
-    border: 2px dashed @game-red;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
+    color: @game-yellow;
   }
-  */
+  &.quote:before {
+    content: open-quote;
+  }
+  &.quote:after {
+    content: no-close-quote;
+  }
+  &.quote:last-child:after {
+    content: close-quote !important;
+  }
+}
+
+ul {
+  -webkit-padding-start: 24px;
+  color: @game-red;
+}
+
+.alert-success {
+  background-color: @game-green-bg;
+  color: @game-white;
+}
+
+.arrows {
+  line-height: 1.0;
+}
+
+.big {
+  font-size: 200%;
+}
+
+.bigbig {
+  font-size: 250%;
+}
+
+.choose-party-name img {
+  width: 32px;
+}
+
+.choose-party-slogan {
+  margin-left: 40px;
+  margin-bottom: 8px;
+}
+
+.elder-image {
+  width: 96px;
+  height: 144px;
+  //background: url(/sites/default/files/images/stlouis_elder.png) top left no-repeat;
+  background: url(//placeholdit.imgix.net/~text?txtsize=20&txt=City+Elder&w=96&h=144&txttrack=1) top left no-repeat;
+  font-size: 0px;
+  display: inline-block;
+  background-size: 96px 144px;
+  float: left;
+  margin-right: 12px;
+  margin-bottom: 8px;
+}
+
+.error {
+  background-color: @game-red-bg !important;
+}
+
+.game-button-exterior {
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  background-color: inherit;
+  border: 0;
+}
+
+.game-button-interior {
+  color: @game-green !important;
+  text-align: center;
+  font-family: @font-family-serif;
+  font-size: 21px;
+  font-weight: bold;
+  -webkit-mask-image: url(//themes.googleusercontent.com/static/patterns/putting-green.png);
+  margin: 20px;
+  padding: 6px 20px 8px;
+  text-transform: uppercase;
+  border: 1px solid rgba(238, 23, 0, 0.7);
+  background-color: rgba(238, 23, 0, 0.5);
+  border-radius: 6px;
+  display: inline-block;
+  text-shadow: 1px 1px @game-red;
 }
 
 .goals {
@@ -63,11 +214,15 @@
   }
 }
 
-.elder-image {
+.krumo-root li {
+  color: @game-black;
+}
+
+.phone-image {
   width: 96px;
   height: 144px;
   //background: url(/sites/default/files/images/stlouis_elder.png) top left no-repeat;
-  background: url(//placeholdit.imgix.net/~text?txtsize=20&txt=City+Elder&w=96&h=144&txttrack=1) top left no-repeat;
+  background: url(//placeholdit.imgix.net/~text?txtsize=20&txt=Cell+Phone&w=96&h=144&txttrack=1) top left no-repeat;
   font-size: 0px;
   display: inline-block;
   background-size: 96px 144px;
@@ -76,172 +231,43 @@
   margin-bottom: 8px;
 }
 
-h2 {
-  color: @game-green !important;
-  text-align: center;
-  font-family: @font-family-serif;
-  font-weight: bold;
-  text-transform: capitalize;
-  -webkit-mask-image: url(//themes.googleusercontent.com/static/patterns/putting-green.png);
-  margin-top: 12px;
-  margin-bottom: 9px;
-}
-
-h3 {
-  text-align: center;
-  font-family: @font-family-serif;
-  font-weight: bold;
-  margin-top: 9px;
-  margin-bottom: 7px;
-  &.title {
-    text-transform: capitalize;
-  }
-}
-
-h4 {
-  text-align: center;
-  font-family: @font-family-serif;
-  font-weight: bold;
-  margin-top: 7px;
-  margin-bottom: 6px;
-  &.title {
-    text-transform: capitalize;
-  }
-}
-
-h5 {
-  text-align: center;
-  font-family: @font-family-serif;
-  margin-top: 6px;
-  margin-bottom: 5px;
-}
-
-ul {
-  -webkit-padding-start: 24px;
-  color: @game-red;
-}
-
-li {
-  color: @game-white;
-  list-style-image: url(//placehold.it/5x5/ee0000/ffffff);
-}
-
-.krumo-root li {
-  color: @game-black;
-}
-
-header {
-  .money {
-    background-color: @game-red-bg;
-  }
-  .actions {
-    background-color: @game-green-bg;
-    text-align: center;
-    text-transform: capitalize;
-  }
-  .experience {
-    background-color: @game-blue-bg;
-    text-align: right;
-  }
-  .energy {
-    background-color: @game-red-bg;
-    text-transform: capitalize;
-  }
-  .home {
-    text-align: center;
-  }
-  .level {
-    background-color: @game-blue-bg;
-    text-align: right;
-  }
-}
-
-footer {
-  text-align: center;
-  text-transform: uppercase;
-  opacity: 0.40;
-  img {
-    width: 40%;
-  }
-  .design-studio {
-    top: -0.3em;
-    position: relative;
-    letter-spacing: 0.25em;
-  }
-  .turf-wars-atlanta {
-    .turf-wars, .atlanta {
-      letter-spacing: 0.25em;
-      display: inline-block;
-    }
-    .atlanta {
-      font-weight: bold;
-      //color: @game-red;
-    }
-  }
-}
-
-.game-button-exterior {
-  width: 100%;
-  text-align: center;
-  display: inline-block;
-}
-
-.game-button-interior {
-  margin: 20px;
-  padding: 6px 20px 8px;
-  text-transform: uppercase;
-  border: 1px solid rgba(238, 23, 0, 0.7);
-  background-color: rgba(238, 23, 0, 0.5);
+.welcome {
+  margin: 2px;
+  margin-top: 10px;
+  padding: 3px;
+  border: 2px solid @game-red;
   border-radius: 6px;
-  display: inline-block;
-  text-shadow: 1px 1px @game-red;
-}
-
-.alert-success {
-  background-color: @game-green-bg;
-  color: @game-white;
-}
-
-.choose-party-name img {
-  width: 32px;
-}
-
-.choose-party-slogan {
-  margin-left: 40px;
-  margin-bottom: 8px;
-}
-
-p {
-  font-size: 11pt;
-  &.quote {
-    font-size: 13pt;
-    font-family: @font-family-serif;
+  min-height: 160px;
+  position: relative;
+  ul {
+    display: table;
+    -webkit-padding-start: 12px;
+    li {
+      font-size: 12pt;
+      //font-family: @font-family-serif;
+      font-weight: bold;
+      color: @game-yellow;
+      margin-bottom: 9px;
+    }
+  }
+  /*
+  &:hover:before {
+    content: "FIXME Welcome";
+  }
+  &:before {
+    content: "FIXME";
+    position: absolute;
+    top: -22px;
+    right: 8px;
     font-weight: bold;
-    color: @game-yellow;
+    font-size: 12pt;
+    background-color: black;
+    margin: 4px;
+    padding: 3px 16px;
+    border: 2px dashed @game-red;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
   }
-  &.quote:before {
-    content: open-quote;
-  }
-  &.quote:after {
-    content: no-close-quote;
-  }
-  &.quote:last-child:after {
-    content: close-quote !important;
-  }
-}
-
-.arrows {
-  line-height: 1.0;
-}
-
-.big {
-  font-size: 200%;
-}
-
-.bigbig {
-  font-size: 250%;
-}
-
-.error {
-  background-color: @game-red-bg !important;
+  */
 }

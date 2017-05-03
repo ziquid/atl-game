@@ -7487,6 +7487,203 @@ body.navbar-tray-open.navbar-vertical.navbar-fixed {
 #navbar-administration.navbar-oriented .navbar-tray-vertical {
   width: 24rem;
 }
+footer {
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0.40;
+}
+footer img {
+  width: 40%;
+}
+footer .design-studio {
+  top: -0.3em;
+  position: relative;
+  letter-spacing: 0.25em;
+}
+footer .turf-wars-atlanta .turf-wars,
+footer .turf-wars-atlanta .atlanta {
+  letter-spacing: 0.25em;
+  display: inline-block;
+}
+footer .turf-wars-atlanta .atlanta {
+  font-weight: bold;
+}
+h3 {
+  text-align: center;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+  font-weight: bold;
+  margin-top: 9px;
+  margin-bottom: 7px;
+}
+h3.title {
+  text-transform: capitalize;
+}
+h4 {
+  text-align: center;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+  font-weight: bold;
+  margin-top: 7px;
+  margin-bottom: 6px;
+}
+h4.title {
+  text-transform: capitalize;
+}
+h5 {
+  text-align: center;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+  margin-top: 6px;
+  margin-bottom: 5px;
+}
+header .money {
+  background-color: rgba(238, 0, 0, 0.33);
+}
+header .actions {
+  background-color: rgba(51, 170, 0, 0.33);
+  text-align: center;
+  text-transform: capitalize;
+}
+header .experience {
+  background-color: #005fa7;
+  text-align: right;
+}
+header .energy {
+  background-color: rgba(238, 0, 0, 0.33);
+  text-transform: capitalize;
+}
+header .home {
+  text-align: center;
+}
+header .level {
+  background-color: #005fa7;
+  text-align: right;
+}
+li {
+  color: #eee8e0;
+  list-style-image: url(//placehold.it/5x5/ee0000/ffffff);
+}
+p {
+  font-size: 11pt;
+}
+p.quote {
+  font-size: 13pt;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+  font-weight: bold;
+  color: #eedd22;
+}
+p.quote:before {
+  content: open-quote;
+}
+p.quote:after {
+  content: no-close-quote;
+}
+p.quote:last-child:after {
+  content: close-quote !important;
+}
+ul {
+  -webkit-padding-start: 24px;
+  color: #ee0000;
+}
+.alert-success {
+  background-color: rgba(51, 170, 0, 0.33);
+  color: #eee8e0;
+}
+.arrows {
+  line-height: 1.0;
+}
+.big {
+  font-size: 200%;
+}
+.bigbig {
+  font-size: 250%;
+}
+.choose-party-name img {
+  width: 32px;
+}
+.choose-party-slogan {
+  margin-left: 40px;
+  margin-bottom: 8px;
+}
+.elder-image {
+  width: 96px;
+  height: 144px;
+  background: url(//placeholdit.imgix.net/~text?txtsize=20&txt=City+Elder&w=96&h=144&txttrack=1) top left no-repeat;
+  font-size: 0px;
+  display: inline-block;
+  background-size: 96px 144px;
+  float: left;
+  margin-right: 12px;
+  margin-bottom: 8px;
+}
+.error {
+  background-color: rgba(238, 0, 0, 0.33) !important;
+}
+.game-button-exterior {
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  background-color: inherit;
+  border: 0;
+}
+.game-button-interior {
+  color: #33aa00 !important;
+  text-align: center;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+  font-size: 21px;
+  font-weight: bold;
+  -webkit-mask-image: url(//themes.googleusercontent.com/static/patterns/putting-green.png);
+  margin: 20px;
+  padding: 6px 20px 8px;
+  text-transform: uppercase;
+  border: 1px solid rgba(238, 23, 0, 0.7);
+  background-color: rgba(238, 23, 0, 0.5);
+  border-radius: 6px;
+  display: inline-block;
+  text-shadow: 1px 1px #ee0000;
+}
+.goals {
+  margin: 4px;
+  margin-top: 10px;
+  padding: 6px;
+  border: 2px dashed #ee0000;
+  border-radius: 6px;
+  position: relative;
+}
+.goals ul {
+  display: table;
+  -webkit-padding-start: 12px;
+}
+.goals:hover:before {
+  content: "FIXME Goals";
+}
+.goals:before {
+  content: "FIXME";
+  position: absolute;
+  top: -22px;
+  right: 8px;
+  font-weight: bold;
+  font-size: 12pt;
+  background-color: black;
+  margin: 4px;
+  padding: 3px 16px;
+  border: 2px dashed #ee0000;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.krumo-root li {
+  color: #020202;
+}
+.phone-image {
+  width: 96px;
+  height: 144px;
+  background: url(//placeholdit.imgix.net/~text?txtsize=20&txt=Cell+Phone&w=96&h=144&txttrack=1) top left no-repeat;
+  font-size: 0px;
+  display: inline-block;
+  background-size: 96px 144px;
+  float: left;
+  margin-right: 12px;
+  margin-bottom: 8px;
+}
 .welcome {
   margin: 2px;
   margin-top: 10px;
@@ -7520,195 +7717,28 @@ body.navbar-tray-open.navbar-vertical.navbar-fixed {
   display: table;
   -webkit-padding-start: 12px;
 }
-.goals {
-  margin: 4px;
-  margin-top: 10px;
-  padding: 6px;
-  border: 2px dashed #ee0000;
-  border-radius: 6px;
-  position: relative;
-}
-.goals ul {
-  display: table;
-  -webkit-padding-start: 12px;
-}
-.goals:hover:before {
-  content: "FIXME Goals";
-}
-.goals:before {
-  content: "FIXME";
-  position: absolute;
-  top: -22px;
-  right: 8px;
-  font-weight: bold;
+.welcome ul li {
   font-size: 12pt;
-  background-color: black;
-  margin: 4px;
-  padding: 3px 16px;
-  border: 2px dashed #ee0000;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-}
-.elder-image {
-  width: 96px;
-  height: 144px;
-  background: url(//placeholdit.imgix.net/~text?txtsize=20&txt=City+Elder&w=96&h=144&txttrack=1) top left no-repeat;
-  font-size: 0px;
-  display: inline-block;
-  background-size: 96px 144px;
-  float: left;
-  margin-right: 12px;
-  margin-bottom: 8px;
-}
-h2 {
-  color: #33aa00 !important;
-  text-align: center;
-  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
-  font-weight: bold;
-  text-transform: capitalize;
-  -webkit-mask-image: url(//themes.googleusercontent.com/static/patterns/putting-green.png);
-  margin-top: 12px;
-  margin-bottom: 9px;
-}
-h3 {
-  text-align: center;
-  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
-  font-weight: bold;
-  margin-top: 9px;
-  margin-bottom: 7px;
-}
-h3.title {
-  text-transform: capitalize;
-}
-h4 {
-  text-align: center;
-  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
-  font-weight: bold;
-  margin-top: 7px;
-  margin-bottom: 6px;
-}
-h4.title {
-  text-transform: capitalize;
-}
-h5 {
-  text-align: center;
-  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
-  margin-top: 6px;
-  margin-bottom: 5px;
-}
-ul {
-  -webkit-padding-start: 24px;
-  color: #ee0000;
-}
-li {
-  color: #eee8e0;
-  list-style-image: url(//placehold.it/5x5/ee0000/ffffff);
-}
-.krumo-root li {
-  color: #020202;
-}
-header .money {
-  background-color: rgba(238, 0, 0, 0.33);
-}
-header .actions {
-  background-color: rgba(51, 170, 0, 0.33);
-  text-align: center;
-  text-transform: capitalize;
-}
-header .experience {
-  background-color: #005fa7;
-  text-align: right;
-}
-header .energy {
-  background-color: rgba(238, 0, 0, 0.33);
-  text-transform: capitalize;
-}
-header .home {
-  text-align: center;
-}
-header .level {
-  background-color: #005fa7;
-  text-align: right;
-}
-footer {
-  text-align: center;
-  text-transform: uppercase;
-  opacity: 0.40;
-}
-footer img {
-  width: 40%;
-}
-footer .design-studio {
-  top: -0.3em;
-  position: relative;
-  letter-spacing: 0.25em;
-}
-footer .turf-wars-atlanta .turf-wars,
-footer .turf-wars-atlanta .atlanta {
-  letter-spacing: 0.25em;
-  display: inline-block;
-}
-footer .turf-wars-atlanta .atlanta {
-  font-weight: bold;
-}
-.game-button-exterior {
-  width: 100%;
-  text-align: center;
-  display: inline-block;
-}
-.game-button-interior {
-  margin: 20px;
-  padding: 6px 20px 8px;
-  text-transform: uppercase;
-  border: 1px solid rgba(238, 23, 0, 0.7);
-  background-color: rgba(238, 23, 0, 0.5);
-  border-radius: 6px;
-  display: inline-block;
-  text-shadow: 1px 1px #ee0000;
-}
-.alert-success {
-  background-color: rgba(51, 170, 0, 0.33);
-  color: #eee8e0;
-}
-.choose-party-name img {
-  width: 32px;
-}
-.choose-party-slogan {
-  margin-left: 40px;
-  margin-bottom: 8px;
-}
-p {
-  font-size: 11pt;
-}
-p.quote {
-  font-size: 13pt;
-  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
   font-weight: bold;
   color: #eedd22;
+  margin-bottom: 9px;
 }
-p.quote:before {
-  content: open-quote;
+body.page-atl-quests .quest-outcome,
+body.page-atl-quests-do .quest-outcome {
+  font-size: 180%;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  color: #eedd22;
+  margin: 10px 1px 8px;
+  text-align: center;
+  text-transform: uppercase;
 }
-p.quote:after {
-  content: no-close-quote;
+body.page-atl-quests .quest-outcome .quest-succeeded,
+body.page-atl-quests-do .quest-outcome .quest-succeeded {
+  color: #33aa00;
 }
-p.quote:last-child:after {
-  content: close-quote !important;
-}
-.arrows {
-  line-height: 1.0;
-}
-.big {
-  font-size: 200%;
-}
-.bigbig {
-  font-size: 250%;
-}
-.error {
-  background-color: rgba(238, 0, 0, 0.33) !important;
-}
-body.page-atl-quests .quest-header {
+body.page-atl-quests .quest-header,
+body.page-atl-quests-do .quest-header {
   /*
     margin: 4px;
     margin-top: 10px;
@@ -7736,19 +7766,24 @@ body.page-atl-quests .quest-header {
     }
     */
 }
-body.page-atl-quests .quest-header .middle {
+body.page-atl-quests .quest-header .middle,
+body.page-atl-quests-do .quest-header .middle {
   text-align: center;
 }
-body.page-atl-quests .quest-header .chapter {
-  font-size: 125%;
+body.page-atl-quests .quest-header .chapter,
+body.page-atl-quests-do .quest-header .chapter {
+  font-size: 150%;
   font-weight: bold;
   color: #eedd22;
+  margin: 1px;
 }
-body.page-atl-quests .quest-header .location {
+body.page-atl-quests .quest-header .location,
+body.page-atl-quests-do .quest-header .location {
   font-size: 80%;
   color: rgba(238, 232, 224, 0.6);
 }
-body.page-atl-quests .quest-group-completion {
+body.page-atl-quests .quest-group-completion,
+body.page-atl-quests-do .quest-group-completion {
   /*
     margin: 4px;
     margin-top: 10px;
@@ -7778,7 +7813,8 @@ body.page-atl-quests .quest-group-completion {
   margin: 8px 6px 6px;
   text-align: center;
 }
-body.page-atl-quests .quest {
+body.page-atl-quests .quest,
+body.page-atl-quests-do .quest {
   /*
     margin: 4px;
     margin-top: 10px;
@@ -7810,11 +7846,13 @@ body.page-atl-quests .quest {
   border-radius: 6px;
   padding: 3px;
 }
-body.page-atl-quests .quest .quest-icon img {
+body.page-atl-quests .quest .quest-icon img,
+body.page-atl-quests-do .quest .quest-icon img {
   width: 96px;
   height: 144px;
 }
-body.page-atl-quests .quest-details {
+body.page-atl-quests .quest-details,
+body.page-atl-quests-do .quest-details {
   /*
     margin: 4px;
     margin-top: 10px;
@@ -7842,17 +7880,21 @@ body.page-atl-quests .quest-details {
     }
     */
 }
-body.page-atl-quests .quest-details .quest-name {
+body.page-atl-quests .quest-details .quest-name,
+body.page-atl-quests-do .quest-details .quest-name {
   font-size: 140%;
   font-weight: bold;
   margin: 2px 0;
 }
-body.page-atl-quests .quest-details .quest-description {
+body.page-atl-quests .quest-details .quest-description,
+body.page-atl-quests-do .quest-details .quest-description {
   font-size: 120%;
   margin: 4px 0 8px;
 }
 body.page-atl-quests .quest-details .quest-requisites,
-body.page-atl-quests .quest-details .quest-disbursements {
+body.page-atl-quests-do .quest-details .quest-requisites,
+body.page-atl-quests .quest-details .quest-disbursements,
+body.page-atl-quests-do .quest-details .quest-disbursements {
   margin: 2px 0;
   padding: 0 6px;
   border: 2px solid rgba(238, 0, 0, 0.33);
@@ -7863,7 +7905,8 @@ body.page-atl-quests .quest-details .quest-disbursements {
   display: inline-block;
   font-weight: bold;
 }
-body.page-atl-quests .progress {
+body.page-atl-quests .progress,
+body.page-atl-quests-do .progress {
   width: 96px;
   background-color: rgba(238, 232, 224, 0.33);
   border: 2px solid rgba(238, 232, 224, 0.33);
@@ -7872,13 +7915,16 @@ body.page-atl-quests .progress {
   margin-top: 5px;
   height: 17px;
 }
-body.page-atl-quests .progress .progress-bar {
+body.page-atl-quests .progress .progress-bar,
+body.page-atl-quests-do .progress .progress-bar {
   min-width: 4px;
 }
-body.page-atl-quests .quest-slider {
+body.page-atl-quests .quest-slider,
+body.page-atl-quests-do .quest-slider {
   margin: 13px 20px 6px 6px;
 }
-body.page-atl-quests .ui-slider-handle {
+body.page-atl-quests .ui-slider-handle,
+body.page-atl-quests-do .ui-slider-handle {
   width: 5em;
   height: 1.8em;
   top: 50%;
