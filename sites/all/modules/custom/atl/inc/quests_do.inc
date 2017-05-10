@@ -31,9 +31,11 @@ function game_quests_do_callback($game_user, $questId) {
 //    $game_quest->required_energy = min($game_quest->required_energy, 100);
 
   $questSucceeded = TRUE;
-  $outcomeHtml = '<div class="quest-succeeded">' .
-    t('Success!') .
-    '</div>';
+  $outcome = array(
+    '#markup' => '<div class="quest-succeeded">' .
+      t('Success!') .
+      '</div>',
+  );
   $aiOutput = 'quest-succeeded';
   $experienceAddedHtml = $moneyAddedHtml = NULL;
   $moneyAdded = 0;
@@ -109,6 +111,22 @@ function game_quests_do_callback($game_user, $questId) {
     $questGroup->completed -= ($questGroup->total * min($questGroup->timesCompleted, 1));
   }
 
+  // Check to see if quest prerequisites are met.
+
+  // Required energy?
+  if (($game_user->energy < $quest->required_energy) &&
+    ($game_user->level >= 6)) { // unlimited quests below level 6
+
+    $questSucceeded = FALSE;
+    $outcome = array(
+      '#theme' => 'quest_failed',
+      '#game_user' => $game_user,
+      '#failureType' => 'energy',
+    );
+    $ai_output = 'quest-failed not-enough-energy';
+    competency_gain($game_user, 'too tired');
+  }
+
   if ($questSucceeded) {
     competency_gain($game_user, 'quester');
 
@@ -149,7 +167,7 @@ function game_quests_do_callback($game_user, $questId) {
     '#percentageTarget' => $percentage_target,
     '#percentageDivisor' => $percentage_divisor,
     '#questGroup' => $questGroup,
-    '#outcome' => $outcomeHtml,
+    '#outcome' => $outcome,
     '#experienceAddedHtml' => $experienceAddedHtml,
     '#moneyAddedHtml' => $moneyAddedHtml,
   );

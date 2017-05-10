@@ -1,5 +1,5 @@
 <div class="quest-outcome">
-  <?php print $outcome; ?>
+  <?php print drupal_render($outcome); ?>
 </div>
 <div class="quest
   <?php if (is_null($experienceAddedHtml)): // Quest to do ?>

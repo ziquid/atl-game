@@ -2535,6 +2535,22 @@ function ge($text) {
   echo gt($text);
 }
 
+/**
+ * Render a Render Array as HTML.
+ *
+ * @param array $arr
+ *   The array to render.
+ *
+ * @return string
+ *   The rendered HTML.
+ */
+function game_render($arr) {
+  db_set_active();
+  $html = drupal_render($arr);
+  db_set_active('game');
+  return $html;
+}
+
 function teEmplate_preprocess_game_header(&$vars) {
 
 //   global $game, $phone_id, $extra_messages, $cur_level, $next_level;

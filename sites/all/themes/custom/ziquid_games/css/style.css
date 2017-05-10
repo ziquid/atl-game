@@ -7623,6 +7623,7 @@ ul {
   display: inline-block;
   background-color: inherit;
   border: 0;
+  margin-bottom: 14px;
 }
 .game-button-interior {
   color: #33aa00 !important;
@@ -7631,7 +7632,7 @@ ul {
   font-size: 21px;
   font-weight: bold;
   -webkit-mask-image: url(//themes.googleusercontent.com/static/patterns/putting-green.png);
-  margin: 20px;
+  margin: 20px 20px 6px;
   padding: 6px 20px 8px;
   text-transform: uppercase;
   border: 1px solid rgba(238, 23, 0, 0.7);

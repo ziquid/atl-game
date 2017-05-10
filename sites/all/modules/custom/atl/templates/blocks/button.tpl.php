@@ -11,4 +11,10 @@ $link = $game . '/' . $link . '/' . $arg2 . $extra_link;
       <?php echo $type; ?> &raquo;
     </a>
   </span>
+  <?php if ($subhead): ?>
+    <p>
+      <?php echo $subhead; ?>
+    </p>
+  <?php endif; ?>
 </button>
+

@@ -1,58 +1,40 @@
 <?php
 
-// check to see if quest prerequisites are met
 
-// required energy?
-  if (($game_user->energy < $game_quest->required_energy) &&
-    ($game_user->level >= 6)) { // unlimited quests below level 6
-
-    $quest_succeeded = FALSE;
-    $outcome_reason = '<div class="quest-failed">' . t('Not enough Energy!') .
-      '</div><div class="try-an-election-wrapper">
-      <div class="try-an-election"><a
-      href="/' . $game . '/elders_do_fill/' . $arg2 . '/energy?destination=/' .
-      $game . '/quests/' . $arg2 . '/' . $game_quest->group . '">Refill
-      your Energy (1&nbsp;' . $luck . ')</a></div></div>';
-    $extra_html = '<p>&nbsp;</p><p class="second">&nbsp;</p>';
-    $ai_output = 'quest-failed not-enough-energy';
-
-    competency_gain($game_user, 'too tired');
-
-  } // not enough energy
 
 // required equipment 1?
-  if ($game_quest->equipment_1_required_quantity > 0) {
+  if ($quest->equipment_1_required_quantity > 0) {
 
     $sql = 'select quantity from equipment_ownership
       where fkey_equipment_id = %d and fkey_users_id = %d;';
-    $result = db_query($sql, $game_quest->fkey_equipment_1_required_id,
+    $result = db_query($sql, $quest->fkey_equipment_1_required_id,
       $game_user->id);
     $quantity = db_fetch_object($result);
 
-    if ($quantity->quantity < $game_quest->equipment_1_required_quantity) {
+    if ($quantity->quantity < $quest->equipment_1_required_quantity) {
 
-      $quest_succeeded = FALSE;
-      $outcome_reason = '<div class="quests failed">
+      $questSucceeded = FALSE;
+      $outcomeHtml = '<div class="quests failed">
           <div class="title">' .
             t('∆ Equipment Requisite ∆<br/><span>Missing</span>') . '
           </div>
           <div class="quest-required">
             <a href="/' . $game . '/equipment_buy/' . $arg2 . '/' .
-              $game_quest->fkey_equipment_1_required_id . '/' .
-              ($game_quest->equipment_1_required_quantity - $quantity->quantity)
+              $quest->fkey_equipment_1_required_id . '/' .
+              ($quest->equipment_1_required_quantity - $quantity->quantity)
               . '">
               <img width="48"
                 src="/sites/default/files/images/equipment/' .
-                $game . '-' . $game_quest->fkey_equipment_1_required_id .
+                $game . '-' . $quest->fkey_equipment_1_required_id .
                 '.png" />
             </a>
             <div class="quest-required-num">
-              x' . $game_quest->equipment_1_required_quantity . '
+              x' . $quest->equipment_1_required_quantity . '
             </div>
           </div>
         </div>';
       $ai_output = 'quest-failed need-equipment-' .
-        $game_quest->fkey_equipment_1_required_id;
+        $quest->fkey_equipment_1_required_id;
 
       competency_gain($game_user, 'hole in pockets');
     }
@@ -60,28 +42,28 @@
   } // no required equipment_1
 
 // required equipment 2?
-  if ($game_quest->equipment_2_required_quantity > 0) {
+  if ($quest->equipment_2_required_quantity > 0) {
 
     $sql = 'select quantity from equipment_ownership
       where fkey_equipment_id = %d and fkey_users_id = %d;';
-    $result = db_query($sql, $game_quest->fkey_equipment_2_required_id,
+    $result = db_query($sql, $quest->fkey_equipment_2_required_id,
       $game_user->id);
     $quantity = db_fetch_object($result);
 
-    if ($quantity->quantity < $game_quest->equipment_2_required_quantity) {
+    if ($quantity->quantity < $quest->equipment_2_required_quantity) {
 
-      $quest_succeeded = FALSE;
-      $outcome_reason = '<div class="quest-failed">' . t('Failed!') .
+      $questSucceeded = FALSE;
+      $outcomeHtml = '<div class="quest-failed">' . t('Failed!') .
         '</div><div class="quest-required_stuff missing centered">Missing
         <div class="quest-required_equipment"><a href="/' . $game . '/equipment_buy/' .
-        $arg2 . '/' . $game_quest->fkey_equipment_2_required_id . '/' .
-        ($game_quest->equipment_2_required_quantity - $quantity->quantity) . '"><img
+        $arg2 . '/' . $quest->fkey_equipment_2_required_id . '/' .
+        ($quest->equipment_2_required_quantity - $quantity->quantity) . '"><img
         src="/sites/default/files/images/equipment/' .
-        $game . '-' . $game_quest->fkey_equipment_2_required_id . '.png"
-        width="48"></a></div>&nbsp;x' . $game_quest->equipment_2_required_quantity .
+        $game . '-' . $quest->fkey_equipment_2_required_id . '.png"
+        width="48"></a></div>&nbsp;x' . $quest->equipment_2_required_quantity .
         '</div>';
       $ai_output = 'quest-failed need-equipment-' .
-        $game_quest->fkey_equipment_2_required_id;
+        $quest->fkey_equipment_2_required_id;
 
       competency_gain($game_user, 'hole in pockets');
 
@@ -90,46 +72,46 @@
   } // no required equipment_2
 
 // required equipment 3?
-  if ($game_quest->equipment_3_required_quantity > 0) {
+  if ($quest->equipment_3_required_quantity > 0) {
 
     $sql = 'select quantity from equipment_ownership
       where fkey_equipment_id = %d and fkey_users_id = %d;';
-    $result = db_query($sql, $game_quest->fkey_equipment_3_required_id,
+    $result = db_query($sql, $quest->fkey_equipment_3_required_id,
       $game_user->id);
     $quantity = db_fetch_object($result);
 
-    if ($quantity->quantity < $game_quest->equipment_3_required_quantity) {
+    if ($quantity->quantity < $quest->equipment_3_required_quantity) {
 
-      $quest_succeeded = FALSE;
-      $outcome_reason = '<div class="quest-failed">' . t('Failed!') .
+      $questSucceeded = FALSE;
+      $outcomeHtml = '<div class="quest-failed">' . t('Failed!') .
         '</div><div class="quest-required_stuff missing centered">Missing
         <div class="quest-required_equipment"><a href="/' . $game . '/equipment_buy/' .
-        $arg2 . '/' . $game_quest->fkey_equipment_3_required_id . '/' .
-        ($game_quest->equipment_3_required_quantity - $quantity->quantity) . '"><img
+        $arg2 . '/' . $quest->fkey_equipment_3_required_id . '/' .
+        ($quest->equipment_3_required_quantity - $quantity->quantity) . '"><img
         src="/sites/default/files/images/equipment/' .
-        $game . '-' . $game_quest->fkey_equipment_3_required_id . '.png"
-        width="48"></a></div>&nbsp;x' . $game_quest->equipment_3_required_quantity .
+        $game . '-' . $quest->fkey_equipment_3_required_id . '.png"
+        width="48"></a></div>&nbsp;x' . $quest->equipment_3_required_quantity .
         '</div>';
       $ai_output = 'quest-failed need-equipment-' .
-        $game_quest->fkey_equipment_3_required_id;
+        $quest->fkey_equipment_3_required_id;
     }
 
       competency_gain($game_user, 'hole in pockets');
   } // no required equipment_3
 
   // required clan equipment 1?
-  if ($game_quest->clan_equipment_1_required_quantity > 0) {
+  if ($quest->clan_equipment_1_required_quantity > 0) {
 
     $sql = 'select quantity from clan_equipment_ownership
       where fkey_equipment_id = %d and fkey_clans_id = %d;';
-    $result = db_query($sql, $game_quest->fkey_clan_equipment_1_required_id,
+    $result = db_query($sql, $quest->fkey_clan_equipment_1_required_id,
       $game_user->fkey_clans_id);
     $quantity = db_fetch_object($result);
 
-    if ($quantity->quantity < $game_quest->clan_equipment_1_required_quantity) {
+    if ($quantity->quantity < $quest->clan_equipment_1_required_quantity) {
 
-      $quest_succeeded = FALSE;
-      $outcome_reason = '<div class="quests failed">
+      $questSucceeded = FALSE;
+      $outcomeHtml = '<div class="quests failed">
         <div class="title">' .
           t('∆ Requisite <span>Missing</span> ∆',
           array('@party' => $party_lower)) . '
@@ -137,10 +119,10 @@
         <div class="equipment-required-wrapper">
           <div class="equipment-required missing">
             <img src="/sites/default/files/images/equipment/' . $game . '-' .
-              $game_quest->fkey_clan_equipment_1_required_id . '.png"
+              $quest->fkey_clan_equipment_1_required_id . '.png"
               width="48"/>
             <span class="required-num">
-              x ' . $game_quest->clan_equipment_1_required_quantity . '
+              x ' . $quest->clan_equipment_1_required_quantity . '
             </span>
           </div>
         </div>
@@ -149,32 +131,32 @@
         </div>
       </div>';
       $ai_output = 'quest-failed need-equipment-' .
-        $game_quest->fkey_clan_equipment_1_required_id;
+        $quest->fkey_clan_equipment_1_required_id;
     }
 
   } // no required clan equipment_1
 
 // required staff 1?
-  if ($game_quest->staff_required_quantity > 0) {
+  if ($quest->staff_required_quantity > 0) {
 
     $sql = 'select quantity from staff_ownership
       where fkey_staff_id = %d and fkey_users_id = %d;';
-    $result = db_query($sql, $game_quest->fkey_staff_required_id,
+    $result = db_query($sql, $quest->fkey_staff_required_id,
       $game_user->id);
     $quantity = db_fetch_object($result);
 
-    if ($quantity->quantity < $game_quest->staff_required_quantity) {
+    if ($quantity->quantity < $quest->staff_required_quantity) {
 
-      $quest_succeeded = FALSE;
-      $outcome_reason = '<div class="quest-failed">' . t('Failed!') .
+      $questSucceeded = FALSE;
+      $outcomeHtml = '<div class="quest-failed">' . t('Failed!') .
         '</div><div class="quest-required_stuff missing centered">Missing
         <div class="quest-required_equipment"><img
         src="/sites/default/files/images/staff/' .
-        $game . '-' . $game_quest->fkey_staff_required_id . '.png"
-        width="48"></div>&nbsp;x' . $game_quest->staff_required_quantity .
+        $game . '-' . $quest->fkey_staff_required_id . '.png"
+        width="48"></div>&nbsp;x' . $quest->staff_required_quantity .
         '</div>';
       $ai_output = 'quest-failed need-staff-' .
-        $game_quest->fkey_staff_required_id;
+        $quest->fkey_staff_required_id;
 
       competency_gain($game_user, 'friendless');
 
@@ -183,10 +165,10 @@
   } // no required staff
 
 // required party?
-  if (($game_quest->need_party > 0) && $game_user->fkey_values_id == 0) {
+  if (($quest->need_party > 0) && $game_user->fkey_values_id == 0) {
 
-    $quest_succeeded = FALSE;
-    $outcome_reason = '<div class="quests failed">
+    $questSucceeded = FALSE;
+    $outcomeHtml = '<div class="quests failed">
       <div class="title">' .
         t('∆ @party Affiliation <span>Unrecognized</span> ∆',
         array('@party' => $party_lower)) . '
@@ -204,10 +186,10 @@
   } // no required party
 
 // required clan?
-  if (($game_quest->need_clan > 0) && $game_user->fkey_clans_id == 0) {
+  if (($quest->need_clan > 0) && $game_user->fkey_clans_id == 0) {
 
-    $quest_succeeded = FALSE;
-    $outcome_reason = '<div class="quests failed">
+    $questSucceeded = FALSE;
+    $outcomeHtml = '<div class="quests failed">
       <div class="title">' .
         t('∆ Clan Affiliation ∆<br/><span>Unrecognized</span>') . '
       </div>
@@ -225,7 +207,7 @@
   } // no required clan
 
 // required job?
-  if ($game_quest->need_job > 0) {
+  if ($quest->need_job > 0) {
 
     $sql = 'SELECT COUNT(*) AS jobs FROM `land_ownership`
       LEFT JOIN land ON fkey_land_id = land.id
@@ -237,24 +219,24 @@
 
     if ($quantity->jobs < 1) {
 // wrong hood
-  if (($game_quest->group > 0) && ($game_quest->fkey_neighborhoods_id != 0) &&
-    ($game_quest->fkey_neighborhoods_id != $game_user->fkey_neighborhoods_id)) {
+  if (($quest->group > 0) && ($quest->fkey_neighborhoods_id != 0) &&
+    ($quest->fkey_neighborhoods_id != $game_user->fkey_neighborhoods_id)) {
 
-      $quest_succeeded = FALSE;
-      $outcome_reason = '<div class="quests failed">
+      $questSucceeded = FALSE;
+      $outcomeHtml = '<div class="quests failed">
         <div class="title">' .
           t('∆ Employment <span>Nonexistant</span> ∆') . '
-    $quest_succeeded = FALSE;
-    $outcome_reason = '<div class="quest-failed">'
+    $questSucceeded = FALSE;
+    $outcomeHtml = '<div class="quest-failed">'
     . t('Wrong @hood!', array('@hood' => $hood_lower))
     . '</div>
         <p>This ' . $quest_lower . ' can only be completed in '
-        . $game_quest->hood . '.
+        . $quest->hood . '.
         </p>
       <div class="try-an-election-wrapper">
         <div class="try-an-election">
           <a href="/' . $game . '/move/' . $arg2 . '/'
-          . $game_quest->fkey_neighborhoods_id . '">
+          . $quest->fkey_neighborhoods_id . '">
             Go there
           </a>
         </div>
@@ -278,19 +260,19 @@
 
 
 
-  if ($quest_succeeded) {
+  if ($questSucceeded) {
 
     competency_gain($game_user, 'quester');
 
 
 
-    if ($game_quest->group > 1000) { // don't save quests group
+    if ($quest->group > 1000) { // don't save quests group
 
       $sql = 'update users set energy = energy - %d,
         experience = experience + %d, money = money + %d
         where id = %d;';
-      $result = db_query($sql, $game_quest->required_energy,
-        $game_quest->experience, $money_added, $game_user->id);
+      $result = db_query($sql, $quest->required_energy,
+        $quest->experience, $money_added, $game_user->id);
 
     } else { // save all
 
@@ -298,8 +280,8 @@
         experience = experience + %d, money = money + %d,
         fkey_last_played_quest_groups_id = %d
         where id = %d;';
-      $result = db_query($sql, $game_quest->required_energy,
-        $game_quest->experience, $money_added, $game_quest->group,
+      $result = db_query($sql, $quest->required_energy,
+        $quest->experience, $money_added, $quest->group,
         $game_user->id);
 
     }
@@ -318,7 +300,7 @@
       $sql = 'insert into quest_completion (fkey_users_id, fkey_quests_id,
         percent_complete) values (%d, %d, %d);';
       $result = db_query($sql, $game_user->id, $quest_id,
-       $game_quest->percent_complete);
+       $quest->percent_complete);
 
     } else {
 
@@ -326,14 +308,14 @@
         percent_complete + %d, %d) where fkey_users_id = %d and
         fkey_quests_id = %d;';
       $result = db_query($sql,
-        floor($game_quest->percent_complete / $percentage_divisor),
+        floor($quest->percent_complete / $percentage_divisor),
         $percentage_target, $game_user->id, $quest_id);
 
     }
 
-    $game_quest->percent_complete =
+    $quest->percent_complete =
       $percent_complete = min($pc->percent_complete +
-      floor($game_quest->percent_complete / $percentage_divisor),
+      floor($quest->percent_complete / $percentage_divisor),
       $percentage_target);
 
 // if they have completed the quest for the first time in a round,
@@ -344,12 +326,12 @@
 
         competency_gain($game_user, 'quest finisher');
 
-        $game_user->experience += $game_quest->experience;
+        $game_user->experience += $quest->experience;
         $game_user->money += $money_added;
 
         $sql = 'update users set experience = experience + %d, money = money + %d
           where id = %d;';
-        $result = db_query($sql, $game_quest->experience, $money_added,
+        $result = db_query($sql, $quest->experience, $money_added,
           $game_user->id);
 
         $sql = 'update quest_completion set bonus_given = bonus_given + 1
@@ -358,21 +340,21 @@
 
         $disbursements_doubled = '<span class="x2">&laquo; x2 &raquo;</span>';
 
-        $money_added_str = '+' . ($money_added * 2);
-        $exp_added_str = '+' . ($game_quest->experience * 2);
+        $moneyAddedHtml = '+' . ($money_added * 2);
+        $experienceAddedHtml = '+' . ($quest->experience * 2);
 
         $quest_completion_html =<<< EOF
   <div class="title loot">$quest Completed!</div>
   <p>You have completed this $quest_lower and gained an extra $money_added
-    $game_user->values and $game_quest->experience $experience!&nbsp; Complete
+    $game_user->values and $quest->experience $experience!&nbsp; Complete
     all ${quest_lower}s in this group for an extra reward.</p>
 EOF;
 
-        $outcome_reason = str_replace('// Attempt Successful //',
-          '/// ' . $quest . ' Realized ///', $outcome_reason);
+        $outcomeHtml = str_replace('// Attempt Successful //',
+          '/// ' . $quest . ' Realized ///', $outcomeHtml);
 
-        if (!empty($game_quest->completion_sound))
-          _sound($game_quest->completion_sound);
+        if (!empty($quest->completion_sound))
+          _sound($quest->completion_sound);
 
       } // did they get the mission completion bonus?
 
@@ -380,7 +362,7 @@ EOF;
 
       $sql = 'select * from quest_group_completion
         where fkey_users_id = %d and fkey_quest_groups_id = %d;';
-      $result = db_query($sql, $game_user->id, $game_quest->group);
+      $result = db_query($sql, $game_user->id, $quest->group);
       $qgc = db_fetch_object($result);
 //firep($qgc);
 
@@ -398,7 +380,7 @@ EOF;
           ON quests.group = quest_groups.id
           WHERE `group` = %d
           AND quests.active =1';
-        $result = db_query($sql, $game_user->id, $game_quest->group);
+        $result = db_query($sql, $game_user->id, $quest->group);
         $quest_group = db_fetch_object($result);
 //firep($quest_group);
 
@@ -426,13 +408,13 @@ EOF;
 
             $sql = 'insert into quest_group_completion (fkey_users_id,
               fkey_quest_groups_id, times_completed) values (%d, %d, 1);';
-            $result = db_query($sql, $game_user->id, $game_quest->group);
+            $result = db_query($sql, $game_user->id, $quest->group);
 
           } else { // existing record - update it
 
             $sql = 'update quest_group_completion set times_completed = 1
               where fkey_users_id = %d and fkey_quest_groups_id = %d;';
-            $result = db_query($sql, $game_user->id, $game_quest->group);
+            $result = db_query($sql, $game_user->id, $quest->group);
 
           } // insert or update the qgc record
 
@@ -457,7 +439,7 @@ EOF;
           ON quests.group = quest_groups.id
           WHERE `group` = %d
           AND quests.active =1';
-        $result = db_query($sql, $game_user->id, $game_quest->group);
+        $result = db_query($sql, $game_user->id, $quest->group);
         $quest_group = db_fetch_object($result);
 //firep($quest_group);
 
@@ -468,7 +450,7 @@ EOF;
 
           $sql = 'select * from quest_group_bonus
             where fkey_quest_groups_id = %d;';
-          $result = db_query($sql, $game_quest->group);
+          $result = db_query($sql, $quest->group);
           $item = db_fetch_object($result); // limited to 1 in db
 //firep($item);
           $eq_id = $item->fkey_equipment_id;
@@ -717,7 +699,7 @@ EOF;
 // update quest_groups_completion
           $sql = 'update quest_group_completion set times_completed = 2
             where fkey_users_id = %d and fkey_quest_groups_id = %d;';
-          $result = db_query($sql, $game_user->id, $game_quest->group);
+          $result = db_query($sql, $game_user->id, $quest->group);
 
 //          $quest_group_completion->times_completed = 1;
 //          $percentage_target = 200;
@@ -766,11 +748,11 @@ EOF;
 
 // check for consumption - clan equipment
 
-    if ($game_quest->clan_equipment_1_consumed_quantity > 0) {
+    if ($quest->clan_equipment_1_consumed_quantity > 0) {
 
       $sql = 'SELECT * FROM equipment
         WHERE equipment.id = %d;';
-      $result = db_query($sql, $game_quest->fkey_clan_equipment_1_consumed_id);
+      $result = db_query($sql, $quest->fkey_clan_equipment_1_consumed_id);
       $game_equipment = db_fetch_object($result); // limited to 1 in DB
 
       $consumption_html .=<<< EOF
@@ -784,14 +766,14 @@ EOF;
       <div class="quest-required-num">
         Clan
         <br/>
-        -{$game_quest->clan_equipment_1_consumed_quantity}
+        -{$quest->clan_equipment_1_consumed_quantity}
       </div>
     </div>
   </div>
 EOF;
 
       clan_equipment_lose($game_user, $game_equipment->id,
-        $game_quest->clan_equipment_1_consumed_quantity);
+        $quest->clan_equipment_1_consumed_quantity);
     } // check for consumption - clan equipment
 
 // check for loot - equipment
@@ -805,18 +787,18 @@ EOF;
 
       WHERE equipment.id = %d;';
     $result = db_query($sql, $game_user->id,
-      $game_quest->fkey_loot_equipment_id);
+      $quest->fkey_loot_equipment_id);
     $game_equipment = db_fetch_object($result); // limited to 1 in DB
 
     $limit = $game_equipment->quantity_limit > (int) $game_equipment->quantity;
 
-    if ($game_quest->chance_of_loot >= mt_rand(1,100) &&
+    if ($quest->chance_of_loot >= mt_rand(1,100) &&
     ($limit || $game_equipment->quantity_limit == 0)) {
 
-      equipment_gain($game_user, $game_quest->fkey_loot_equipment_id, 1);
+      equipment_gain($game_user, $quest->fkey_loot_equipment_id, 1);
 
       $sql = 'select * from equipment where id = %d;';
-      $result = db_query($sql, $game_quest->fkey_loot_equipment_id);
+      $result = db_query($sql, $quest->fkey_loot_equipment_id);
       $loot = db_fetch_object($result);
 
       $cumulative_expenses = $game_user->expenses + $loot->upkeep;
@@ -870,7 +852,7 @@ EOF;
 
         competency_gain($game_user, 'looter');
 
-        if ($game_quest->fkey_loot_equipment_id == 51 &&
+        if ($quest->fkey_loot_equipment_id == 51 &&
           $event_type == EVENT_GATHER_AMETHYST) {
 
           $sql = 'update users set meta_int = meta_int + 1
@@ -888,21 +870,21 @@ EOF;
 
           WHERE equipment.id = %d;';
         $result = db_query($sql, $game_user->id,
-          $game_quest->fkey_loot_equipment_id);
+          $quest->fkey_loot_equipment_id);
         $game_equipment = db_fetch_object($result); // limited to 1 in DB
 
         if ($game_equipment->quantity == '') { // no record exists - insert one
 
           $sql = 'insert into equipment_ownership (fkey_equipment_id,
             fkey_users_id, quantity) values (%d, %d, 1);';
-          $result = db_query($sql, $game_quest->fkey_loot_equipment_id,
+          $result = db_query($sql, $quest->fkey_loot_equipment_id,
             $game_user->id);
 
         } else { // existing record - update it
 
           $sql = 'update equipment_ownership set quantity = quantity + 1 where
             fkey_equipment_id = %d and fkey_users_id = %d;';
-          $result = db_query($sql, $game_quest->fkey_loot_equipment_id,
+          $result = db_query($sql, $quest->fkey_loot_equipment_id,
             $game_user->id);
 
         } // add/update db entry
@@ -922,16 +904,16 @@ EOF;
 
       WHERE staff.id = %d;';
     $result = db_query($sql, $game_user->id,
-      $game_quest->fkey_loot_staff_id);
+      $quest->fkey_loot_staff_id);
     $game_staff = db_fetch_object($result); // limited to 1 in DB
 
     $limit = $game_staff->quantity_limit > (int) $game_staff->quantity;
 
-    if ($game_quest->chance_of_loot_staff >= mt_rand(1,100) &&
+    if ($quest->chance_of_loot_staff >= mt_rand(1,100) &&
     ($limit || $game_staff->quantity_limit == 0)) {
 
       $sql = 'select * from staff where id = %d;';
-      $result = db_query($sql, $game_quest->fkey_loot_staff_id);
+      $result = db_query($sql, $quest->fkey_loot_staff_id);
       $loot = db_fetch_object($result);
 
       $disbursement_html .=<<< EOF
@@ -956,21 +938,21 @@ EOF;
 
         WHERE staff.id = %d;';
       $result = db_query($sql, $game_user->id,
-        $game_quest->fkey_loot_staff_id);
+        $quest->fkey_loot_staff_id);
       $game_staff = db_fetch_object($result); // limited to 1 in DB
 
       if ($game_staff->quantity == '') { // no record exists - insert one
 
         $sql = 'insert into staff_ownership (fkey_staff_id,
           fkey_users_id, quantity) values (%d, %d, 1);';
-        $result = db_query($sql, $game_quest->fkey_loot_staff_id,
+        $result = db_query($sql, $quest->fkey_loot_staff_id,
           $game_user->id);
 
       } else { // existing record - update it
 
         $sql = 'update staff_ownership set quantity = quantity + 1 where
           fkey_staff_id = %d and fkey_users_id = %d;';
-        $result = db_query($sql, $game_quest->fkey_loot_staff_id,
+        $result = db_query($sql, $quest->fkey_loot_staff_id,
           $game_user->id);
 
       } // add/update db entry
@@ -980,17 +962,17 @@ EOF;
     $game_user = $fetch_user();
 
 // completed level 15?  have player choose a party
-    if (($game_quest->id == 15) && ($game_user->fkey_values_id == 0) &&
-      ($game_quest->percent_complete == 100) &&
+    if (($quest->id == 15) && ($game_user->fkey_values_id == 0) &&
+      ($quest->percent_complete == 100) &&
       ($get_value($game_user->id, 'choose_party_first', 0) == 0)) {
     if ($game_user->level >= 6) { // show quests menu after level 6
 
       $set_value($game_user->id, 'choose_party_first', 1);
       drupal_goto($game . '/choose_clan/' . $arg2 . '/0');
-      if ($game_quest->group >= 1000) {
+      if ($quest->group >= 1000) {
         $merch_active = '';
         $lehite_active = '';
-      } elseif ($game_quest->group >= 100) {
+      } elseif ($quest->group >= 100) {
         $merch_active = 'active';
         $lehite_active = '';
       } else {
@@ -1032,9 +1014,9 @@ EOF;
 
      }
     if ($game_user->level > 1)
-      _show_quest($game_user, $game_quest, $percentage_target,
-        $percentage_divisor, $quest_group, $party_title, $outcome_reason,
-        $exp_added_str, $money_added_str, $disbursements_doubled,
+      _show_quest($game_user, $quest, $percentage_target,
+        $percentage_divisor, $quest_group, $party_title, $outcomeHtml,
+        $experienceAddedHtml, $moneyAddedHtml, $disbursements_doubled,
         $consumption_html, $disbursement_html,
         $quest_completion_html);
 
@@ -1055,7 +1037,7 @@ EOF;
 
     $sql = 'SELECT times_completed FROM `quest_group_completion`
       where fkey_users_id = %d and fkey_quest_groups_id = %d;';
-    $result = db_query($sql, $game_user->id, $game_quest->group);
+    $result = db_query($sql, $game_user->id, $quest->group);
     $quest_group_completion = db_fetch_object($result);
 
     $percentage_target = 100;
@@ -1068,10 +1050,10 @@ EOF;
 
     }
 
-    $game_quest->percent_complete = $percent_complete = $pc->percent_complete + 0;
+    $quest->percent_complete = $percent_complete = $pc->percent_complete + 0;
 
-    _show_quest($game_user, $game_quest, $percentage_target,
-      $percentage_divisor, $quest_group, $party_title, $outcome_reason);
+    _show_quest($game_user, $quest, $percentage_target,
+      $percentage_divisor, $quest_group, $party_title, $outcomeHtml);
 
   } // quest succeeded or failed
 
@@ -1079,7 +1061,7 @@ EOF;
     echo "<!--\n<ai \"$ai_output\"/>\n-->";
 
   $sql = 'select name from quest_groups where id = %s;';
-  $result = db_query($sql, $game_quest->group);
+  $result = db_query($sql, $quest->group);
   $qg = db_fetch_object($result);
 firep($qg);
 
@@ -1099,12 +1081,12 @@ firep($qg);
   }
 
   $sql = 'select name from quest_groups where id = %s;';
-  $result = db_query($sql, $game_quest->group - 1);
+  $result = db_query($sql, $quest->group - 1);
   $qgo = db_fetch_object($result);
 
   if (!empty($qgo->name)) {
 
-    $older_group = $game_quest->group - 1;
+    $older_group = $quest->group - 1;
     $older_missions_html =<<< EOF
 <a href="/$game/quests/$arg2/$older_group">
   <span class="arrows big">&lsaquo;&lsaquo;&lsaquo;</span>
@@ -1119,14 +1101,14 @@ EOF;
 
   $sql = 'select min(required_level) as min from quests
     where `group` = %d;';
-  $result = db_query($sql, $game_quest->group + 1);
+  $result = db_query($sql, $quest->group + 1);
   $item = db_fetch_object($result);
 firep($item);
 
   if (!empty($item->min) && ($item->min <= $game_user->level + 1) &&
     ($group_to_show <= 1000)) {
 
-    $newer_group = $game_quest->group + 1;
+    $newer_group = $quest->group + 1;
     $newer_missions_html =<<< EOF
 <a href="/$game/quests/$arg2/$newer_group">
   <span class="arrows big">&rsaquo;&rsaquo;&rsaquo;</span>
@@ -1142,7 +1124,7 @@ EOF;
   echo <<< EOF
 <div class="title">
   <span class="left">$older_missions_html</span>
-  <span class="middle">Chapter $game_quest->group:<br/>$location</span>
+  <span class="middle">Chapter $quest->group:<br/>$location</span>
   <span class="right">$newer_missions_html</span>
 </div>
 EOF;
@@ -1157,7 +1139,7 @@ EOF;
     on quest_completion.fkey_quests_id = quests.id
     and fkey_users_id = %d
     where `group` = %d ' . $active_quests . ';';
-  $result = db_query($sql, $game_user->id, $game_quest->group);
+  $result = db_query($sql, $game_user->id, $quest->group);
 
   $quest_group = db_fetch_object($result);
 firep($quest_group);
@@ -1198,7 +1180,7 @@ EOF;
     and (fkey_neighborhoods_id = 0 or fkey_neighborhoods_id = %d)
     and quests.id <= %d
     and active = 1 order by quests.id DESC;';
-  $result = db_query($sql, $game_user->id, $game_quest->group,
+  $result = db_query($sql, $game_user->id, $quest->group,
     $game_user->fkey_neighborhoods_id, $next_quest);
 
   while ($item = db_fetch_object($result)) $data[] = $item;

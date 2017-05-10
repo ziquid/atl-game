@@ -1348,6 +1348,7 @@ function atl_theme($existing, $type, $theme, $path) {
         'link' => 'home',
         'type' => 'continue',
         'extra_link' => NULL,
+        'subhead' => NULL,
       )
     ),
 
@@ -1446,6 +1447,14 @@ function atl_theme($existing, $type, $theme, $path) {
         'outcome' => NULL,
         'experienceAddedHtml' => NULL,
         'moneyAddedHtml' => NULL,
+      ),
+    ),
+
+    'quest_failed' => array(
+      'template' => 'templates/blocks/quest_failed',
+      'variables' => array(
+        'game_user' => NULL,
+        'failureType' => NULL,
       ),
     ),
 
