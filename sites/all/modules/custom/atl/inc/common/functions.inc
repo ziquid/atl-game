@@ -7,10 +7,11 @@
  * @todo convert to themes
  * @todo convert to D7
  */
-/*
 
+function game_sound($name) {
 
-function _sound($name) {
+  drupal_set_message('STUB: sound: ' . $name);
+  return;
 
   global $game;
 
@@ -35,7 +36,7 @@ EOF;
 
 }
 
-
+/*
 function _required_staff($game_user, $staff_id, $req_quantity) {
 
   global $game;

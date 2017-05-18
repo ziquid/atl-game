@@ -1,43 +1,36 @@
 (function ($) {
+  Drupal.behaviors.atlBehavior = {
+    attach: function (context, settings) {
+console.log(Drupal.settings.atl.gameSettings);
+  var energy_minutes = Drupal.settings.atl.gameSettings.energyMinutes;
+  var energy_seconds = Drupal.settings.atl.gameSettings.energySeconds;
+  var energy = Drupal.settings.atl.gameUser.energy;
+  var energy_max = Drupal.settings.atl.gameUser.energy_max;
+  var energy_to_add = Drupal.settings.atl.gameUser.energy_bonus;
+  var energy_interval = Drupal.settings.atl.gameSettings.energyWait;
 
-// @todo: fix/convert to Drupal.settings.
-
-  var energy_minutes = $energy_minutes;
-  var energy_seconds = $energy_seconds;
-  var energy = $game_user->energy;
-  var energy_max = $game_user->energy_max;
-  var energy_to_add = $energy_bonus;
-  var energy_interval = $energy_wait;
-
-  var money_minutes = $money_minutes;
-  var money_seconds = $money_seconds;
-  var money = $game_user->money;
-  var money_to_add = $income_bonus;
+  var money_minutes = Drupal.settings.atl.gameSettings.moneyMinutes;
+  var money_seconds = Drupal.settings.atl.gameSettings.moneySeconds;
+  var money = Drupal.settings.atl.gameUser.money;
+  var money_to_add = Drupal.settings.atl.gameSettings.moneyBonus;
   var money_interval = 3600;
 
-  var actions_minutes = $actions_minutes;
-  var actions_seconds = $actions_seconds;
-  var actions = $game_user->actions;
-  var actions_max = $game_user->actions_max;
+  var actions_minutes = Drupal.settings.atl.gameSettings.actionsMinutes;
+  var actions_seconds = Drupal.settings.atl.gameSettings.actionsSeconds;
+  var actions = Drupal.settings.atl.gameUser.actions;
+  var actions_max = Drupal.settings.atl.gameUser.actions_max;
   var actions_to_add = 1;
   var actions_interval = 180;
 
   function display_energy() {
-
     document.getElementById('energy-id').innerHTML = energy;
-
     if ((energy < energy_max) && (energy_to_add > 0)) {
-
       document.getElementById('energy-time').innerHTML =
         '+' + energy_to_add + ' in ' + energy_minutes + ':' +
         (energy_seconds < 10 ? '0' + energy_seconds : energy_seconds);
-
     } else {
-
       document.getElementById('energy-time').innerHTML = '';
-
     }
-
   }
 
   function display_actions() {
@@ -158,9 +151,7 @@
     }
 
     if (energy >= energy_max) {
-
       energy = energy_max;
-
     }
 
     display_energy();
@@ -169,5 +160,9 @@
 
   }
 
-  var interval_timer = setInterval('add_all_stuff()', 1000);
-}(jQuery));
+  var interval_timer = setInterval(add_all_stuff, 1000);
+      }
+ };
+
+
+})(jQuery);

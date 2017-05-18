@@ -14,26 +14,16 @@ function game_preprocess_header(&$vars) {
   $game_user = $vars['game_user'];
   $vars['game'] = $arg0 = check_plain(arg(0));
   $vars['arg2'] = $arg2 = check_plain(arg(2));
+
   // Energy.
   $energy_text = '&nbsp;';
-  $energy_bonus = 10 + $game_user->ep_energy_bonus +
-    $game_user->eq_energy_increase + $game_user->st_energy_increase;
-
-  // Bonus energy for joining a clan.
-  if (!empty($game_user->fkey_clans_id)) {
-    $energy_bonus++;
-  }
-
-  // Energy not full?
+  $energy_minutes = $energy_seconds = 0;
   if ($game_user->energy != $game_user->energy_max) {
     $energy_secs_until = strtotime($game_user->energy_next_gain) - REQUEST_TIME;
     $energy_minutes = (string) (int) ($energy_secs_until / 60);
     $energy_seconds = sprintf('%02d', (int) ($energy_secs_until % 60));
-    $energy_text = '+' . $energy_bonus . ' in ' .
+    $energy_text = '+' . $game_user->energy_bonus . ' in ' .
       $energy_minutes . ':' . $energy_seconds;
-  }
-  else {
-    $energy_minutes = $energy_seconds = 0;
   }
 
   $vars['energyText'] = $energy_text;
@@ -106,10 +96,9 @@ function game_preprocess_header(&$vars) {
     ($game_user->experience - $game_user->cur_level) /
     ($game_user->next_level - $game_user->cur_level)
     * 100) . '%';
-  return;
 
+  /*
 // event points
-
   $sql = 'select points, last_goal_achieved
     from event_points where fkey_users_id = %d;';
   $result = db_query($sql, $game_user->id);
@@ -219,5 +208,25 @@ firep('a prize is deserved!');
     } // does user get a prize?
 
   } // user has no points
+  */
+
+  drupal_add_js(
+    array(
+      'atl' => array(
+        'gameSettings' => array(
+          'energyMinutes' => (int) $energy_minutes,
+          'energySeconds' => (int) $energy_seconds,
+          'moneyMinutes' => $money_minutes,
+          'moneySeconds' => $money_seconds,
+          'moneyBonus' => $income_bonus,
+          'actionsMinutes' => $actions_minutes,
+          'actionsSeconds' => $actions_seconds,
+        )
+      )
+    ),
+    'setting'
+  );
+
+  $vars['scripts'] = drupal_get_js();
 
 }

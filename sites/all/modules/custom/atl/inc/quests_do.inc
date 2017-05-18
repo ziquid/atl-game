@@ -17,6 +17,8 @@
  */
 function game_quests_do_callback($game_user, $questId) {
 
+  $gameSettings = atlGetGameSettings();
+
   // Don't let them do quests at levels 6-25 without being in a party.
   if ($game_user->fkey_values_id == 0 && $game_user->level >= 6 &&
     $game_user->level <= 25) {
@@ -31,13 +33,13 @@ function game_quests_do_callback($game_user, $questId) {
 //    $game_quest->required_energy = min($game_quest->required_energy, 100);
 
   $questSucceeded = TRUE;
-  $outcome = array(
+  $outcome = array(array(
     '#markup' => '<div class="quest-succeeded">' .
       t('Success!') .
       '</div>',
-  );
+  ));
   $aiOutput = 'quest-succeeded';
-  $experienceAddedHtml = $moneyAddedHtml = NULL;
+  $experienceAddedHtml = $moneyAddedHtml = $disbursementsDoubled = NULL;
   $moneyAdded = 0;
 
   // Load the quest from the db.
@@ -45,8 +47,9 @@ function game_quests_do_callback($game_user, $questId) {
   $query->leftJoin('quest_completion', 'qc', 'qc.fkey_users_id = :id AND qc.fkey_quests_id = q.id',
     array(':id' => $game_user->id));
   $query->condition('q.id', $questId)
-    ->fields('qc', array('percent_complete'))
-    ->fields('q');
+    ->fields('q')
+    ->addField('qc', 'percent_complete', 'percent_completed' );
+  $query->addField('qc', 'bonus_given' );
   if ($phone_id != 'abc123') {
     $query->condition('q.active', 1);
   }
@@ -130,6 +133,7 @@ function game_quests_do_callback($game_user, $questId) {
   if ($questSucceeded) {
     competency_gain($game_user, 'quester');
 
+    // Update user stats.
     $old_energy = $game_user->energy;
     $game_user->energy -= $quest->required_energy;
     $game_user->experience += $quest->experience;
@@ -137,6 +141,81 @@ function game_quests_do_callback($game_user, $questId) {
     $game_user->money += $moneyAdded;
     $moneyAddedHtml = "+$moneyAdded";
     $experienceAddedHtml = "+$quest->experience";
+
+    // Update user table with new stats.
+    $query = db_update('users')
+      ->expression('energy', 'energy - :energy', array(':energy' => $quest->required_energy))
+      ->expression('experience', 'experience + :exp', array(':exp' => $quest->experience))
+      ->expression('money', 'money + :money', array(':money' => $moneyAdded))
+      ->condition('id', $game_user->id);
+    if ($quest->fkey_quest_groups_id < 1000) {
+      $query->expression('fkey_last_played_quest_groups_id', $quest->fkey_quest_groups_id);
+    }
+    if ($old_energy == $game_user->energy_max) {
+      $query->expression('energy_next_gain', 'NOW() + :energy_wait', array(':energy_wait' => $gameSettings->getEnergyWait()));
+    }
+//    dpq($query);
+    $query->execute();
+
+    // Update quest completion stats.
+    $quest->percent_completed = min($quest->percent_completed +
+      floor($quest->percent_complete / $percentage_divisor),
+      $percentage_target);
+
+    // Update quest completion table with new stats.
+    db_merge('quest_completion')
+      ->key(array('fkey_users_id' => $game_user->id, 'fkey_quests_id' => $quest->id))
+      ->fields(array(
+        'fkey_users_id' => $game_user->id,
+        'fkey_quests_id' => $quest->id,
+        'percent_complete' => $quest->percent_completed,
+      ))
+      ->expression(
+        'percent_complete',
+        'least(percent_complete + :pc, :max)',
+        array(':pc' => $quest->percent_complete, ':max' => $percentage_target)
+      )
+      ->execute();
+
+    // If they have completed the quest for the first time in a round,
+    // give them a bonus.
+    if ($quest->percent_completed == $percentage_target) {
+      if ($quest->bonus_given < $percentage_divisor) {
+        competency_gain($game_user, 'quest finisher');
+
+        $game_user->experience += $quest->experience;
+        $game_user->money += $moneyAdded;
+        $disbursementsDoubled = '<span class="x2">(doubled)</span>';
+        $moneyAddedHtml = '+' . ($moneyAdded * 2);
+        $experienceAddedHtml = '+' . ($quest->experience * 2);
+
+        db_update('users')
+          ->expression('experience', 'experience + :exp', array(':exp' => $quest->experience))
+          ->expression('money', 'money + :money', array(':money' => $moneyAdded))
+          ->condition('id', $game_user->id)
+          ->execute();
+        db_update('quest_completion')
+          ->expression('bonus_given', 'bonus_given + 1')
+          ->condition('fkey_users_id', $game_user->id)
+          ->condition('fkey_quests_id', $quest->id)
+          ->execute();
+
+        array_unshift($outcome, array(
+          '#markup' => 'You completed this quest!'
+        ));
+//        $quest_completion_html = <<< EOF
+//  <div class="title loot">$quest Completed!</div>
+//  <p>You have completed this $quest_lower and gained an extra $money_added
+//    $game_user->values and $quest->experience $experience!&nbsp; Complete
+//    all ${quest_lower}s in this group for an extra reward.</p>
+//EOF;
+
+        if (!empty($quest->completion_sound)) {
+          game_sound($quest->completion_sound);
+        }
+
+      } // did they get the mission completion bonus?
+    }
 
   }
 
@@ -170,6 +249,7 @@ function game_quests_do_callback($game_user, $questId) {
     '#outcome' => $outcome,
     '#experienceAddedHtml' => $experienceAddedHtml,
     '#moneyAddedHtml' => $moneyAddedHtml,
+    '#disbursementsDoubled' => $disbursementsDoubled,
   );
 
   $arr[] = array(
@@ -205,8 +285,8 @@ function game_quests_do_callback($game_user, $questId) {
   $query->condition('q.fkey_quest_groups_id', $group_to_show)
     ->condition('q.id', $nextQuestId, '<=')
     ->orderBy('q.id', 'DESC')
-    ->fields('qc', array('percent_complete'))
-    ->fields('q');
+    ->fields('q')
+    ->addField('qc', 'percent_complete', 'percent_completed' );
   if ($phone_id != 'abc123') {
     $query->condition('q.active', 1);
   }

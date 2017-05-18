@@ -1447,6 +1447,7 @@ function atl_theme($existing, $type, $theme, $path) {
         'outcome' => NULL,
         'experienceAddedHtml' => NULL,
         'moneyAddedHtml' => NULL,
+        'disbursementsDoubled' => NULL,
       ),
     ),
 
@@ -2068,7 +2069,9 @@ function game_access() {
  *   The user object.
  */
 function game_user_load($uid) {
-  return game_fetch_user_by_id(game_id_load($uid));
+  $game_user = game_fetch_user_by_id(game_id_load($uid));
+  drupal_add_js(array('atl' => array('gameUser' => $game_user)), 'setting');
+  return $game_user;
 }
 
 /**
@@ -2109,6 +2112,9 @@ function game_fetch_user_by_id($id, $reset = FALSE) {
   }
 
   db_set_active('game');
+
+  $changes_made = FALSE;
+  $gameSettings = atlGetGameSettings();
 
   $query = db_select('users', 'u');
   $query->join('neighborhoods', 'n', 'u.fkey_neighborhoods_id = n.id');
@@ -2188,6 +2194,44 @@ function game_fetch_user_by_id($id, $reset = FALSE) {
   if ($game_user->next_level == 0) {
     $game_user->next_level = 9999999;
   }
+
+  // Recover energy.
+  $energy_next_gain = strtotime($game_user->energy_next_gain);
+  $game_user->energy_bonus = 10 + $game_user->ep_energy_bonus + $game_user->eq_energy_increase + $game_user->st_energy_increase;
+  if (!empty($game_user->fkey_clans_id)) {
+    $game_user->energy_bonus++;
+  }
+
+  // Energy not full?
+  if ($game_user->energy != $game_user->energy_max) {
+    $energy_secs_until = strtotime($game_user->energy_next_gain) - REQUEST_TIME;
+    $energy_wait = $gameSettings->getEnergyWait();
+    while (($game_user->energy < $game_user->energy_max) && ($energy_secs_until <= 0)) {
+      $changes_made = TRUE;
+      $game_user->energy += $game_user->energy_bonus;
+      $energy_next_gain += $energy_wait;
+      $energy_secs_until += $energy_wait;
+    }
+    $game_user->energy = min($game_user->energy, $game_user->energy_max);
+  }
+
+  // Update user table with new stats.
+  $query = db_update('users')
+    ->expression('last_access', 'CURRENT_TIMESTAMP')
+    ->condition('id', $game_user->id);
+
+  if ($changes_made) {
+    $game_user->energy_next_gain = date('Y-m-d H:i:s', $energy_next_gain);
+//    $game_user->income_next_gain = date('Y-m-d H:i:s', $income_next_gain);
+//    $game_user->actions_next_gain = date('Y-m-d H:i:s', $actions_next_gain);
+    $query->expression('energy', $game_user->energy)
+      ->expression('energy_next_gain', ':eng', array(':eng' => $game_user->energy_next_gain));
+//      $game_user->energy, $game_user->energy_max,
+//      $game_user->level, $game_user->income_next_gain,
+//      $game_user->actions, $game_user->actions_next_gain,
+//      $game_user->money, $game_user->skill_points
+  }
+  $query->execute();
 
   db_set_active('default');
   $user_cache[gettype($id) . ':' . $id] = $game_user;

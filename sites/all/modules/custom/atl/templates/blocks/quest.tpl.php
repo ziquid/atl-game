@@ -19,11 +19,11 @@
 
     <div class="progress" style="border-color: #<?php echo $rgb; ?>;">
       <div class="progress-bar" role="progressbar"
-        aria-valuenow="<?php echo $quest->percent_complete; ?>"
+        aria-valuenow="<?php echo $quest->percent_completed; ?>"
         aria-valuemin="0" aria-valuemax="100" style="
         background-color: #<?php echo $rgb; ?>;
-        width: <?php echo $quest->percent_complete; ?>%;">
-        <?php echo $quest->percent_complete; ?>%&nbsp;complete
+        width: <?php echo $quest->percent_completed; ?>%;">
+        <?php echo $quest->percent_completed; ?>%&nbsp;complete
       </div>
     </div>
 
@@ -181,19 +181,23 @@
       <div class="quest-requisites">
         Consumed By You
       </div>
-      <div class="quest-required quest-required_energy">
-        <?php echo $quest->required_energy; ?> <?php ge('@Energy'); ?>
-      </div>
+      <ul>
+        <li class="quest-required quest-required_energy">
+          <?php echo $quest->required_energy; ?> <?php ge('@Energy'); ?>
+        </li>
+      </ul>
       <!--$consumption_html-->
       <div class="quest-disbursements">
         Disbursed To You
       </div>
-      <div class="quest-disbursed quest-experience">
-        <?php echo $experienceAddedHtml; ?> <?php ge('@Experience'); ?> $disbursements_doubled
-      </div>
-      <div class="quest-disbursed quest-experience">
-        <?php echo $moneyAddedHtml; ?> <?php echo $game_user->values_name; ?> $disbursements_doubled
-      </div>
+      <ul>
+        <li class="quest-disbursed quest-experience">
+          <?php echo $experienceAddedHtml; ?> <?php ge('@Experience'); ?> <?php echo $disbursementsDoubled; ?>
+        </li>
+        <li class="quest-disbursed quest-experience">
+          <?php echo $moneyAddedHtml; ?> <?php echo $game_user->values_name; ?> <?php echo $disbursementsDoubled; ?>
+        </li>
+      </ul>
 <!--      $disbursement_html-->
 <!--      $quest_completion_html-->
       <div class="quest-slider" data-quest-do-url="/<?php echo $game; ?>/quests_do/<?php echo $arg2; ?>/<?php echo $quest->id; ?>">

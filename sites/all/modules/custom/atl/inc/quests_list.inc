@@ -40,7 +40,6 @@ function game_quests_list_callback($game_user) {
   else {
     $group_to_show = $game_user->fkey_last_played_quest_groups_id;
   }
-  $sql_quest_neighborhood = 'where `group` = ' . $group_to_show;
 
   // @todo: Quests menu.
   if (FALSE || $game_user->level >= 6) {
@@ -197,8 +196,8 @@ EOF;
   $query->condition('q.fkey_quest_groups_id', $group_to_show)
     ->condition('q.id', $nextQuestId, '<=')
     ->orderBy('q.id', 'DESC')
-    ->fields('qc', array('percent_complete'))
-    ->fields('q');
+    ->fields('q')
+    ->addField('qc', 'percent_complete', 'percent_completed' );
   if ($phone_id != 'abc123') {
     $query->condition('q.active', 1);
   }

@@ -61,21 +61,21 @@ function game_preprocess_quest(&$vars) {
     ));
   */
 //  dpm($vars['quest'], 'quest');
-  if (empty($vars['quest']->percent_complete)) {
-    $vars['quest']->percent_complete = 0;
+  if (empty($vars['quest']->percent_completed)) {
+    $vars['quest']->percent_completed = 0;
   }
 
   // Get RGB color for percent_complete.
-  if ($vars['quest']->percent_complete > floor($vars['percentageTarget'] / 2)) {
-    $vars['rgb'] = dechex(floor(($vars['percentageTarget'] - $vars['quest']->percent_complete) /
+  if ($vars['quest']->percent_completed > floor($vars['percentageTarget'] / 2)) {
+    $vars['rgb'] = dechex(floor(($vars['percentageTarget'] - $vars['quest']->percent_completed) /
       (4 * $vars['percentageDivisor']))) . 'c0';
   }
   else {
-    $vars['rgb'] = 'c' . dechex(floor(($vars['quest']->percent_complete) /
+    $vars['rgb'] = 'c' . dechex(floor(($vars['quest']->percent_completed) /
       (4 * $vars['percentageDivisor']))) . '0';
   }
 
-  $vars['width'] = floor($vars['quest']->percent_complete * 94 / $vars['percentageTarget']) + 2;
+  $vars['width'] = floor($vars['quest']->percent_completed * 94 / $vars['percentageTarget']) + 2;
   $vars['active'] = ($vars['quest']->active) ? '' : ' (inactive)';
   /*
     if (strpos($item->meta, 'use_job_picture') !== FALSE) {

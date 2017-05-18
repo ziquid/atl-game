@@ -410,6 +410,7 @@ function atl_init() {
 
   if (arg(0) == 'atl') {
     $conf['cache'] = FALSE; // don't cache anything
+    atlGetGameSettings()->addJs();
   }
 
 } // stlouis_init()
@@ -1586,27 +1587,7 @@ next_level: $next_level), s/he moves from $game_user->level to one more";
   } // leveled up!
 
 // calculate energy
-
-  $energy_next_gain = strtotime($game_user->energy_next_gain);
-  $energy_bonus = 10 + $game_user->ep_energy_bonus +
-    $game_user->eq_energy_increase + $game_user->st_energy_increase;
-  if (!empty($game_user->fkey_clans_id)) $energy_bonus++; // bonus for joining a clan
-  $secs_until = $energy_next_gain - time();
-
-  while (($game_user->energy < $game_user->energy_max) &&
-  ($secs_until <= 0)) { // do we need energy?
-
-    $changes_made = TRUE;
-    $game_user->energy += $energy_bonus; // add 10 energy
-    $energy_next_gain += $energy_wait; // next add in $energy_wait secs
-    $secs_until += $energy_wait; // ditto
-
-  }
-
-  if ($game_user->energy > $game_user->energy_max) {
-    $changes_made = TRUE; // just in case
-    $game_user->energy = $game_user->energy_max; // can't go beyond max
-  }
+// moved to game_fetch_user_by_id()
 
   // calculate income
 
@@ -1655,29 +1636,8 @@ next_level: $next_level), s/he moves from $game_user->level to one more";
   if ($game_user->meta == 'frozen')
     $extra_messages = '<div class="title">- = * F R O Z E N * = -</div>';
 
-  if ($changes_made) { // save changes, if needed
-
-    $game_user->energy_next_gain = date('Y-m-d H:i:s', $energy_next_gain);
-    $game_user->income_next_gain = date('Y-m-d H:i:s', $income_next_gain);
-    $game_user->actions_next_gain = date('Y-m-d H:i:s', $actions_next_gain);
-    $sql = 'update users set energy_next_gain = "%s", energy = %d,
-      energy_max = %d, level = %d, income_next_gain = "%s",
-      actions = %d, actions_next_gain = "%s",
-      money = %d, skill_points = %d, last_access = CURRENT_TIMESTAMP
-      where id = %d;';
-    $result = db_query($sql, $game_user->energy_next_gain,
-    $game_user->energy, $game_user->energy_max,
-    $game_user->level, $game_user->income_next_gain,
-    $game_user->actions, $game_user->actions_next_gain,
-    $game_user->money, $game_user->skill_points, $game_user->id);
-
-  } else { // only save last_access
-
-    $sql = 'update users set last_access = CURRENT_TIMESTAMP
-      where id = %d;';
-    $result = db_query($sql, $game_user->id);
-
-  }
+  // moved to game_fetch_user_by_id()
+//  if ($changes_made) {} // save changes, if needed
 
   if ($leveled_up && ($game_user->level == 6) &&
     (substr($game_user->meta, 0, 3) !== 'ai_')) {
@@ -1692,4 +1652,17 @@ next_level: $next_level), s/he moves from $game_user->level to one more";
 
   return $game_user;
 
+}
+
+/**
+ * Load an instance of GameSettings.
+ *
+ * @return \Drupal\atl\Settings\GameSettings
+ */
+function atlGetGameSettings() {
+  static $GameSettings;
+  if (!isset($GameSettings)) {
+    $GameSettings = new Drupal\atl\Settings\GameSettings();
+  }
+  return $GameSettings;
 }
