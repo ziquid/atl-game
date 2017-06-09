@@ -1,7 +1,7 @@
 (function ($) {
   Drupal.behaviors.atlBehavior = {
     attach: function (context, settings) {
-console.log(Drupal.settings.atl.gameSettings);
+// console.log(Drupal.settings.atl.gameSettings);
   var energy_minutes = Drupal.settings.atl.gameSettings.energyMinutes;
   var energy_seconds = Drupal.settings.atl.gameSettings.energySeconds;
   var energy = Drupal.settings.atl.gameUser.energy;
@@ -159,8 +159,9 @@ console.log(Drupal.settings.atl.gameSettings);
     display_money();
 
   }
-
-  var interval_timer = setInterval(add_all_stuff, 1000);
+  if (document.getElementById('energy-id') != null) {
+    var interval_timer = setInterval(add_all_stuff, 1000);
+  }
       }
  };
 

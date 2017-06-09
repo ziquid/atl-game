@@ -54,7 +54,7 @@ function ziquid_games_preprocess_html(&$variables) {
 function ziquid_games_preprocess_page(&$vars) {
   // Is the first content block the game header?  Move to the header region.
   $first_block = @$vars['page']['content']['system_main'][0];
-  if ($first_block['#theme'] == 'game_header') {
+  if ($first_block['#theme'] == 'game_header' || $first_block['#theme'] == 'title_image') {
     $vars['page']['header'] = array(
       'header' => array(
         $first_block

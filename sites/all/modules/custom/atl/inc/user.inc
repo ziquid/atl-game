@@ -10,7 +10,7 @@
 function game_user_callback($game_user) {
 
   if (empty($game_user->username)) {
-//    game_goto('choose_name');
+    game_goto('choose_name');
   }
 
   $arg3 = check_plain(arg(3));

@@ -2461,10 +2461,8 @@ function game_url($page = 'home', $extra = NULL) {
  */
 function game_message($message, $type = 'status') {
 
-  include drupal_get_path('module', 'atl') . '/inc/common/game_defs.inc';
-
   db_set_active('default');
-  drupal_set_message(t($message), $type);
+  drupal_set_message(gt($message), $type);
 
 }
 
@@ -2491,7 +2489,7 @@ function game_set_value($game_user, $key, $value = NULL) {
     ->key(array('fkey_users_id' => $game_user->id, 'k' => $key))
     ->fields(array(
         'v' => $value,
-        'last_update' => REQUEST_TIME
+//        'last_update' => 'NOW()'
     ))
     ->execute();
 }
@@ -2499,7 +2497,7 @@ function game_set_value($game_user, $key, $value = NULL) {
 /**
  * Return a random Elder message.
  *
- * $return str
+ * @return str
  *   The elder's message.
  */
 function game_get_elder_message() {

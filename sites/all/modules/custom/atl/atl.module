@@ -1403,7 +1403,7 @@ function _atl_reset_event_tags_con($id) {
   return $row;
 }
 
-function _atl_fetch_user() {
+function REMOVED_atl_fetch_user() {
 
   global $game, $phone_id, $extra_messages, $cur_level, $next_level, $user;
 
@@ -1440,28 +1440,6 @@ function _atl_fetch_user() {
     drupal_goto(check_plain(arg(0)) . '/error/'
       . check_plain(arg(2)) . '/E-0468'); // banned by IP
   }
-
-// Nook Color 1.4.1 removes the 'nkc+' prefix -- fix our db
-
-  if (strpos($_SERVER['HTTP_USER_AGENT'], 'BNRV200') !== FALSE) {
-
-    $sql = 'select * from users where phone_id = "%s";';
-    $result = db_query($sql, 'nkc ' . $phone_id);
-    $game_user = db_fetch_object($result);
-
-    if (!empty($game_user)) {
-      $sql = 'delete from users where phone_id = "%s";';
-         $result = db_query($sql, $phone_id);
-      $sql = 'update users set phone_id = "%s"
-        where phone_id = "%s";';
-      $result = db_query($sql, $phone_id, 'nkc ' . $phone_id);
-
-//      mail('joseph@cheek.com', 'Nook Color Phone ID swap',
-//        "nkc $phone_id is now $phone_id");
-    }
-
-  }
-
 
 // get uid
 
@@ -1510,81 +1488,8 @@ function _atl_fetch_user() {
     }
   }
 
-  $sql = 'select experience from levels where level = %d;';
-  $result = db_query($sql, $game_user->level);
-  $level = db_fetch_object($result);
-  $cur_level = $level->experience;
-
-  $sql = 'select experience from levels where level = %d;';
-  $result = db_query($sql, $game_user->level + 1);
-  $level = db_fetch_object($result);
-  $next_level = $level->experience;
-  if ($next_level == 0) $next_level = 99999999;
-  $leveled_up = FALSE;
-
-  if ($game_user->experience >= $next_level) { // leveled up!
-
-    $changes_made = $leveled_up = TRUE;
-
-$m = "because experience is $game_user->experience (cur_level: $cur_level,
-next_level: $next_level), s/he moves from $game_user->level to one more";
-
-    if ($game_user->level >= 5)
-      $game_user->skill_points += 4;
-
-    $game_user->energy = $game_user->energy_max;
-    $game_user->actions = max($game_user->actions_max, $game_user->actions);
-    $game_user->level++;
-
-    // leveled up?  read levels again!
-    $sql = 'select experience from levels where level = %d;';
-    $result = db_query($sql, $game_user->level + 1);
-    $level = db_fetch_object($result);
-    $cur_level = $next_level;
-    $next_level = $level->experience;
-    if ($next_level == 0) $next_level = 99999999;
-
-// mail('joseph@cheek.com', "$game_user->username leveled up",
-// "$m
-
-// after level up:
-
-// now cur_level is $cur_level and next_level is $next_level
-// and user level is $game_user->level",
-//   'Content-Type: text/plain; charset=UTF-8');
-
-    _sound('levelup');
-
-    $extra_messages .= '<div class="level-up">
-      <div class="level-up-header">Congratulations!</div>
-      <div class="level-up-text">You have reached level ' .
-    $game_user->level . '!</div>';
-
-    if ($game_user->level >= 6) {
-
-      $extra_messages .=
-        '<div class="subsubtitle">
-          <a href="/' . $game . '/increase_skills/' . $arg2 . '/none">' .
-            t('You have <strong>4</strong> new skill points to spend') .
-          '</a>
-        </div>';
-
-    }
-
-    if (!empty($game_user->max_level_for_office) &&
-      $game_user->level > $game_user->max_level_for_office) {
-
-      $sql = 'delete from elected_officials where fkey_users_id = %d;';
-      $result = db_query($sql, $game_user->id);
-      $extra_messages .= '<div class="level-up-text">' .
-        t('You have become too influential to remain
-        in your current office.&nbsp; You resign your position.') . '</div>';
-
-    }
-
-    $extra_messages .= '</div>';
-
-  } // leveled up!
+  // Level up
+  // moved to game_fetch_user_by_id()
 
 // calculate energy
 // moved to game_fetch_user_by_id()

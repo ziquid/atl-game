@@ -1,3 +1,12 @@
+body {
+  &.page-atl-map, &.page-atl-move {
+    .container {
+      width: 100%;
+      padding: 0px;
+      margin: 0px;
+    }
+  }
+}
 
 footer {
   text-align: center;
@@ -28,7 +37,21 @@ h1 {
 }
 
 h2 {
-
+  &.quote {
+    font-size: 15pt;
+    font-family: @font-family-serif;
+    font-weight: bold;
+    color: @game-yellow;
+  }
+  &.quote:before {
+    content: open-quote;
+  }
+  &.quote:after {
+    content: no-close-quote;
+  }
+  &.quote:last-child:after {
+    content: close-quote !important;
+  }
 }
 
 h3 {
@@ -93,6 +116,10 @@ li {
 
 p {
   font-size: 11pt;
+  .location {
+    color: @game-orange;
+    font-size: 110%;
+  }
   &.quote {
     font-size: 13pt;
     font-family: @font-family-serif;
@@ -271,4 +298,9 @@ ul {
     border-radius: 6px;
   }
   */
+}
+
+#map {
+  width: 100%;
+  height: 100vh;
 }

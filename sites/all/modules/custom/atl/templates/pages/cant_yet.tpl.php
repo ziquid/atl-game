@@ -3,8 +3,6 @@
  * @file
  */
 
-  include drupal_get_path('module', 'atl') . '/inc/common/game_defs.inc';
-
   $time -= REQUEST_TIME;
   $days = sprintf('%d', floor($time / 86400));
   $time %= 86400;
@@ -28,7 +26,7 @@
     You cannot yet
   </h5>
   <h4 class="title">
-    <?php echo t($action, $txt); ?>
+    <?php ge($action); ?>
   </h4>
   <h5>
     for another

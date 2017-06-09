@@ -42,7 +42,7 @@ function game_quests_list_callback($game_user) {
   }
 
   // @todo: Quests menu.
-  if (FALSE || $game_user->level >= 6) {
+  if (FALSE && $game_user->level >= 6) {
 
     if ($group_to_show >= 1000) {
       $merch_active = '';

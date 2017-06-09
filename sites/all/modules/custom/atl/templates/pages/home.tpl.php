@@ -1,51 +1,5 @@
 <?php
 
-  $today = date('Y-m-d');
-
-  if ($game_user->last_bonus_date != $today) {
-
-    $sql = 'select residents from neighborhoods where id = %d;';
-    $result = db_query($sql, $game_user->fkey_neighborhoods_id);
-    $item = db_fetch_object($result);
-
-    $money = ($game_user->level * $item->residents) + $game_user->income -
-      $game_user->expenses;
-    $extra_bonus = '';
-/*
-    if ($game == 'stlouis') {
-
-      $sql = 'select quantity from staff_ownership
-        where fkey_staff_id = 18 and fkey_users_id = %d;';
-      $result = db_query($sql, $game_user->id);
-      $item = db_fetch_object($result);
-
-      if ($item->quantity >= 1) {
-        $money *= 3;
-        $extra_text .= '<div class="level-up-text">
-          ~ Your private banker tripled your bonus ~
-        </div>';
-      }
-
-    }
-*/
-firep("adding $money money because last_bonus_date = $last_bonus_date");
-
-    $sql = 'update users set money = money + %d, last_bonus_date = "%s"
-      where id = %d;';
-    $result = db_query($sql, $money, $today, $game_user->id);
-    $game_user = $fetch_user();
-
-    $extra_bonus = '<div class="level-up">
-        <div class="title">// Daily Bonus \\\\</div>
-        <div class="level-up-text">Bonus amount: <span>' .
-          $money . ' ' . $game_user->values . '</span></div>' .
-          $extra_text .
-        '<div class="level-up-text">Come back tomorrow for another bonus</div>
-      </div>';
-
-  }
-
-  $fetch_header($game_user);
   _show_goal($game_user);
 
   if (empty($game_user->referral_code)) {

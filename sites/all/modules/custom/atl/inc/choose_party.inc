@@ -48,6 +48,9 @@ function game_choose_party_callback($game_user, $party_id) {
 
     return array(
       array(
+        '#theme' => 'title_image',
+      ),
+      array(
         '#theme' => 'game_choose_party',
         '#game_user' => $game_user,
         '#first_time' =>

@@ -7487,6 +7487,12 @@ body.navbar-tray-open.navbar-vertical.navbar-fixed {
 #navbar-administration.navbar-oriented .navbar-tray-vertical {
   width: 24rem;
 }
+body.page-atl-map .container,
+body.page-atl-move .container {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
 footer {
   text-align: center;
   text-transform: uppercase;
@@ -7507,6 +7513,21 @@ footer .turf-wars-atlanta .atlanta {
 }
 footer .turf-wars-atlanta .atlanta {
   font-weight: bold;
+}
+h2.quote {
+  font-size: 15pt;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+  font-weight: bold;
+  color: #eedd22;
+}
+h2.quote:before {
+  content: open-quote;
+}
+h2.quote:after {
+  content: no-close-quote;
+}
+h2.quote:last-child:after {
+  content: close-quote !important;
 }
 h3 {
   text-align: center;
@@ -7563,6 +7584,10 @@ li {
 }
 p {
   font-size: 11pt;
+}
+p .location {
+  color: #dd9011;
+  font-size: 110%;
 }
 p.quote {
   font-size: 13pt;
@@ -7723,6 +7748,10 @@ ul {
   font-weight: bold;
   color: #eedd22;
   margin-bottom: 9px;
+}
+#map {
+  width: 100%;
+  height: 100vh;
 }
 body.page-atl-quests .quest-outcome,
 body.page-atl-quests-do .quest-outcome {

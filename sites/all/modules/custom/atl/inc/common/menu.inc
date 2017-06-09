@@ -49,6 +49,24 @@ function atl_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['atl/map/%game_user'] = array(
+    'title' => 'Game Map',
+    'page callback' => 'game_map_callback',
+    'page arguments' => array(2),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/map.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['atl/move/%game_user/%/%'] = array(
+    'title' => 'Game Move',
+    'page callback' => 'game_move_callback',
+    'page arguments' => array(2, 3, 4),
+    'access callback' => 'game_normal_access',
+    'file' => 'inc/move.inc',
+    'type' => MENU_CALLBACK,
+  );
+
   $items['atl/quests/%game_user'] = array(
     'title' => 'Game Quests List',
     'page callback' => 'game_quests_list_callback',
@@ -593,14 +611,6 @@ function atl_menu() {
     'title' => 'USL2 Weapons Sell',
     'page callback' => 'usl2_weapons_sell_callback',
     'page arguments' => array(2, 3, 4),
-    'access arguments' => array('access atl content'),
-    'type' => MENU_CALLBACK,
-  );
-
-  $items['atl/move/%/%'] = array(
-    'title' => 'USL2 Move',
-    'page callback' => 'usl2_move_callback',
-    'page arguments' => array(2, 3),
     'access arguments' => array('access atl content'),
     'type' => MENU_CALLBACK,
   );
@@ -1342,6 +1352,13 @@ function atl_theme($existing, $type, $theme, $path) {
 
   return array(
 
+    'daily_bonus' => array(
+      'template' => 'templates/blocks/daily_bonus',
+      'variables' => array(
+        'moneyAdded' => 0,
+      ),
+    ),
+
     'game_button' => array(
       'template' => 'templates/blocks/button',
       'variables' => array(
@@ -1392,6 +1409,20 @@ function atl_theme($existing, $type, $theme, $path) {
       'variables' => array(
         'game_user' => NULL,
       )
+    ),
+
+    'game_map' => array(
+      'template' => 'templates/pages/map',
+      'variables' => array(
+        'game_user' => NULL,
+      ),
+    ),
+
+    'game_move' => array(
+      'template' => 'templates/pages/move',
+      'variables' => array(
+        'game_user' => NULL,
+      ),
     ),
 
     'game_quests_list' => array(
@@ -2191,9 +2222,73 @@ function game_fetch_user_by_id($id, $reset = FALSE) {
 
   $game_user->cur_level = (int) $levels[0];
   $game_user->next_level = (int) $levels[1];
+
   if ($game_user->next_level == 0) {
     $game_user->next_level = 9999999;
   }
+
+  // Level up?
+  if ($game_user->experience >= $game_user->next_level) { // leveled up!
+
+    $changes_made = $leveled_up = TRUE;
+
+    if ($game_user->level >= 5) {
+      $game_user->skill_points += 4;
+    }
+
+    $game_user->energy = max($game_user->energy_max, $game_user->energy);
+    $game_user->actions = max($game_user->actions_max, $game_user->actions);
+    $game_user->level++;
+
+    // leveled up?  read levels again!
+    $query = db_select('levels', 'l')
+      ->condition('level', array($game_user->level, $game_user->level + 1), 'IN')
+      ->fields('l', array('experience'))
+      ->execute();
+    $levels = $query->fetchCol();
+
+    $game_user->cur_level = (int) $levels[0];
+    $game_user->next_level = (int) $levels[1];
+
+    if ($game_user->next_level == 0) {
+      $game_user->next_level = 9999999;
+    }
+
+    game_sound('levelup');
+
+    // @fixme replace with a template
+    $extra_messages = '<div class="level-up">
+      <div class="level-up-header">Congratulations!</div>
+      <div class="level-up-text">You have reached level ' .
+      $game_user->level . '!</div>';
+
+    if ($game_user->level >= 6) {
+
+      $extra_messages .=
+        '<div class="subsubtitle">
+          <a href="/' . $game . '/increase_skills/' . $arg2 . '/none">' .
+        t('You have <strong>4</strong> new skill points to spend') .
+        '</a>
+        </div>';
+
+    }
+
+    /*
+    if (!empty($game_user->max_level_for_office) &&
+      $game_user->level > $game_user->max_level_for_office) {
+
+      $sql = 'delete from elected_officials where fkey_users_id = %d;';
+      $result = db_query($sql, $game_user->id);
+      $extra_messages .= '<div class="level-up-text">' .
+        t('You have become too influential to remain
+        in your current office.&nbsp; You resign your position.') . '</div>';
+
+    }
+*/
+    $extra_messages .= '</div>';
+
+    drupal_set_message($extra_messages);
+  } // leveled up!
 
   // Recover energy.
   $energy_next_gain = strtotime($game_user->energy_next_gain);
@@ -2224,8 +2319,10 @@ function game_fetch_user_by_id($id, $reset = FALSE) {
     $game_user->energy_next_gain = date('Y-m-d H:i:s', $energy_next_gain);
 //    $game_user->income_next_gain = date('Y-m-d H:i:s', $income_next_gain);
 //    $game_user->actions_next_gain = date('Y-m-d H:i:s', $actions_next_gain);
-    $query->expression('energy', $game_user->energy)
-      ->expression('energy_next_gain', ':eng', array(':eng' => $game_user->energy_next_gain));
+    $query->expression('actions', $game_user->actions)
+      ->expression('energy', $game_user->energy)
+      ->expression('energy_next_gain', ':eng', array(':eng' => $game_user->energy_next_gain))
+      ->expression('level', $game_user->level);
 //      $game_user->energy, $game_user->energy_max,
 //      $game_user->level, $game_user->income_next_gain,
 //      $game_user->actions, $game_user->actions_next_gain,

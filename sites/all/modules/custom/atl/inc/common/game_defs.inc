@@ -28,6 +28,8 @@
 
   }
 
+  $game_user = game_user_load(arg(2));
+
   $gameText = array(
     '@Actions' => 'Actions',
     '@actions' => 'actions',
@@ -37,15 +39,31 @@
     '@energy' => 'energy',
     '@Experience' => 'Experience',
     '@experience' => 'experience',
+    '@Help' => 'Help',
+    '@help' => 'help',
+    '@Hood' => 'Neighborhood',
+    '@hood' => 'neighborhood',
     '@luck' => 'luck',
     '@Luck' => 'Luck',
-    '@party' => 'Political Party',
-    '@party_small' => 'Party',
+    '@map' => 'map',
+    '@Map' => 'Map',
+    '@move' => 'move',
+    '@Move' => 'Move',
+    '@Party' => 'Political Party',
+    '@party' => 'political party',
+//    '@party_small' => 'Party',
     '@Quest' => 'Mission',
     '@quest' => 'mission',
+    '@Quests' => 'Missions',
+    '@quests' => 'missions',
     '@Requisites' => 'Requirements',
     '@requisites' => 'requirements',
+    '@thecity' => 'Atlanta',
   );
+
+  if (isset($game_user->location)) {
+    $gameText['@location'] = $game_user->location;
+  }
 /*
   $alderman = 'Alderman';
   $aldermen = 'Aldermen';
