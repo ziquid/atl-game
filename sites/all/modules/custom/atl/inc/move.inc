@@ -60,10 +60,20 @@ function game_move_callback($game_user, $lat, $lon) {
   drupal_add_css(drupal_get_path('module', 'atl') . '/css/OSMBuildings.css');
   drupal_add_js(drupal_get_path('module', 'atl') . '/js/move.js');
 
-  $quests = array(
-    'w269845867' => 0,
-    'w269845710' => 0,
-  );
+  db_set_active('game');
+
+  // Quests to show.
+  $quests = array();
+
+  $query = db_select('quest_groups', 'qg')
+    ->isNotNull('marker');
+  $query->fields('qg');
+  $questGroups = $query->execute()->fetchAll();
+
+  foreach ($questGroups as $qg) {
+    $quests[$qg->marker] = $qg->id;
+  }
+
   drupal_add_js(array('atl' => array('quests' => $quests)), 'setting');
 
   /*

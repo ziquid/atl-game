@@ -8,7 +8,7 @@
         maxZoom: 19,
         position: { latitude: Drupal.settings.atl.coords.lat, longitude: Drupal.settings.atl.coords.lon },
         zoom: 19,
-        tilt: 40,
+        tilt: 50,
         // state: true, // stores map position/rotation in url
         effects: ['shadows'],
         attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>',
@@ -63,9 +63,9 @@
             console.log(id);
             if (id in quests) {
               var pathname = window.location.pathname.split("/");
-              console.log(pathname);
+              // console.log(pathname);
               var href = window.location.origin + "/" + pathname[1] + "/quests/" + pathname[3] + "/" + quests[id];
-              console.log(href);
+              // console.log(href);
               window.location.href = href;
             }
           }

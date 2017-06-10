@@ -195,7 +195,7 @@ EOF;
     array(':id' => $game_user->id));
   $query->condition('q.fkey_quest_groups_id', $group_to_show)
     ->condition('q.id', $nextQuestId, '<=')
-    ->orderBy('q.id', 'DESC')
+    ->orderBy('q.id', 'ASC')
     ->fields('q')
     ->addField('qc', 'percent_complete', 'percent_completed' );
   if ($phone_id != 'abc123') {

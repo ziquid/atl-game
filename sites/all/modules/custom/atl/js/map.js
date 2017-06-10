@@ -20,9 +20,23 @@
         popupAnchor:  [0, 10] // point from which the popup should open relative to the iconAnchor
       });
 
+      var playerIcon = L.icon({
+        iconUrl: '/sites/all/modules/custom/atl/img/player.png',
+        iconSize:     [20, 33], // size of the icon
+        iconAnchor:   [10, 33], // point of the icon which will correspond to marker's location
+        popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+      });
+
       var markers = Drupal.settings.atl.markers;
+      var icon;
       for (var i = 0, il = markers.length; i < il; i++) {
-        L.marker([markers[i].lat, markers[i].lon], {icon: cloudIcon}).addTo(map)
+        if (markers[i].type == "cloud") {
+          icon = cloudIcon;
+        }
+        else if (markers[i].type == "player") {
+          icon = playerIcon;
+        }
+        L.marker([markers[i].lat, markers[i].lon], {icon: icon}).addTo(map)
           .bindPopup(markers[i].text);
           // .openPopup();
       }

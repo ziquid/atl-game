@@ -31,7 +31,9 @@ function game_welcome_callback($game_id) {
     game_goto('error', 'E-2242'); // too many from same IP
   }
 
-  $default_neighborhood = 81;
+  $default_neighborhood = 121;
+  $default_lat =33.783858;
+  $default_lon = -84.402917;
 
   try {
     db_insert('users')->fields(array(
@@ -40,6 +42,8 @@ function game_welcome_callback($game_id) {
       'experience' => 0,
       'level' => 1,
       'fkey_neighborhoods_id' => $default_neighborhood,
+      'lat' => $default_lat,
+      'lon' => $default_lon,
       'fkey_values_id' => 0,
       'money' => 1000,
       'energy' => 200,

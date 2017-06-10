@@ -52,21 +52,22 @@ function game_map_callback($game_user) {
   drupal_add_js('//unpkg.com/leaflet@1.0.3/dist/leaflet.js');
   drupal_add_css('//unpkg.com/leaflet@1.0.3/dist/leaflet.css', 'external');
 
-  $lat = 33.784207;
-  $lon = -84.402750;
   $coords = array(
-    'lat' => $lat,
-    'lon' => $lon,
+    'lat' => $game_user->lat,
+    'lon' => $game_user->lon,
   );
   drupal_add_js(array('atl' => array('coords' => $coords)), 'setting');
 
+  // Map markers.
+  $markers = array();
+
+  // Hoods never visited.
   $query = db_select('neighborhoods', 'n')
     ->condition('lat', 0, '<>')
     ->condition('lat', 0, '<>');
   $query->fields('n');
   $hoods = $query->execute()->fetchAll();
-//print_r($hoods);
-  $markers = array();
+
   foreach ($hoods as $hood) {
     $markers[] = array(
       'lat' => $hood->lat,
@@ -76,15 +77,16 @@ function game_map_callback($game_user) {
         '/' . $hood->lon . '">Go to ' . $hood->name . '</a>',
     );
   }
-//  $markers = array(
-//    array(
-//      'lat' => $lat,
-//      'lon' => $lon,
-//      'type' => 'cloud',
-//      'text' => '<a href="/' . $game . '/move/' . $phone_id . '/' . $lat . '/' .
-//        $lon . '">Go Home</a>',
-//    )
-//  );
+
+  // Player's current location.
+  $markers[] = array(
+    'lat' => $game_user->lat,
+    'lon' => $game_user->lon,
+    'type' => 'player',
+    'text' => '<a href="/' . $game . '/move/' . $phone_id . '/' .
+      $game_user->lat . '/' . $game_user->lon . '">Zoom In</a>',
+  );
+
   drupal_add_js(array('atl' => array('markers' => $markers)), 'setting');
   drupal_add_js(drupal_get_path('module', 'atl') . '/js/map.js');
 
