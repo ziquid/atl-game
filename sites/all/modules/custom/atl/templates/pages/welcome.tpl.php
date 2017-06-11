@@ -2,6 +2,9 @@
   <div class="elder-image">
   </div>
   <p>
+    @fixme Be scared.  Be very scared.
+  </p>
+  <!--<p>
     A wizened old man comes up to you.&nbsp; You recognize him as one of the
     elders of the city.
   </p>
@@ -21,5 +24,5 @@
     <li>Cooperate and compete with other players to achieve your goals</li>
     <li>Purchase equipment and businesses to win votes</li>
     <li>Become a city elder, political party leader, and then mayor</li>
-  </ul>
+  </ul>-->
 </div>
