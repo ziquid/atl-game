@@ -2171,6 +2171,20 @@ function game_fetch_user_by_id($id, $reset = FALSE) {
 
   $game_user = $query->execute()->fetchObject();
 
+  // Start welcome wizard if user not in db.
+  if (empty($game_user->id)) {
+    /*
+        if ($arg2 == 'facebook') {
+          echo 'would redirect to welcome ' . $phone_id ;
+          echo '<a href="/' . $game . '/welcome/' . $arg2 . '">do it manually</a>';
+          echo '<a href="/' . $game . '/quests/' . $arg2 . '">go straight to quests</a>';
+          exit;
+        }
+    */
+    game_goto('welcome');
+    return; // If already on welcome page, just return.
+  }
+
 //     user_creations.datetime as startdate,
 //
 //     clan_members.is_clan_leader,
