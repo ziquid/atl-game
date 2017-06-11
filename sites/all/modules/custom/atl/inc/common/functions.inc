@@ -2485,6 +2485,7 @@ function game_get_value($game_user, $key, $default = NULL) {
  * Set a value in the db; updates it if it already exists.
  */
 function game_set_value($game_user, $key, $value = NULL) {
+  $db = db_set_active('game');
   db_merge('user_attributes')
     ->key(array('fkey_users_id' => $game_user->id, 'k' => $key))
     ->fields(array(
@@ -2492,6 +2493,7 @@ function game_set_value($game_user, $key, $value = NULL) {
 //        'last_update' => 'NOW()'
     ))
     ->execute();
+  db_set_active($db);
 }
 
 /**
@@ -2544,10 +2546,53 @@ function ge($text) {
  *   The rendered HTML.
  */
 function game_render($arr) {
-  db_set_active();
+  $db = db_set_active();
   $html = drupal_render($arr);
-  db_set_active('game');
+  db_set_active($db);
   return $html;
+}
+
+/**
+ * Find the closest hood for any given lat/lon pair.
+ *
+ * @param float $lat
+ *   Latitude.
+ * @param float $lon
+ *   Longitude.
+ *
+ * @return \stdClass
+ *   The distance, name, and id of the closest hood.
+ */
+function game_loc_to_hood($lat, $lon) {
+  $db = db_set_active('game');
+  $query = db_select('neighborhoods', 'n');
+  $distance = $query->addExpression(
+    '(abs(lon - :lon) + abs (lat - :lat))',
+    'distance',
+    array(':lat' => $lat, ':lon' => $lon)
+  );
+  $query->fields('n', array('id', 'name'))
+    ->orderBy($distance)
+    ->range(0, 1);
+  $hood = $query->execute()->fetchObject();
+  db_set_active($db);
+  return $hood;
+}
+
+/**
+ * Save the player's visit to a hood.
+ *
+ * @param \stdClass $game_user
+ *   The game_user object.
+ */
+function game_save_hood_visit($game_user) {
+  $db = db_set_active('game');
+  db_merge('neighborhoods_visited')
+    ->key(array('fkey_users_id' => $game_user->id))
+    ->fields(array('fkey_neighborhoods_id' => $game_user->fkey_neighborhoods_id,
+      'timestamp' => date('Y-m-d H:i:s')))
+    ->execute();
+  db_set_active($db);
 }
 
 function teEmplate_preprocess_game_header(&$vars) {

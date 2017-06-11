@@ -2292,7 +2292,8 @@ function game_fetch_user_by_id($id, $reset = FALSE) {
 
   // Recover energy.
   $energy_next_gain = strtotime($game_user->energy_next_gain);
-  $game_user->energy_bonus = 10 + $game_user->ep_energy_bonus + $game_user->eq_energy_increase + $game_user->st_energy_increase;
+  $game_user->energy_bonus = 10 + $game_user->ep_energy_bonus +
+    $game_user->eq_energy_increase + $game_user->st_energy_increase;
   if (!empty($game_user->fkey_clans_id)) {
     $game_user->energy_bonus++;
   }

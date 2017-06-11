@@ -32,7 +32,7 @@ function game_welcome_callback($game_id) {
   }
 
   $default_neighborhood = 121;
-  $default_lat =33.783858;
+  $default_lat = 33.783858;
   $default_lon = -84.402917;
 
   try {

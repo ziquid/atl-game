@@ -39,10 +39,10 @@ function game_map_callback($game_user) {
   db_set_active('game');
 
   $arr = array(
-//    array(
-//      '#theme' => 'game_header',
-//      '#game_user' => $game_user,
-//    ),
+    array(
+      '#theme' => 'game_header',
+      '#game_user' => $game_user,
+    ),
     array(
       '#theme' => 'game_map',
       '#game_user' => $game_user,
@@ -62,20 +62,31 @@ function game_map_callback($game_user) {
   $markers = array();
 
   // Hoods never visited.
-  $query = db_select('neighborhoods', 'n')
+  $query = db_select('neighborhoods', 'n');
+  $query->leftJoin(
+      'neighborhoods_visited',
+      'nv',
+      'n.id = nv.fkey_neighborhoods_id AND nv.fkey_users_id = :guid',
+      array(':guid' => $game_user->id)
+    );
+  $query->condition('lat', 0, '<>')
     ->condition('lat', 0, '<>')
-    ->condition('lat', 0, '<>');
-  $query->fields('n');
+    ->fields('n');
+  $query->addField('nv', 'timestamp');
   $hoods = $query->execute()->fetchAll();
 
   foreach ($hoods as $hood) {
-    $markers[] = array(
-      'lat' => $hood->lat,
-      'lon' => $hood->lon,
-      'type' => 'cloud',
+    // Only show clouds if user has last visited over a week ago.
+    if (time() - strtotime($hood->timestamp) > 604800) {
+      $markers[] = array(
+        'lat' => $hood->lat,
+        'lon' => $hood->lon,
+        'type' => 'cloud',
       'text' => '<a href="/' . $game . '/move/' . $phone_id . '/' . $hood->lat .
         '/' . $hood->lon . '">Go to ' . $hood->name . '</a>',
-    );
+//        'text' => $hood->timestamp,
+      );
+    }
   }
 
   // Player's current location.
