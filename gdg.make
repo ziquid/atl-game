@@ -22,7 +22,7 @@ projects[diff][subdir] = "contrib"
 projects[diff][version] = "3.3"
 
 projects[drupalforfirebug][subdir] = "contrib"
-projects[drupalfirfirebug][version] = "1.4"
+projects[drupalforfirebug][version] = "1.4"
 
 projects[google_analytics][subdir] = "contrib"
 projects[google_analytics][version] = "2.2"
