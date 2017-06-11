@@ -23,7 +23,7 @@ $conf['master_modules'] = array(
 //     'features',
 //     'field_group',
     'globalredirect',
-//     'googleanalytics',
+    'googleanalytics',
 //     'imagecache_token',
     'jquery_update',
 //     'lightbox2',
@@ -52,6 +52,7 @@ $conf['master_modules'] = array(
 //     'taxonomy_menu',
 //     'tracker',
     'update',
+    'xautoload',
 
 // GDG modules
     'atl',
@@ -61,6 +62,7 @@ $conf['master_modules'] = array(
     'dblog',
     'devel',
     'diff',
+    'drupalforfirebug',
     'stage_file_proxy',
   ),
 
@@ -68,6 +70,7 @@ $conf['master_modules'] = array(
     'dblog',
     'devel',
     'diff',
+    'drupalforfirebug',
     'stage_file_proxy',
   ),
 
