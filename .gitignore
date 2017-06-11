@@ -92,3 +92,4 @@ modules/user
 
 node_modules
 wraith
+*.sql

@@ -21,6 +21,9 @@ projects[devel][version] = "1.5"
 projects[diff][subdir] = "contrib"
 projects[diff][version] = "3.3"
 
+projects[drupalforfirebug][subdir] = "contrib"
+projects[drupalfirfirebug][version] = "1.4"
+
 projects[google_analytics][subdir] = "contrib"
 projects[google_analytics][version] = "2.2"
 
@@ -35,6 +38,9 @@ projects[slack][version] = "1.6"
 
 projects[stage_file_proxy][subdir] = "contrib"
 projects[stage_file_proxy][version] = "1.7"
+
+projects[xautoload][subdir] = "contrib"
+projects[xautoload][version] = "5.7"
 
 ; Themes
 ; Please fill the following out. Type may be one of get, git, bzr or svn,

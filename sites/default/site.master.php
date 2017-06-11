@@ -63,6 +63,7 @@ $conf['master_modules'] = array(
     'devel',
     'diff',
     'drupalforfirebug',
+    'drupalforfirebug_preprocess',
     'stage_file_proxy',
   ),
 
@@ -71,6 +72,7 @@ $conf['master_modules'] = array(
     'devel',
     'diff',
     'drupalforfirebug',
+    'drupalforfirebug_preprocess',
     'stage_file_proxy',
   ),
 
