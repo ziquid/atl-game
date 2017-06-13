@@ -7714,6 +7714,10 @@ ul {
   margin-right: 12px;
   margin-bottom: 8px;
 }
+.row {
+  margin: 0;
+  padding: 0;
+}
 .welcome {
   margin: 2px;
   margin-top: 10px;
