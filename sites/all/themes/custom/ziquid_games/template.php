@@ -55,8 +55,8 @@ function ziquid_games_preprocess_page(&$vars) {
   };
 
   $vars['page']['footer'] = '
-    <div class="turf-wars-atlanta">
-      <div class="turf-wars">Uprising:</div>
+    <div class="uprising-atlanta">
+      <div class="uprising">Uprising:</div>
       <div class="atlanta">Atlanta</div>
     </div>
     game by

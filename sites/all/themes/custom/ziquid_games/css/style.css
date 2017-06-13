@@ -7487,6 +7487,9 @@ body.navbar-tray-open.navbar-vertical.navbar-fixed {
 #navbar-administration.navbar-oriented .navbar-tray-vertical {
   width: 24rem;
 }
+body {
+  overflow-x: hidden;
+}
 body.page-atl-map .container,
 body.page-atl-move .container {
   width: 100%;
@@ -7506,12 +7509,12 @@ footer .design-studio {
   position: relative;
   letter-spacing: 0.25em;
 }
-footer .turf-wars-atlanta .turf-wars,
-footer .turf-wars-atlanta .atlanta {
+footer .uprising-atlanta .uprising,
+footer .uprising-atlanta .atlanta {
   letter-spacing: 0.25em;
   display: inline-block;
 }
-footer .turf-wars-atlanta .atlanta {
+footer .uprising-atlanta .atlanta {
   font-weight: bold;
 }
 h2.quote {
