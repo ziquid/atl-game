@@ -1,18 +1,9 @@
 <?php
 
-/**/
+/**
+ * Implementation of hook_preprocess_html.
+ */
 function ziquid_games_preprocess_html(&$variables) {
-
-  // Mobile viewport.
-  $meta_viewport = array(
-    '#type' => 'html_tag',
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'name' => 'viewport',
-      'content' =>  'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
-    )
-  );
-  drupal_add_html_head($meta_viewport, 'meta_viewport');
 
   drupal_add_js('//code.jquery.com/ui/1.12.1/jquery-ui.js');
   drupal_add_css('//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css', array('type' => 'external'));
@@ -46,10 +37,10 @@ function ziquid_games_preprocess_html(&$variables) {
   );
   drupal_add_html_head($font, 'font_roboto_slab');
 
-} // preprocess_html()
+} // preprocess_html
 
 /**
- * Implementation of hook_preprocess_page().
+ * Implementation of hook_preprocess_page.
  */
 function ziquid_games_preprocess_page(&$vars) {
   // Is the first content block the game header?  Move to the header region.
