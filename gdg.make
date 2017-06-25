@@ -3,7 +3,7 @@ core = 7.x
 api = 2
 
 ; Core
-projects[drupal][version] = "7.54"
+projects[drupal][version] = "7.56"
 
 ; Modules
 projects[admin_menu][subdir] = "contrib"
@@ -25,7 +25,7 @@ projects[drupalforfirebug][subdir] = "contrib"
 projects[drupalforfirebug][version] = "1.4"
 
 projects[google_analytics][subdir] = "contrib"
-projects[google_analytics][version] = "2.2"
+projects[google_analytics][version] = "2.3"
 
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "2.7"
@@ -47,4 +47,4 @@ projects[xautoload][version] = "5.7"
 ; and url is the url of the download.
 
 projects[bootstrap][subdir] = "contrib"
-projects[bootstrap][version] = "3.13"
+projects[bootstrap][version] = "3.14"
