@@ -152,7 +152,11 @@ function game_quests_do_callback($game_user, $questId) {
       $query->expression('fkey_last_played_quest_groups_id', $quest->fkey_quest_groups_id);
     }
     if ($old_energy == $game_user->energy_max) {
-      $query->expression('energy_next_gain', 'NOW() + :energy_wait', array(':energy_wait' => $gameSettings->getEnergyWait()));
+      $query->fields(
+        array(
+          'energy_next_gain' => date('Y-m-d H:i:s', time() + $gameSettings->getEnergyWait())
+        )
+      );
     }
 //    dpq($query);
     $query->execute();
