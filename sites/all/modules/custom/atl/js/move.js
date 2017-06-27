@@ -34,10 +34,26 @@
         var b = e.detail;
         var id = b.properties.relationId || b.id || b.properties.id;
         if (id in quests) {
-          b.properties.color = QUEST_COLOR;
-          b.properties.roofColor = QUEST_COLOR;
+          console.log(b);
+          // b.properties.color = QUEST_COLOR;
+          // b.properties.roofColor = QUEST_COLOR;
+          var latlon = findCenter(b.geometry.coordinates[0]);
+          osmb.addOBJ('/sites/all/modules/custom/atl/js/sphere.obj',
+            latlon,
+            { id: id, scale: 5, elevation: 1.9, rotation: 0, color: QUEST_COLOR}
+          );
         }
       });
+
+      // Find the center of a building.
+      function findCenter(coords) {
+        var lat = 0.0, lon = 0.0;
+        for (i = 0; i < coords.length; i++) {
+          lat += coords[i][1];
+          lon += coords[i][0];
+        }
+        return { longitude: lon / coords.length, latitude: lat / coords.length };
+      }
 
       osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
 
