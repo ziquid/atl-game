@@ -9,7 +9,7 @@
         position: { latitude: Drupal.settings.atl.coords.lat, longitude: Drupal.settings.atl.coords.lon },
         zoom: 19,
         tilt: 50,
-        // state: true, // stores map position/rotation in url
+        state: true, // stores map position/rotation in url
         effects: ['shadows'],
         attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>',
         style: { color: 'rgb(220, 10, 200)' },
