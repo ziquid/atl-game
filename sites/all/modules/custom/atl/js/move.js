@@ -88,6 +88,23 @@
         });
       });
 
+      osmb.on('touch', function(e) {
+        var id = osmb.getTarget(e.offsetX, e.offsetY, function(id) {
+          if (id) {
+            document.body.style.cursor = 'pointer';
+            osmb.highlight(id, '#00eedd');
+            console.log(id);
+            if (id in quests) {
+              var pathname = window.location.pathname.split("/");
+              // console.log(pathname);
+              var href = window.location.origin + "/" + pathname[1] + "/quests/" + pathname[3] + "/" + quests[id];
+              // console.log(href);
+              window.location.href = href;
+            }
+          }
+        });
+      });
+
 
     }
   };
