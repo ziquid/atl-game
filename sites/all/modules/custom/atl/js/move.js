@@ -77,6 +77,9 @@
             document.body.style.cursor = 'pointer';
             osmb.highlight(id, '#00eedd');
             console.log(id);
+            if (id.substr(0, 7) == "marker-") {
+              id = id.substr(7);
+            }
             if (id in quests) {
               var pathname = window.location.pathname.split("/");
               // console.log(pathname);
