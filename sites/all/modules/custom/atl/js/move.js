@@ -40,7 +40,7 @@
           var latlon = findCenter(b.geometry.coordinates[0]);
           osmb.addOBJ('/sites/all/modules/custom/atl/js/sphere.obj',
             latlon,
-            { id: id, scale: 5, elevation: 1.9, rotation: 0, color: QUEST_COLOR}
+            { id: 'marker-' + id, scale: 5, elevation: 1.9, rotation: 0, color: QUEST_COLOR}
           );
         }
       });
