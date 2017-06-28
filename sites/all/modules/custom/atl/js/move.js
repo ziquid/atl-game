@@ -89,7 +89,7 @@
       });
 
       osmb.on('touchend', function(e) {
-        var id = osmb.getTarget(e.offsetX, e.offsetY, function(id) {
+        var id = osmb.getTarget(e.layerX, e.layerY, function(id) {
           if (id) {
             document.body.style.cursor = 'pointer';
             osmb.highlight(id, '#00eedd');
