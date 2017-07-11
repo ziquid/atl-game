@@ -7647,6 +7647,9 @@ ul {
 .error {
   background-color: rgba(238, 0, 0, 0.33) !important;
 }
+.game-button-continue a::after {
+  content: " »";
+}
 .game-button-exterior {
   width: 100%;
   text-align: center;
@@ -7670,6 +7673,30 @@ ul {
   border-radius: 6px;
   display: inline-block;
   text-shadow: 1px 1px #ee0000;
+  position: relative;
+}
+.game-button-tooltip {
+  -webkit-mask-image: inherit;
+  background-color: rgba(51, 170, 0, 0.33);
+  color: #eee8e0 !important;
+  border: 1px solid #33aa00;
+  font-size: 14px;
+  margin: 0px;
+  text-transform: none;
+  text-shadow: 1px 1px #0088ee;
+}
+.game-button-tooltip::before {
+  content: "Tip: ";
+}
+.game-button-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -14px;
+  border-width: 14px;
+  border-style: solid;
+  border-color: transparent transparent #33aa00 transparent;
 }
 .goals {
   display: none;
@@ -7971,8 +7998,8 @@ body.page-atl-quests-do .quest-details .quest-disbursements {
 body.page-atl-quests .progress,
 body.page-atl-quests-do .progress {
   width: 96px;
-  background-color: rgba(238, 232, 224, 0.33);
-  border: 2px solid rgba(238, 232, 224, 0.33);
+  background-color: #d5c6b2;
+  border: 2px solid #d5c6b2;
   border-radius: 6px;
   color: #eee8e0;
   margin-top: 5px;

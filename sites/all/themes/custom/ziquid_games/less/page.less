@@ -188,6 +188,10 @@ ul {
   background-color: @game-red-bg !important;
 }
 
+.game-button-continue a::after {
+  content: " »";
+}
+
 .game-button-exterior {
   width: 100%;
   text-align: center;
@@ -212,6 +216,31 @@ ul {
   border-radius: 6px;
   display: inline-block;
   text-shadow: 1px 1px @game-red;
+  position: relative;
+}
+
+.game-button-tooltip {
+  -webkit-mask-image: inherit;
+  background-color: @game-green-bg;
+  color: @game-white !important;
+  border: 1px solid @game-green;
+  font-size: 14px;
+  margin: 0px;
+  text-transform: none;
+  text-shadow: 1px 1px @game-blue;
+  &::before {
+    content: "Tip: ";
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -14px;
+    border-width: 14px;
+    border-style: solid;
+    border-color: transparent transparent @game-green transparent;
+  }
 }
 
 .goals {

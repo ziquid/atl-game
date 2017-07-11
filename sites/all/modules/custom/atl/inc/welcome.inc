@@ -75,5 +75,11 @@ function game_welcome_callback($game_id) {
       '#theme' => 'game_button',
       '#link' => 'quests',
     ),
+    array(
+      '#theme' => 'game_button',
+      '#link' => '',
+      '#type' => 'tooltip',
+      '#text' => 'Press this button to continue'
+    ),
   );
 }

@@ -1366,6 +1366,7 @@ function atl_theme($existing, $type, $theme, $path) {
         'type' => 'continue',
         'extra_link' => NULL,
         'subhead' => NULL,
+        'text' => NULL,
       )
     ),
 
