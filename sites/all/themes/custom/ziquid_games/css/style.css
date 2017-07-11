@@ -7558,29 +7558,6 @@ h5 {
   margin-top: 6px;
   margin-bottom: 5px;
 }
-header .money {
-  background-color: rgba(238, 0, 0, 0.33);
-}
-header .actions {
-  background-color: rgba(51, 170, 0, 0.33);
-  text-align: center;
-  text-transform: capitalize;
-}
-header .experience {
-  background-color: #005fa7;
-  text-align: right;
-}
-header .energy {
-  background-color: rgba(238, 0, 0, 0.33);
-  text-transform: capitalize;
-}
-header .home {
-  text-align: center;
-}
-header .level {
-  background-color: #005fa7;
-  text-align: right;
-}
 li {
   color: #eee8e0;
   list-style-image: url(//placehold.it/5x5/ee0000/ffffff);

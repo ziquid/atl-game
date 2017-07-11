@@ -38,7 +38,7 @@ function game_home_callback($game_user) {
   $phone_id = $game_user->phone_id;
   db_set_active('game');
   $message = isset($_GET['message']) ? check_plain($_GET['message']) : NULL;
-  competency_gain($game_user, 'where the heart is');
+//  competency_gain($game_user, 'where the heart is');
   $arr = array(
     array(
       '#theme' => 'game_header',
