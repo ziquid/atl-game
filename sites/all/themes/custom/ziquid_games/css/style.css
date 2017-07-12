@@ -7559,7 +7559,7 @@ h5 {
   margin-bottom: 5px;
 }
 header {
-  position: absolute;
+  position: fixed;
   z-index: 1111;
   width: 100%;
   margin-top: 0.3em;
@@ -7596,7 +7596,7 @@ header strong {
 }
 header .progress {
   height: 18px;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   border: 2px solid #eee8e0;
   position: absolute;
@@ -7604,9 +7604,9 @@ header .progress {
 }
 header .progress-bar {
   padding-top: 1px;
-  padding-left: 4em;
+  padding-left: 3em;
   padding-right: 2em;
-  min-width: 6em;
+  min-width: 2em;
 }
 header.row {
   margin-left: 0px;
@@ -7616,13 +7616,13 @@ header .money .fa {
   background-color: #1e6300;
 }
 header .actions .fa {
-  background-color: #650c9b;
+  background-color: #5d0c8e;
 }
 header .energy .fa {
   background-color: #a70000;
 }
 header .level strong {
-  background-color: #ba850d;
+  background-color: #ba920d;
 }
 li {
   color: #eee8e0;
@@ -7634,7 +7634,7 @@ p {
   font-size: 11pt;
 }
 p .location {
-  color: #eeaa11;
+  color: #eebb11;
   font-size: 110%;
 }
 p.quote {
