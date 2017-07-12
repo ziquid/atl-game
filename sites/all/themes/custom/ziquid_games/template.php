@@ -8,10 +8,10 @@ function ziquid_games_preprocess_html(&$variables) {
   drupal_add_js('//code.jquery.com/ui/1.12.1/jquery-ui.js');
   drupal_add_css('//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css', array('type' => 'external'));
   // Include jQuery Mobile stylesheets.
-  drupal_add_css('//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css');
+//  drupal_add_css('//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css');
 
   // Include the jQuery Mobile library.
-  drupal_add_js('//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js');
+//  drupal_add_js('//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js');
 
   // FontAwesome fonts.
   drupal_add_js('//use.fontawesome.com/5d2746f8be.js');
