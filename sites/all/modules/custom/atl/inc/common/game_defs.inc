@@ -43,6 +43,8 @@
     '@help' => 'help',
     '@Hood' => 'Neighborhood',
     '@hood' => 'neighborhood',
+    '@level' => 'level',
+    '@Level' => 'Level',
     '@luck' => 'luck',
     '@Luck' => 'Luck',
     '@map' => 'map',

@@ -80,22 +80,21 @@ function game_preprocess_header(&$vars) {
 
   // Level -- highlight if skill points are available.
   if ($game_user->skill_points > 0) {
-    $level_text = '<div><strong><a href="/' . $arg0
+    $level_text = '<span><strong><a href="/' . $arg0
     . '/increase_skills/' . $arg2 . '/none">' . $game_user->level
-    . '!</a></strong><div class="level-text">' . t('Level') . '</div></div>';
+    . '!</a></strong></span>';
   }
   else {
-    $level_text = '<div><strong>' . $game_user->level
-    . '</strong><div class="level-text">' . t('Level') .'</div></div>';
+    $level_text = '<span><strong>' . $game_user->level
+    . '</strong></span>';
   }
 
   $vars['level_text'] = $level_text;
 
   // Experience.
-  $vars['experience_pct'] = '•' . floor(
+  $vars['experience_pct'] = floor(
     ($game_user->experience - $game_user->cur_level) /
-    ($game_user->next_level - $game_user->cur_level)
-    * 100) . '%';
+    ($game_user->next_level - $game_user->cur_level) * 100);
 
   /*
 // event points
