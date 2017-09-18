@@ -409,11 +409,17 @@ function atl_init() {
   global $conf;
 
   if (arg(0) == 'atl') {
-    $conf['cache'] = FALSE; // don't cache anything
+    // Don't cache anything.
+    $conf['cache'] = FALSE;
+
+    // Hide admin menu.
+    module_invoke('admin_menu', 'suppress');
+
+    // Add necessary JS.
     atlGetGameSettings()->addJs();
   }
 
-} // stlouis_init()
+}
 
 /**
  * Filter profanity.

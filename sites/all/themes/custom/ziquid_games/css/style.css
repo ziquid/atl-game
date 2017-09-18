@@ -7849,6 +7849,9 @@ ul {
   color: #0088ee;
   text-decoration: none;
 }
+#navbar {
+  display: none;
+}
 body.page-atl-quests .quest-outcome,
 body.page-atl-quests-do .quest-outcome {
   font-size: 180%;

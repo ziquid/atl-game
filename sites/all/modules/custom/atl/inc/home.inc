@@ -353,36 +353,43 @@ $extra_bonus
       'title' => gt('@Aides'),
       'href' => $game . '/land/' . $phone_id,
     ),
-    array(
-      'title' => gt('@Actions'),
-      'href' => $game . '/actions/' . $phone_id,
-    ),
-    array(
-      'title' => gt('@Map'),
-      'href' => $game . '/map/' . $phone_id,
-    ),
-    array(
-      'title' => gt('@Elders'),
-      'href' => $game . '/elders/' . $phone_id,
-    ),
-    array(
-      'title' => gt('@Profile'),
-      'href' => $game . '/user/' . $phone_id,
-    ),
-    array(
-      'title' => gt('@Clan'),
-      'href' => $game . '/clan_list/' . $phone_id . '/0',
+//    array(
+//      'title' => gt('@Actions'),
+//      'href' => $game . '/actions/' . $phone_id,
+//    ),
+//    array(
+//      'title' => gt('@Map'),
+//      'href' => $game . '/map/' . $phone_id,
+//    ),
+//    array(
+//      'title' => gt('@Elders'),
+//      'href' => $game . '/elders/' . $phone_id,
+//    ),
+//    array(
+//      'title' => gt('@Profile'),
+//      'href' => $game . '/user/' . $phone_id,
+//    ),
+//    array(
+//      'title' => gt('@Clan'),
+//      'href' => $game . '/clan_list/' . $phone_id . '/0',
   //    'href' => $game . '/clan_list_available/' . $phone_id . '/0',
-    ),
-    array(
-      'title' => gt('@Help'),
-      'href' => $game . '/help/' . $phone_id,
-    ),
+//    ),
+//    array(
+//      'title' => gt('@Help'),
+//      'href' => $game . '/help/' . $phone_id,
+//    ),
   );
 
   $arr[] = array(
+    '#prefix' => '<div id="hamburger-menu-wrapper" class="pull-right">',
     '#theme' => 'links',
     '#links' => $links,
+    '#heading' => 'hamburger',
+    '#attributes' => array(
+      'id' => 'hamburger-menu',
+      'class' => array('links'),
+    ),
+    '#suffix' => '</div>'
   );
 
 /*

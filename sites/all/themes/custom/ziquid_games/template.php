@@ -55,7 +55,20 @@ function ziquid_games_preprocess_page(&$vars) {
       )
     );
     unset($vars['page']['content']['system_main'][0]);
-  };
+  }
+  else {
+    dpm($vars['page']['content']['system_main'][0]);
+  }
+
+  foreach ($vars['page']['content']['system_main'] as $key => $item) {
+    if (is_array($item) && isset($item['#heading']) && $item['#heading'] == 'hamburger') {
+      $vars['page']['header']['hamburger'] = array($item);
+      unset($vars['page']['content']['system_main'][$key]);
+    }
+  }
+
+//  dpm($vars['page']['content']['system_main'],'system_main');
+//  dpm($vars['page']['header'],'header');
 
   $vars['page']['footer'] = '
     <div class="uprising-atlanta">

@@ -70,11 +70,4 @@
     </div>
   </div>
 
-  <div class="home pull-right">
-    <a href="/<?php echo $game; ?>/home/<?php echo $arg2; ?>">
-      <!--<img src="/sites/default/files/images/<?php echo $game; ?>_home_icon_large.png"/>-->
-      <img src="//placeholdit.imgix.net/~text?txtsize=12&txt=ATL+HOME&w=48&h=26&txttrack=0&txtpad=1" class="center-block
-    img-responsive">
-    </a>
-  </div>
 </div>
